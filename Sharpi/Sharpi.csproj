@@ -15,7 +15,7 @@
 		<AssemblyVersion>1.0.2.40</AssemblyVersion>
 		<FileVersion>1.0.2.40</FileVersion>
 		<Version>1.0.2.40</Version>
-		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageReadmeFile>NuGet.md</PackageReadmeFile>
 		<PackageTags>Raspberry;Pi;iot;</PackageTags>
 		<PackageProjectUrl>https://github.com/A-J-Bauer/sharpi</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/A-J-Bauer/sharpi</RepositoryUrl>
@@ -30,7 +30,7 @@
 	</Target>
 
 	<ItemGroup>
-	  <None Include="..\README.md">
+	  <None Include="..\NuGet.md">
 	    <Pack>True</Pack>
 	    <PackagePath>\</PackagePath>
 	  </None>
