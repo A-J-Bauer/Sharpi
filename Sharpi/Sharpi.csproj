@@ -11,7 +11,7 @@
 		<Title>Sharpi</Title>
 		<Description>C# Library for 64 bit Raspberry Pi OS</Description>
 		<Copyright>A.J.Bauer</Copyright>
-		<PackageIcon>img\sharpi.png</PackageIcon>		
+		<PackageIcon>sharpi.png</PackageIcon>		
 		<AssemblyVersion>1.0.2.40</AssemblyVersion>
 		<FileVersion>1.0.2.40</FileVersion>
 		<Version>1.0.2.40</Version>
