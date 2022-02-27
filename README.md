@@ -22,9 +22,9 @@ C# Library for 64 bit Raspberry Pi OS (aarch64)
 | [Button](#button)| A debounced button with events
 | [UsbWorker](#usbworker)| A serial connector for hotplugging Arduinos
 
-\
+<br/>
 
-## Led
+## <a name="passivebuzzer"></a>Led
 
 A simple light emitting diode
 
@@ -38,7 +38,7 @@ A simple light emitting diode
     ---- 220Ω ----|  ------
 ```
 
-Example:\
+Example:<br/>
 Power on the led connected to pin 11 (put in series 
 to a 220 Ω current limiting resistor and ground) for 1 second.
 
@@ -56,9 +56,9 @@ led.PowerOff();
 
 [Back to list](#classtable)
 
-\
+<br/>
 
-## Buzzer Active
+## <a name="buzzeractive"></a>Buzzer Active
 
 Active buzzer with fixed (built in) frequency
 
@@ -87,9 +87,9 @@ active.PowerOff();
 
 [Back to list](#classtable)
 
-\
+<br/>
 
-## Buzzer Passive
+## <a name="buzzerpassive"></a>Buzzer Passive
 
 Passive buzzer with variable frequency
 
@@ -102,7 +102,7 @@ Passive buzzer with variable frequency
     --------------   ------
 ```
 
-Example:\
+Example:<br/>
 Play some music on a passive piezo buzzer connected to the PWM0 pin.
 
 ```csharp
@@ -135,9 +135,9 @@ passive.Dispose();
 ```
 [Back to list](#classtable)
 
-\
+<br/>
 
-## Display TM1637
+## <a name="displaytm1637"></a>Display TM1637
 
 A 4-digit 7-segment display
 
@@ -173,7 +173,7 @@ supported characters:
   ":'-0123456789ACEFLOPSbdr°
 ```
 
-Example:\
+Example:<br/>
 Rotate the display 180 degrees, set brightness level, show text.
 
 ```csharp
@@ -206,9 +206,9 @@ display.Dispose();
 
 [Back to list](#classtable)
 
-\
+<br/>
 
-## Display PCD8544
+## <a name="displaypcd8544"></a>Display PCD8544
 
 PCD8544 also known as Nokia screen
 
@@ -255,7 +255,7 @@ wiring:
             39   40
 ```
 
-Example:\
+Example:<br/>
 Output 'Hello' on the screen using the Nimbus font.
 
 ```csharp
@@ -297,9 +297,9 @@ display.Dispose();
 
 [Back to list](#classtable)
 
-\
+<br/>
 
-## Display SSD1351
+## <a name="displayssd1351"></a>Display SSD1351
 
 SSD1351 Oled 128x128 screen
 
@@ -348,7 +348,7 @@ wiring:
             39   40 -- clk_1            
 ```
 
-Example:\
+Example:<br/>
 Show a bitmap loaded from a file and scroll the names of available fonts.
 
 ```csharp
@@ -428,11 +428,11 @@ display.Dispose();
 
 [Back to list](#classtable)
 
-\
+<br/>
 
-\
+<br/>
 
-## Display DRM
+## <a name="displaydrm"></a>Display DRM
 
 Direct Rendering Manager DRM Display
 
@@ -473,7 +473,7 @@ not working if a window manager is currently claiming the display.
 
 ```
 
-Example:\
+Example:<br/> 
 Output scrolling text with some UTF-8 characters, 
 load and display a test bitmap, measure text for positioning and show the
 current time with outlined text, draw a test line from top/left to bottom/right.
@@ -558,9 +558,9 @@ display.Dispose();
 
 [Back to list](#classtable)
 
-\
+<br/>
 
-## Button
+## <a name="button"></a>Button
 
 A debounced button with events
 
@@ -581,7 +581,7 @@ A debounced button with events
       resistor      button
 ```
 
-Example:\
+Example:<br/>
 Use automatic updates with events and use internal pulldown.
 
 ```csharp
@@ -612,9 +612,9 @@ button.Dispose();
 
 [Back to list](#classtable)
 
-\
+<br/>
 
-## UsbWorker
+## <a name="usbworker"></a>UsbWorker
 
 A serial connector for hotplugging Arduinos
 
@@ -633,7 +633,7 @@ A serial connector for hotplugging Arduinos
 
 ```
 
-Example Arduino:\
+Example Arduino:<br/>
 
 Send ULC in the loop to identify the device, listen to commands
 "on" or "off", turn on or off the onboard led and send "Led on" / "Led off" accordingly.
@@ -705,7 +705,7 @@ void loop()
 }
 
 ```
-Example:\
+Example:<br/>
 Add two UsbWorkers, add event handlers and wait for user commands.
 
 ```csharp
@@ -776,4 +776,4 @@ usbWorker2.Dispose();
 
 [Back to list](#classtable)
 
-\
+<br/>
