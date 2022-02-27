@@ -1,0 +1,51 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<PackageIconUrl>$(ProjectDir)img\sharpi.png</PackageIconUrl>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<Authors>A.J.Bauer</Authors>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<PlatformTarget>ARM64</PlatformTarget>
+		<Description>C# Library for 64 bit Raspberry Pi OS</Description>
+		<Copyright>A.J.Bauer</Copyright>
+		<PackageIcon>img\sharpi.png</PackageIcon>		
+		<AssemblyVersion>1.0.2.40</AssemblyVersion>
+		<FileVersion>1.0.2.40</FileVersion>
+		<Version>1.0.2.40</Version>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageTags>Raspberry;Pi;iot;</PackageTags>
+		<PackageProjectUrl>https://github.com/A-J-Bauer/sharpi</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/A-J-Bauer/sharpi</RepositoryUrl>
+		<Configurations>Debug;Release</Configurations>
+		<Platforms>AnyCPU;ARM64</Platforms>
+		<GenerateDocumentationFile>False</GenerateDocumentationFile>				
+	</PropertyGroup>
+
+	<Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+		<Exec Command="&quot;$(SolutionDir)../prebuild.bat&quot;" />
+	</Target>
+
+	<ItemGroup>
+	  <None Include="..\README.md">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Update="img\sharpi.png">
+			<PackagePath>\</PackagePath>
+			<Pack>True</Pack>
+		</None>
+		<None Update="native\libsharpi.so">
+			<Pack>true</Pack>
+			<PackagePath>
+				runtimes/linux-arm64
+			</PackagePath>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
+
+</Project>
