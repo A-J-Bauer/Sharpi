@@ -15,7 +15,7 @@
 		<AssemblyVersion>1.0.2.40</AssemblyVersion>
 		<FileVersion>1.0.2.40</FileVersion>
 		<Version>1.0.2.40</Version>
-		<PackageReadmeFile>NuGet.md</PackageReadmeFile>
+		<PackageReadmeFile></PackageReadmeFile>
 		<PackageTags>Raspberry;Pi;iot;</PackageTags>
 		<PackageProjectUrl>https://github.com/A-J-Bauer/sharpi</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/A-J-Bauer/sharpi</RepositoryUrl>
@@ -28,13 +28,6 @@
 	<Target Name="PreBuild" BeforeTargets="PreBuildEvent">
 		<Exec Command="&quot;$(SolutionDir)../prebuild.bat&quot;" />
 	</Target>
-
-	<ItemGroup>
-	  <None Include="..\NuGet.md">
-	    <Pack>True</Pack>
-	    <PackagePath>\</PackagePath>
-	  </None>
-	</ItemGroup>
 
 	<ItemGroup>
 		<None Update="img\sharpi.png">
