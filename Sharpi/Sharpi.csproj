@@ -8,6 +8,7 @@
 		<Authors>A.J.Bauer</Authors>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<PlatformTarget>ARM64</PlatformTarget>
+		<Title>Sharpi</Title>
 		<Description>C# Library for 64 bit Raspberry Pi OS</Description>
 		<Copyright>A.J.Bauer</Copyright>
 		<PackageIcon>img\sharpi.png</PackageIcon>		
@@ -19,8 +20,9 @@
 		<PackageProjectUrl>https://github.com/A-J-Bauer/sharpi</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/A-J-Bauer/sharpi</RepositoryUrl>
 		<Configurations>Debug;Release</Configurations>
-		<Platforms>AnyCPU;ARM64</Platforms>
-		<GenerateDocumentationFile>False</GenerateDocumentationFile>				
+		<Platforms>ARM64</Platforms>
+		<GenerateDocumentationFile>False</GenerateDocumentationFile>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>				
 	</PropertyGroup>
 
 	<Target Name="PreBuild" BeforeTargets="PreBuildEvent">

@@ -469,8 +469,7 @@ config:
 wiring:
  connect a monitor (to HDMI)
 
-not working if a window manager claimed 
-the display already.                    
+not working if a window manager is currently claiming the display.                    
 
 ```
 
