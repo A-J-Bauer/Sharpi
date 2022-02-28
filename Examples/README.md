@@ -10,7 +10,7 @@
 The .csproj file for each 
 example is set for ARM64, selfcontained and automatic deployment to the
 raspberry using rsync over ssh by running postbuild.bat after a successful build.
-Nothing to change.
+Informational only - Nothing to change.
 ```
 <Project Sdk="Microsoft.NET.Sdk">
 
@@ -29,6 +29,9 @@ Nothing to change.
 		<Exec Command="&quot;$(ProjectDir)postbuild.bat&quot; &quot;$(TargetDir)&quot;"/>
 	</Target>
 
+	<ItemGroup>
+	  <PackageReference Include="Sharpi" Version="*" />
+	</ItemGroup>
 </Project>
 ```
 
@@ -37,7 +40,7 @@ Nothing to change.
 The batch file is given the $(TargetDir) from Visual Studio and the localfolder
 is put together from it.
 
-The ==remotefolder needs to be changed==, this is where the executable and all
+The **remotefolder needs to be changed**, this is where the executable and all
 necessary files are copied to. 
 
 `set remotefolder="USER@HOSTNAME:/FOLDER/`
