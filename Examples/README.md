@@ -37,11 +37,9 @@ Informational only - Nothing to change.
 
 ## postbuild.bat
 
-The batch file is given the $(TargetDir) from Visual Studio and the localfolder
-is put together from it.
+The batch file is given the $(TargetDir) as input from Visual Studio and transformed into a linux compatible path.
 
-The remotefolder can be changed, this is where the executable and all
-necessary files are copied to. 
+The remotefolder is where the executable and all necessary files are copied into.
 
 `set remotefolder="USER@HOSTNAME:/FOLDER/`
 
