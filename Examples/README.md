@@ -40,15 +40,14 @@ Informational only - Nothing to change.
 The batch file is given the $(TargetDir) from Visual Studio and the localfolder
 is put together from it.
 
-The **remotefolder needs to be changed**, this is where the executable and all
+The remotefolder can be changed, this is where the executable and all
 necessary files are copied to. 
 
 `set remotefolder="USER@HOSTNAME:/FOLDER/`
 
-
 ```
 :: CHANGE TO YOUR REMOTE FOLDER
-set remotefolder="pi@raspberrypi:projects/button/"
+set remotefolder="pi@raspberrypi:projects/examplename/"
 
 @echo off
 
