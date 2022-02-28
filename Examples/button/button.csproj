@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+		<TargetFramework>net6.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<Platforms>ARM64</Platforms>
+		<RuntimeIdentifier>linux-arm64</RuntimeIdentifier>
+		<SelfContained>True</SelfContained>
+		<RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+	</PropertyGroup>
+
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+		<Exec Command="&quot;$(ProjectDir)postbuild.bat&quot; &quot;$(TargetDir)&quot;" />
+	</Target>
+
+	<ItemGroup>
+	  <PackageReference Include="Sharpi" Version="*" />
+	</ItemGroup>
+
+</Project>
