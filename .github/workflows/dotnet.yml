@@ -1,0 +1,21 @@
+name: publish to nuget
+on:
+  push:
+    branches:
+      - master
+jobs:
+  publish:
+    name: build, pack & publish
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: authenticate
+        run: dotnet nuget add source --username A-J-Bauer --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/A-J-Bauer/index.json"
+      
+      - name: package
+        run: dotnet pack Sharpi.csproj --configuration Debug --include-symbols
+      
+      - name: publish
+        run: dotnet nuget push "bin/ARM64/Release/Sharpi.1.0.2.41.nupkg" --source "github"
+      
