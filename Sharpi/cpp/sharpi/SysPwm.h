@@ -21,6 +21,9 @@ private:
 	static const path perdpath[2];
 	static const path dutypath[2];
 
+	static ofstream perdstream[2];
+	static ofstream dutystream[2];
+
 	static bool _created[2];
 	static bool _isOn[2];
 	static bool _waveSet[2];
@@ -39,6 +42,9 @@ public:
 
 	static void SetFrequency(int pwm, int frequency);
 	static void SetDutyCycle(int pwm, int dutypercent);
+
+	static void SetPeriodNanoSeconds(int pwm, unsigned long nanoseconds);
+	static void SetDutyNanoSeconds(int pwm, unsigned long nanoseconds);
 
 	static void Create(int pwm);
 	static void Destroy(int pwm);

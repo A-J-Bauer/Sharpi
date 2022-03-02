@@ -72,6 +72,8 @@ extern "C" {
 
 	SHARPI void syspwm_set_frequency(int pwm, int frequency);
 	SHARPI void syspwm_set_dutycycle(int pwm, int dutypercent);
+	SHARPI void syspwm_set_period_nanoseconds(int pwm, unsigned long nanoseconds);
+	SHARPI void syspwm_set_duty_nanoseconds(int pwm, unsigned long nanoseconds);
 	SHARPI void syspwm_create(int pwm);
 	SHARPI void syspwm_destroy(int pwm);
 	SHARPI void syspwm_power_on(int pwm);

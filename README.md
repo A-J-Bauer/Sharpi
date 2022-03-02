@@ -24,7 +24,7 @@ C# Library for 64 bit Raspberry Pi OS (aarch64)
 
 <br/>
 
-## <a name="passivebuzzer"></a>Led
+## <a name="led"></a>Led
 
 A simple light emitting diode
 

@@ -296,6 +296,17 @@ SHARPI void syspwm_set_dutycycle(int pwm, int dutypercent)
 	SysPwm::SetDutyCycle(pwm, dutypercent);
 }
 
+SHARPI void syspwm_set_period_nanoseconds(int pwm, unsigned long nanoseconds)
+{
+	SysPwm::SetPeriodNanoSeconds(pwm, nanoseconds);
+}
+
+SHARPI void syspwm_set_duty_nanoseconds(int pwm, unsigned long nanoseconds)
+{
+	SysPwm::SetDutyNanoSeconds(pwm, nanoseconds);
+}
+
+
 SHARPI void syspwm_create(int pwm)
 {
 	SysPwm::Create(pwm);

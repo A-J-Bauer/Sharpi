@@ -23,7 +23,7 @@ namespace Sharpi
         {
             static string _description =
             "                                " + Environment.NewLine +
-            "  gnd   vcc     #####     pwm   " + Environment.NewLine +
+            "  vcc   gnd     #####     pwm   " + Environment.NewLine +
             "   |     |      buzzr     pin   " + Environment.NewLine +
             "   |     |      #####      |    " + Environment.NewLine +
             "   |     |      | | |      |    " + Environment.NewLine +

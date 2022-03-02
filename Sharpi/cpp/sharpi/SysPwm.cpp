@@ -17,6 +17,9 @@ const path SysPwm::dutypath[2] = {
 	"/sys/class/pwm/pwmchip0/pwm1/duty_cycle"
 };
 
+ofstream SysPwm::perdstream[2];
+ofstream SysPwm::dutystream[2];
+
 bool SysPwm::_created[2] = { false, false };
 bool SysPwm::_isOn[2] = { false, false };
 bool SysPwm::_waveSet[2] = {false, false};
@@ -92,25 +95,25 @@ void SysPwm::SetWave(int pwm)
 	_periodnanoseconds[pwm] = 1000 * 1000 * 1000 / _frequency[pwm];
 	_dutynanoseconds[pwm] = _dutypercent[pwm] * _periodnanoseconds[pwm] / 100;
 
-	ofstream perdstream(perdpath[pwm]);
-	ofstream dutystream(dutypath[pwm]);
-
-	if (perdstream.is_open() && dutystream.is_open())
+	if (perdstream[pwm].is_open() && dutystream[pwm].is_open())
 	{
 		if (dutynanosecondsold < _periodnanoseconds[pwm])
 		{
-			perdstream << _periodnanoseconds[pwm];
-			dutystream << _dutynanoseconds[pwm];
+			perdstream[pwm] << _periodnanoseconds[pwm];
+			dutystream[pwm] << _dutynanoseconds[pwm];
+
+			perdstream[pwm].flush();
+			dutystream[pwm].flush();
 		}
 		else
 		{
-			dutystream << _dutynanoseconds[pwm];
-			perdstream << _periodnanoseconds[pwm];
+			dutystream[pwm] << _dutynanoseconds[pwm];
+			perdstream[pwm] << _periodnanoseconds[pwm];
+
+			dutystream[pwm].flush();
+			perdstream[pwm].flush();			
 		}
-
-		perdstream.close();
-		dutystream.close();
-
+		
 		_waveSet[pwm] = true;
 	}
 	
@@ -151,6 +154,27 @@ void SysPwm::SetDutyCycle(int pwm, int dutypercent)
 	SetWave(pwm);
 }
 
+void SysPwm::SetPeriodNanoSeconds(int pwm, unsigned long nanoseconds)
+{
+	if (perdstream[pwm].is_open())
+	{
+		_periodnanoseconds[pwm] = nanoseconds;
+		perdstream[pwm] << _periodnanoseconds[pwm];	
+		perdstream[pwm].flush();
+	}
+}
+
+void SysPwm::SetDutyNanoSeconds(int pwm, unsigned long nanoseconds)
+{
+	if (dutystream[pwm].is_open())
+	{
+		_dutynanoseconds[pwm] = nanoseconds;		
+		dutystream[pwm] << _dutynanoseconds[pwm];
+		dutystream[pwm].flush();
+	}	
+}
+
+
 void SysPwm::Create(int pwm)
 {
 	if (pwm != 0 && pwm != 1)
@@ -172,9 +196,13 @@ void SysPwm::Create(int pwm)
 	if (expstream.is_open())
 	{
 		expstream << pwm;
-	}
-	expstream.close();
-	
+
+		perdstream[pwm].open(perdpath[pwm]);
+		dutystream[pwm].open(dutypath[pwm]);
+
+		expstream.close();
+	}	
+
 	usleep(100000);
 }
 
@@ -194,6 +222,16 @@ void SysPwm::Destroy(int pwm)
 	{
 		return;
 	}
+
+	if (perdstream[pwm].is_open())
+	{
+		perdstream[pwm].close();
+	}
+	
+	if (dutystream[pwm].is_open())
+	{
+		dutystream[pwm].close();
+	}	
 
 	ofstream unexpstream(unexppath);
 	if (unexpstream.is_open())
