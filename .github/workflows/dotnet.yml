@@ -17,5 +17,5 @@ jobs:
         run: dotnet build Sharpi/Sharpi.csproj -o Sharpi/bin/ARM64
       
       - name: publish
-        run: dotnet nuget push "Sharpi/bin/ARM64/Sharpi.1.0.2.41.nupkg" --source "github"
+        run: dotnet nuget push "Sharpi/bin/ARM64/Sharpi.1.0.2.42.nupkg" --source "github"
       
