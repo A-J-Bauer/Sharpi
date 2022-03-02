@@ -11,7 +11,11 @@ jobs:
       - uses: actions/checkout@v2
       
       - name: authenticate, build, pack, publish
-        run: dotnet nuget add source --username A-J-Bauer --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/A-J-Bauer/index.json"      
+        run: |
+             echo "authenticate"
+             dotnet nuget add source --username A-J-Bauer --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/A-J-Bauer/index.json"      
+             echo "build and pack"
              dotnet build Sharpi/Sharpi.csproj -o Sharpi/bin/ARM64
+             echo "publish"
              dotnet nuget push "Sharpi/bin/ARM64/Sharpi.1.0.2.42.nupkg" --source "github"
       
