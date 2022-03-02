@@ -22,13 +22,9 @@
 		<Configurations>Debug;Release</Configurations>
 		<Platforms>ARM64</Platforms>
 		<GenerateDocumentationFile>False</GenerateDocumentationFile>
-		<PackageLicenseExpression>MIT</PackageLicenseExpression>				
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>		
 	</PropertyGroup>
-
-	<Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-		<Exec Command="&quot;$(SolutionDir)../prebuild.bat&quot;" />
-	</Target>
-
+	
 	<ItemGroup>
 		<None Update="img\sharpi.png">
 			<PackagePath>\</PackagePath>
