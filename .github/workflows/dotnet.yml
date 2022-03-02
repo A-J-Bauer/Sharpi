@@ -17,5 +17,5 @@ jobs:
              echo "build and pack"
              dotnet build Sharpi/Sharpi.csproj -o Sharpi/bin/ARM64
              echo "publish"
-             dotnet nuget push "Sharpi/bin/ARM64/Sharpi.1.0.2.42.nupkg" --source "github"
+             dotnet nuget push "Sharpi/bin/ARM64/Sharpi.1.0.2.42.nupkg" -k ${{secrets.GITHUB_TOKEN}} --source "github"
       
