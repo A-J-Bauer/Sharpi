@@ -22,7 +22,8 @@
 		<Configurations>Debug;Release</Configurations>
 		<Platforms>ARM64</Platforms>
 		<GenerateDocumentationFile>False</GenerateDocumentationFile>
-		<PackageLicenseExpression>MIT</PackageLicenseExpression>		
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<OutputPath>bin\ARM64</OutputPath>
 	</PropertyGroup>
 	
 	<ItemGroup>
