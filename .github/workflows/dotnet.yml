@@ -11,13 +11,16 @@ jobs:
     steps:
       - uses: actions/checkout@v2
             
-      - name: run the version check and save result in environment vars
+      - name: run the version check and save result in environment var 'check_version_published'
         run: |
              echo "check package exists"
              dotnet run --project .github/CheckVersionPublished/CheckVersionPublished.csproj Sharpi/Sharpi.csproj >> $GITHUB_ENV
-             
-      - name: authenticate then build, pack, publish main project package                
-        run: |
-            echo "${{ env.check_version_published }}"
+            
+      - name: output environment variable check_version_published
+        run: echo "${{ env.check_version_published }}"
+        
+      - name: check environment variable check_version_published, if 'no' then authenticate, build, pack, publish main project package
+        if: ${{ env.check_version_published == 'no'}}
+        run: |            
             echo "starting authenticate, build, pack; publish"
             
