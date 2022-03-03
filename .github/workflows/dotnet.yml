@@ -3,6 +3,10 @@ on:
   push:
     branches:
       - master
+      
+env:
+  CheckVersionPublished: unknown
+
 jobs:
   publish:
     name: build, pack & publish
@@ -14,9 +18,10 @@ jobs:
         run: |
              echo "check package exists"
              dotnet run --project .github/CheckVersionPublished/CheckVersionPublished.csproj Sharpi/Sharpi.csproj
+             echo ${{ env.CheckVersionPublished }}
              
-      - name: authenticate then build, pack, publish main project package
-        if: ${{ env.version_published }} == 0
+      - name: authenticate then build, pack, publish main project package        
+        if: ${{ env.CheckVersionPublished == 'missing'}}
         run: |
             echo "starting authenticate, build, pack; publish"
             
