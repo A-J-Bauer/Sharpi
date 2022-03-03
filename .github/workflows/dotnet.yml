@@ -3,6 +3,10 @@ on:
   push:
     branches:
       - master
+      
+env:
+  CheckVersionPublished: unknown
+
 jobs:
   publish:
     name: build, pack & publish
@@ -17,7 +21,7 @@ jobs:
              echo ${{ env.CheckVersionPublished }}
              
       - name: authenticate then build, pack, publish main project package        
-        if: ${{ env.CheckVersionPublished }} == "missing"
+        if: ${{ env.CheckVersionPublished == 'missing'}}
         run: |
             echo "starting authenticate, build, pack; publish"
             
