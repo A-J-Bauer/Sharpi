@@ -35,15 +35,15 @@ if (!cmdargs[1].EndsWith(".csproj"))
     Environment.Exit(-2);
 }
 
-string? githubActionPath = Environment.GetEnvironmentVariable("GITHUB_ACTION_PATH");
+string? githubRunnerPath = Environment.GetEnvironmentVariable("GITHUB_WORKSPACE");
 
-if (githubActionPath == null)
+if (githubRunnerPath == null)
 {
-    Console.WriteLine($"Could not read GITHUB_ACTION_PATH environment variable" + Environment.NewLine);    
+    Console.WriteLine($"Could not read GITHUB_WORKSPACE environment variable" + Environment.NewLine);    
     Environment.Exit(-3);
 }
 
-string csprojFilePath = Path.Combine(githubActionPath, cmdargs[1]);
+string csprojFilePath = Path.Combine(githubRunnerPath, cmdargs[1]);
 
 if (!File.Exists(csprojFilePath))
 {
