@@ -13,7 +13,7 @@ jobs:
       - name: build version check app
         run: |
              echo "build CheckVersionPublished helper app"
-             dotnet build .github/CheckVersionPublished/CheckVersionPublished.csproj -o ./
+             dotnet build .github/CheckVersionPublished/CheckVersionPublished.csproj -c Release -r linux-64 -o ./
       - name: run the version check app save result in environment variable
         run: |
              echo "run CheckVersionPublished helper app"
