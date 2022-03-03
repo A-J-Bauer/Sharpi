@@ -18,6 +18,6 @@ jobs:
              
       - name: authenticate then build, pack, publish main project package                
         run: |
-            echo "${{ env }}"
+            echo "${{ env.check_version_published }}"
             echo "starting authenticate, build, pack; publish"
             
