@@ -11,13 +11,23 @@ jobs:
     steps:
       - uses: actions/checkout@v2
             
-      - name: run the version check and save result in environment vars
+      - name: run the version check and save result in environment var 'check_version_published'
         run: |
              echo "check package exists"
              dotnet run --project .github/CheckVersionPublished/CheckVersionPublished.csproj Sharpi/Sharpi.csproj >> $GITHUB_ENV
-             
-      - name: authenticate then build, pack, publish main project package                
-        run: |
-            echo "${{ env.check_version_published }}"
-            echo "starting authenticate, build, pack; publish"
             
+      - name: output environment variable check_version_published
+        run: echo "${{ env.check_version_published }}"
+        
+      - name: check environment variable check_version_published, if 'no' then authenticate, build, pack, publish main project package
+        if: ${{ env.check_version_published == 'no'}}
+        run: |
+            echo "starting authenticate, build, pack; publish"
+            echo "authenticate for github"
+            dotnet nuget add source --username A-J-Bauer --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/A-J-Bauer/index.json"      
+            echo "build and pack"
+            dotnet build Sharpi/Sharpi.csproj -o Sharpi/bin/ARM64
+            echo "publish github"
+            dotnet nuget push "Sharpi/bin/ARM64/Sharpi.*.nupkg" -k ${{secrets.GITHUB_TOKEN}} --skip-duplicate -s "github"
+            echo "publish nuget"
+            dotnet nuget push "Sharpi/bin/ARM64/Sharpi.*.nupkg" -k ${{secrets.NUGET_API_KEY}} --skip-duplicate -s https://api.nuget.org/v3/index.json#        
