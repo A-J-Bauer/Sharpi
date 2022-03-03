@@ -9,9 +9,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      
-      - name: authenticate, build, pack, publish
+            
+      - name: run the version check and save result in environment vars
         run: |
-             echo "build CheckVersionPublished helper app"
-             dotnet build ../.github/CheckVersionPublished/CheckVersionPublished.csproj  
+             echo "dotnet run CheckVersionPublished helper app"
+             echo "version_published=dotnet run CheckVersionPublished Sharpi/Sharpi.csproj" >> $GITHUB_ENV
+      - name: authenticate then build, pack, publish main project package
+        if: ${{ env.version_published }} == 0
+        run: |
+            echo "already exists"
             
