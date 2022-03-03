@@ -13,6 +13,11 @@ using System.Xml.Linq;
     Get json versions array from NuGet
     Check if version found in csproj is in the array
    
+    if successful writes:
+    
+    check_version_published=yes
+    check_version_published=no
+
     return 0     on success    
     return >0   failure
 */
@@ -133,12 +138,12 @@ if (nugetVersions == null || nugetVersions.versions == null)
 
 if (nugetVersions.versions.Contains(version.Value))
 {
-    Console.WriteLine("exists");
+    Console.WriteLine("check_version_published=yes");
     Environment.Exit(0);
 }
 else
 {
-    Console.WriteLine("missing");
+    Console.WriteLine("check_version_published=no");
     Environment.Exit(0);
 }
 
