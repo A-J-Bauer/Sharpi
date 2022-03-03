@@ -17,6 +17,7 @@ using System.Xml.Linq;
 */
 
 
+
 string[] cmdargs = Environment.GetCommandLineArgs();
 
 
@@ -133,10 +134,12 @@ if (nugetVersions == null || nugetVersions.versions == null)
 
 if (nugetVersions.versions.Contains(version.Value))
 {
+    Console.WriteLine($"CheckVersionPublished: Package {version.Value} already exists on Nuget.org");
     Environment.Exit(1);
 }
 else
 {
+    Console.WriteLine($"CheckVersionPublished: Package {version.Value} does not yet exist on Nuget.org");
     Environment.Exit(0);
 }
 
