@@ -12,10 +12,10 @@ jobs:
             
       - name: run the version check and save result in environment vars
         run: |
-             echo "dotnet run CheckVersionPublished helper app"
-             echo "version_published=(dotnet run CheckVersionPublished Sharpi/Sharpi.csproj)" >> $GITHUB_ENV
+             echo "check package exists"
+             echo "version_published=(dotnet run .github/CheckVersionPublished/CheckVersionPublished.csproj Sharpi/Sharpi.csproj)" >> $GITHUB_ENV
       - name: authenticate then build, pack, publish main project package
-        if: ${{ env.version_published }} == 1
+        if: ${{ env.version_published }} == 0
         run: |
             echo "starting authenticate, build, pack; publish"
             
