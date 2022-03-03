@@ -12,13 +12,7 @@ using System.Xml.Linq;
     Parse.csproj file for Version and Title
     Get json versions array from NuGet
     Check if version found in csproj is in the array
-
-    set environment variable CheckVersionPublished
-
-    exists      if already exists on Nuget.org
-    missing     if not yet existing on Nuget.org
-
- 
+   
     return 0     on success    
     return >0   failure
 */
@@ -139,14 +133,12 @@ if (nugetVersions == null || nugetVersions.versions == null)
 
 if (nugetVersions.versions.Contains(version.Value))
 {
-    Console.WriteLine($"CheckVersionPublished: Package {version.Value} already exists on Nuget.org");
-    Environment.SetEnvironmentVariable("CheckVersionPublished", "exists");
+    Console.WriteLine("exists");
     Environment.Exit(0);
 }
 else
 {
-    Console.WriteLine($"CheckVersionPublished: Package {version.Value} does not yet exist on Nuget.org");
-    Environment.SetEnvironmentVariable("CheckVersionPublished", "missing");
+    Console.WriteLine("missing");
     Environment.Exit(0);
 }
 
