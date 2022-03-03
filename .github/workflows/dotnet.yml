@@ -13,5 +13,5 @@ jobs:
       - name: authenticate, build, pack, publish
         run: |
              echo "build CheckVersionPublished helper app"
-             dotnet build ../.github/CheckVersionPublished/CheckVersionPublished.csproj  
+             dotnet build .github/CheckVersionPublished/CheckVersionPublished.csproj  
             
