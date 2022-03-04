@@ -320,7 +320,7 @@ config:
                                         
   edit /boot/config.txt                 
   dtparam=spi=on                        
-  dtoverlay=spi1-1cs (optional for SPI 2)
+  dtoverlay=spi1-1cs (optional for 2nd SPI)
                                         
 wiring:                                                                         
                                         
