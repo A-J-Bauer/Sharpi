@@ -30,4 +30,4 @@ jobs:
             echo "publish github"
             dotnet nuget push "Sharpi/bin/ARM64/Sharpi.*.nupkg" -k ${{secrets.GITHUB_TOKEN}} --skip-duplicate -s "github"
             echo "publish nuget"
-            dotnet nuget push "Sharpi/bin/ARM64/Sharpi.*.nupkg" -k ${{secrets.NUGET_API_KEY}} --skip-duplicate -s https://api.nuget.org/v3/index.json#        
+            dotnet nuget push "Sharpi/bin/ARM64/Sharpi.*.nupkg" -k ${{secrets.NUGET_API_KEY}} --skip-duplicate -s https://api.nuget.org/v3/index.json
