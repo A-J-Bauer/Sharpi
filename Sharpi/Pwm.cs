@@ -18,7 +18,13 @@ namespace Sharpi
 
         [DllImport("sharpi")]
         private static extern void syspwm_set_dutycycle(int pwm, int dutypercent);
-        
+
+        [DllImport("sharpi")]
+        private static extern void syspwm_set_period_nanoseconds(int pwm, ulong nanoseconds);
+
+        [DllImport("sharpi")]
+        private static extern void syspwm_set_duty_nanoseconds(int pwm, ulong nanoseconds);
+
         [DllImport("sharpi")]
         private static extern void syspwm_create(int pwm);
         
@@ -60,6 +66,16 @@ namespace Sharpi
         public static void SetDutyCycle(int pwm, int percent)
         {
             syspwm_set_dutycycle(pwm, percent);
+        }
+
+        internal static void SetPeriodNanoseconds(int pwm, ulong nanoseconds)
+        {
+            syspwm_set_period_nanoseconds(pwm, nanoseconds);
+        }
+
+        internal static void SetDutyNanoseconds(int pwm, ulong nanoseconds)
+        {
+            syspwm_set_duty_nanoseconds(pwm, nanoseconds);
         }
 
         public static void PowerOn(int pwm)

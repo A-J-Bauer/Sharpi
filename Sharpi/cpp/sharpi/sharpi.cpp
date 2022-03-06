@@ -1,23 +1,4 @@
-#include <tuple>
-#include <string>
 #include "sharpi.h"
-#include "DevGpio.h"
-#include "SysPwm.h"
-#include "DevSpi.h"
-
-#include "DisplayPcd8544.h"
-#include "DisplaySsd1351.h"
-#include "DisplayTm1637.h"
-#include "DisplayDrm.h"
-#include "UsbWorker.h"
-
-#include "include/core/SkColor.h"
-#include "include/core/SkTypeface.h"
-#include "include/core/SkFont.h"
-#include "include/core/SkFontMgr.h"
-#include "include/core/SkBitmap.h"
-#include "include/core/SkImage.h"
-#include "include/codec/SkCodec.h"
 
 using namespace std;
 
@@ -306,7 +287,6 @@ SHARPI void syspwm_set_duty_nanoseconds(int pwm, unsigned long nanoseconds)
 	SysPwm::SetDutyNanoSeconds(pwm, nanoseconds);
 }
 
-
 SHARPI void syspwm_create(int pwm)
 {
 	SysPwm::Create(pwm);
@@ -477,4 +457,12 @@ SHARPI void usb_worker_write(cusbworker* handle, const char* data)
 SHARPI void usb_worker_delete(cusbworker* handle)
 {
 	delete ((UsbWorker*)handle);
+}
+
+
+// info
+
+SHARPI void info_get_memory(meminfo& mem)
+{
+	return Info::GetMemory(mem.total, mem.vmsize, mem.rsize, mem.rshrd, mem.rprvt);
 }

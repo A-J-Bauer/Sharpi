@@ -21,6 +21,7 @@ C# Library for 64 bit Raspberry Pi OS (aarch64)
 | [Display.Drm](#displaydrm)| Direct Rendering Manager DRM Display
 | [Button](#button)| A debounced button with events
 | [UsbWorker](#usbworker)| A serial connector for hotplugging Arduinos
+| [Info](#info)| System information class
 
 <br/>
 
@@ -772,6 +773,57 @@ usbWorker2.NewData -= UsbWorker_NewData;
 
 usbWorker1.Dispose();
 usbWorker2.Dispose();
+```
+
+[Back to list](#classtable)
+
+<br/>
+
+## <a name="info"></a>Info
+
+System information class
+
+Example:<br/>
+Print temperature, hostname, SoC, revision, 
+serial number and model name to standard output.
+Additionally output memory information in a loop while producing a
+test memory leak.
+
+```csharp
+using Sharpi;
+
+float temperature = Info.GetTemperature();
+string hostname = Info.GetHostname();
+
+Console.WriteLine($"CPU/GPU/SoC temp: {temperature.ToString("F1")} °C");
+Console.WriteLine($"CPU/GPU/SoC temp: {(temperature * 1.8f + 32).ToString("F1")} °F");
+Console.WriteLine();
+Console.WriteLine($"Hostname: {hostname}");
+Console.WriteLine($"SoC     : {Info.SoC}");
+Console.WriteLine($"Revision: {Info.Revision}");
+Console.WriteLine($"Serial  : {Info.Serial}");
+Console.WriteLine($"Model   : {Info.Model}");
+Console.WriteLine();
+
+for (int i = 0; i < 6; i++) { Console.WriteLine(); }
+
+while (!Console.KeyAvailable)
+{
+    var memInfo = Info.GetMemoryInfo();
+
+    // produce a mem leak for testing
+    Bitmap memleakdummy = new Bitmap(64, 64);
+
+    Console.CursorTop -= 6;
+    Console.WriteLine("Memory:");
+    Console.WriteLine($"TOTAL   : {memInfo.Total / 1024,10:F1} kB ({memInfo.Total / (1024 * 1024 * 1024),0:F1} gB)");
+    Console.WriteLine($"VIRT    : {memInfo.VirtualSize / 1024,10:F1} kB ({memInfo.VirtualSize / (1024 * 1024),0:F1} MB)");
+    Console.WriteLine($"RES     : {memInfo.ResidentSize / 1024,10:F1} kB");
+    Console.WriteLine($"SHR     : {memInfo.ResidentShared / 1024,10:F1} kB");
+    Console.WriteLine($"PRVT    : {memInfo.ResidentPrivate / 1024,10:F1} kB");
+
+    Thread.Sleep(1000);
+}
 ```
 
 [Back to list](#classtable)

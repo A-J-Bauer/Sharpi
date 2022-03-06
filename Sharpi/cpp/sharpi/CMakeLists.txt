@@ -23,6 +23,8 @@ add_library(sharpi SHARED
     UsbWorker.cpp
     SysPwm.h
     SysPwm.cpp
+    Info.h
+    Info.cpp
 )
 
 target_include_directories(sharpi

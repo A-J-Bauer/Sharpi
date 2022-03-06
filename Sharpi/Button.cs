@@ -75,13 +75,12 @@ namespace Sharpi
             {
                 cancellationTokenSource.Cancel();                
                 autoUpdateTask.Wait();
-                if (autoUpdateTask.Result == true)
-                {
-                    Console.WriteLine("result is true");
-                }
+                //if (autoUpdateTask.Result == true)
+                //{
+                //    Console.WriteLine("result is true");
+                //}
             }            
         }
-
 
         private async Task<bool> CheckButton(int interval, CancellationToken cancellationToken)
         {

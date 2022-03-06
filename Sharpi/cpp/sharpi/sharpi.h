@@ -1,5 +1,28 @@
 #define SHARPI __attribute__((visibility("default")))
 
+
+#include <tuple>
+#include <string>
+
+#include "DevGpio.h"
+#include "SysPwm.h"
+#include "DevSpi.h"
+#include "DisplayPcd8544.h"
+#include "DisplaySsd1351.h"
+#include "DisplayTm1637.h"
+#include "DisplayDrm.h"
+#include "UsbWorker.h"
+#include "Info.h"
+
+#include "include/core/SkColor.h"
+#include "include/core/SkTypeface.h"
+#include "include/core/SkFont.h"
+#include "include/core/SkFontMgr.h"
+#include "include/core/SkBitmap.h"
+#include "include/core/SkImage.h"
+#include "include/codec/SkCodec.h"
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -125,6 +148,19 @@ extern "C" {
 	SHARPI void usb_worker_write(cusbworker* handle, const char* data);
 	SHARPI void usb_worker_delete(cusbworker* usbworker);
 
+	// info
+
+	struct meminfo
+	{
+		unsigned long total;
+		unsigned long vmsize;
+		unsigned long rsize;
+		unsigned long rshrd;
+		unsigned long rprvt;		
+	};
+
+	SHARPI void info_get_memory(meminfo& mem);
+	
 
 #ifdef __cplusplus
 }
