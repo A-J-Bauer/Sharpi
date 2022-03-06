@@ -783,6 +783,19 @@ usbWorker2.Dispose();
 
 System information class
 
+```
+Hostname: raspberrypi
+SoC     : BCM2835
+Model   : Raspberry Pi 4 Model B Rev 1.4
+
+Memory:
+TOTAL   :  3886092.0 kB (3.0 gB)
+VIRT    :  2985496.0 kB (2915.0 MB)
+RES     :    35912.0 kB
+SHR     :    29016.0 kB
+PRVT    :     6896.0 kB
+```
+
 Example:<br/>
 Print temperature, hostname, SoC, revision, 
 serial number and model name to standard output.
