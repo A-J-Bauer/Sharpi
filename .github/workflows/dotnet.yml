@@ -35,7 +35,7 @@ jobs:
             dotnet nuget push "Sharpi/bin/ARM64/Sharpi.*.nupkg" -k ${{secrets.NUGET_API_KEY}} --skip-duplicate -s https://api.nuget.org/v3/index.json
             
       - name: create release
-        if: ${{ env.check_version_published == 'yes'}}
+        if: ${{ env.check_version_published == 'no'}}
         id: create_release
         uses: actions/create-release@v1
         env:
