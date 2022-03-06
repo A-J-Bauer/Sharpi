@@ -139,11 +139,13 @@ if (nugetVersions == null || nugetVersions.versions == null)
 if (nugetVersions.versions.Contains(version.Value))
 {
     Console.WriteLine("check_version_published=yes");
+    Console.WriteLine($"version={version.Value}");
     Environment.Exit(0);
 }
 else
 {
     Console.WriteLine("check_version_published=no");
+    Console.WriteLine($"version={version.Value}");
     Environment.Exit(0);
 }
 
