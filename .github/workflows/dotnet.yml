@@ -16,7 +16,7 @@ jobs:
              echo "check package exists"
              dotnet run --project .github/CheckVersionPublished/CheckVersionPublished.csproj Sharpi/Sharpi.csproj >> $GITHUB_ENV
             
-      - name: output environment variable check_version_published
+      - name: output environment variables
         run: |
              echo "${{ env.check_version_published }}"
              echo "${{ env.version }}"
@@ -35,13 +35,13 @@ jobs:
             dotnet nuget push "Sharpi/bin/ARM64/Sharpi.*.nupkg" -k ${{secrets.NUGET_API_KEY}} --skip-duplicate -s https://api.nuget.org/v3/index.json
             
       - name: create release
-        if: ${{ env.check_version_published == 'no'}}
+        if: ${{ env.check_version_published == 'yes'}}
         id: create_release
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ env.version }}
-          release_name: Latest          
+          tag_name: Latest
+          release_name: ${{ env.version }}
           draft: false
           prerelease: false
