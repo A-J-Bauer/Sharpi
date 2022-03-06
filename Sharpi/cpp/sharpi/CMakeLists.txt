@@ -25,6 +25,9 @@ add_library(sharpi SHARED
     SysPwm.cpp
     Info.h
     Info.cpp
+    Adc.h
+    AdcMcp3008.h
+    AdcMcp3008.cpp
 )
 
 target_include_directories(sharpi

@@ -13,6 +13,7 @@
 #include "DisplayDrm.h"
 #include "UsbWorker.h"
 #include "Info.h"
+#include "AdcMcp3008.h"
 
 #include "include/core/SkColor.h"
 #include "include/core/SkTypeface.h"
@@ -161,6 +162,20 @@ extern "C" {
 
 	SHARPI void info_get_memory(meminfo& mem);
 	
+	// adc common
+
+	typedef struct cadc cadc;
+
+	SHARPI const char* adc_get_description(cadc* handle);
+	SHARPI void adc_delete(cadc* handle);
+
+	// adc specific
+
+	// MCP3008
+	SHARPI cadc* adc_mcp3008_new(void);
+	SHARPI cadc* adc_mcp3008_new_x(const char* spiDevice);
+	SHARPI cadc* adc_mcp3008_new_x2(const char* spiDevice, int spiSpeedHz);	
+	SHARPI int adc_mcp3008_read(cadc* handle, int channel);
 
 #ifdef __cplusplus
 }

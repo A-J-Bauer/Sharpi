@@ -19,6 +19,7 @@ C# Library for 64 bit Raspberry Pi OS (aarch64)
 | [Display.Pcd8544](#displaypcd8544)| PCD8544 also known as Nokia screen
 | [Display.Ssd1351](#displayssd1351)| SSD1351 Oled 128x128 screen
 | [Display.Drm](#displaydrm)| Direct Rendering Manager DRM Display
+| [Adc.Mcp3008](#adcmcp3008)| MCP3008 analog digital converter
 | [Button](#button)| A debounced button with events
 | [UsbWorker](#usbworker)| A serial connector for hotplugging Arduinos
 | [Info](#info)| System information class
@@ -555,6 +556,77 @@ canvas.Dispose();
 bitmap.Dispose();
 font.Dispose();
 display.Dispose();
+```
+
+[Back to list](#classtable)
+
+<br/>
+
+## <a name="adcmcp3008"></a>Adc Mcp3008
+
+MCP3008 analog to digital converter (resolution 10 bit, 8 channels)
+
+```
+------------------------------------------------------------
+MCP3008 8-Channel 10-Bit A/D Converter
+       Microchip Technology Inc.
+
+config:
+
+  edit /boot/config.txt
+  dtparam=spi=on
+  dtoverlay=spi1-1cs (optional for SPI 2)
+
+wiring:
+
+       rpi physical pins
+
+  _0 for SPI 0 and _1 for SPI 1
+
+     3.3v -- 1   2  -- 5v
+             3   4  -- 5v
+             5   6  -- gnd
+             7   8
+     gnd --  9   10                       --__--
+            11   12 -- cs_1       ch0 -- | o    | -- vdd
+   rst_1 -- 13   14 -- gnd        ch1 -- |      | -- vref
+    dc_1 -- 15   16 -- dc_0       ch2 -- |      | -- a_gnd
+            17   18 -- rst_0      ch3 -- |      | -- clk
+   din_0 -- 19   20               ch4 -- |      | -- dout
+  dout_0 -- 21   22               ch5 -- |      | -- din
+   clk_0 -- 23   24 -- cs_0       ch6 -- |      | -- cs
+     gnd -- 25   26               ch7 -- |      | -- d_gnd
+            27   28                       ------
+            29   30
+            31   32
+            33   34
+            35   36
+            37   38 -- din_1
+            39   40 -- clk_1
+------------------------------------------------------------
+```
+
+Example:<br/>
+Read from channel 0, output the 10 bit value 0,..,1023 and the
+voltage corresponding to vref (assumed to be wired to 3.3V)
+
+```csharp
+using Sharpi;
+
+Adc.Mcp3008 mcp3008 = new Adc.Mcp3008();
+
+Console.WriteLine(mcp3008.Description);
+
+Console.WriteLine();
+while (!Console.KeyAvailable)
+{
+    Console.CursorTop -= 1;
+    int value = mcp3008.Read(0);
+    float volts = 3.3f / 1023 * value;
+    Console.WriteLine($"Reading {value} from channel 0 <=> {volts}V ");
+
+    Thread.Sleep(1000);
+}
 ```
 
 [Back to list](#classtable)

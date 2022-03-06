@@ -466,3 +466,41 @@ SHARPI void info_get_memory(meminfo& mem)
 {
 	return Info::GetMemory(mem.total, mem.vmsize, mem.rsize, mem.rshrd, mem.rprvt);
 }
+
+
+// adc common
+
+
+SHARPI const char* adc_get_description(cadc* handle)
+{
+	return ((Adc*)handle)->GetDescriptionC();
+}
+
+SHARPI void adc_delete(cadc* handle)
+{
+	delete ((Adc*)handle);
+}
+
+// adc specific
+
+// MCP3008
+
+SHARPI cadc* adc_mcp3008_new(void)
+{
+	return (cadc*)new AdcMcp3008;
+}
+
+SHARPI cadc* adc_mcp3008_new_x(const char* spiDevice)
+{
+	return (cadc*)new AdcMcp3008(string(spiDevice));
+}
+
+SHARPI cadc* adc_mcp3008_new_x2(const char* spiDevice, int spiSpeedHz)
+{
+	return (cadc*)new AdcMcp3008(string(spiDevice), spiSpeedHz);
+}
+
+SHARPI int adc_mcp3008_read(cadc* handle, int channel)
+{
+	return ((AdcMcp3008*)handle)->Read(channel);
+}
