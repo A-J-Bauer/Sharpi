@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Sharpi
 {
-    internal static partial class Native
+    public static partial class Adc
     {
-        // display (common interface)
+        // adc (common interface)
 
         [DllImport("sharpi")]
         [return: MarshalAs(UnmanagedType.LPStr)]
@@ -52,7 +52,7 @@ namespace Sharpi
         {
             if (_handle != IntPtr.Zero)
             {
-                Native.adc_delete(_handle);
+                Adc.adc_delete(_handle);
                 _handle = IntPtr.Zero;
             }
         }
@@ -63,7 +63,7 @@ namespace Sharpi
             {
                 if (_handle != IntPtr.Zero)
                 {
-                    return Native.adc_get_description(_handle);
+                    return Adc.adc_get_description(_handle);
                 }
                 else
                 {
@@ -74,7 +74,7 @@ namespace Sharpi
     }
 
 
-    public static class Adc
+    public static partial class Adc
     {
         public class Mcp3008 : AdcBase
         {
@@ -82,7 +82,7 @@ namespace Sharpi
             /// MCP3008 analog digital converter
             /// </summary>
             public Mcp3008()
-                : base(Native.adc_mcp3008_new())
+                : base(adc_mcp3008_new())
             {
             }
 
@@ -91,12 +91,12 @@ namespace Sharpi
             /// </summary>
             /// <param name="spiDevice">/dev/spidev0.0 or /dev/spidev1.0</param>                
             public Mcp3008(string spiDevice)
-            : base(Native.adc_mcp3008_new_x(spiDevice))
+            : base(adc_mcp3008_new_x(spiDevice))
             {
             }
 
             public Mcp3008(string spiDevice, int spiSpeedHz)
-                : base(Native.adc_mcp3008_new_x2(spiDevice, spiSpeedHz))
+                : base(adc_mcp3008_new_x2(spiDevice, spiSpeedHz))
             {
             }
 
@@ -107,7 +107,7 @@ namespace Sharpi
             /// <returns></returns>
             public int Read(byte channel)
             {
-                return Native.adc_mcp3008_read(_handle, channel);
+                return adc_mcp3008_read(_handle, channel);
             }
 
         }

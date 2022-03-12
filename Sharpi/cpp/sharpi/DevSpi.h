@@ -1,11 +1,21 @@
 #pragma once
 
+#include <stdio.h>
+#include <stdint.h>
+#include <fcntl.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <errno.h>
+#include <sys/ioctl.h>
+#include <string.h>
 #include <string>
 
-using namespace std;
+#include "include/linux/spi/spidev.h"
 
 #define DEVSPI_BUFSIZEDEFAULT 4096
 #define DEVSPI_BUFSIZEFILE "/sys/module/spidev/parameters/bufsiz"
+
+using namespace std;
 
 class DevSpi {
 public:      

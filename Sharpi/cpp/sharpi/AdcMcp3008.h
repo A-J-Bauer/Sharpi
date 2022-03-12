@@ -14,7 +14,7 @@ private:
     static string description;
 
 private:
-    static const string SPIDEVICE;    
+    static const string SPIDEVICE;
     static const int SPISPEEDHZ;
 
     string _spiDevice = SPIDEVICE;

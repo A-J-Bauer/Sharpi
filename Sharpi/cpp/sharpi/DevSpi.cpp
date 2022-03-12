@@ -1,14 +1,3 @@
-#include <stdio.h>
-#include <stdint.h>
-#include <fcntl.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <errno.h>
-#include <sys/ioctl.h>
-#include <string.h>
-
-#include "include/linux/spi/spidev.h"
-
 #include "DevSpi.h"
 
 uint32_t DevSpi::_bufsize = 0;
@@ -187,9 +176,3 @@ void DevSpi::Close()
         _fd = -1;
     }    
 }
-
-//
-//void DevSpi::Release()
-//{
-//    delete this;
-//}

@@ -19,10 +19,7 @@ public:
     static const int OUTPUT = 1;
     static const int INPUT_PULL_UP = 2;
     static const int INPUT_PULL_DOWN = 3;
-    static const int INPUT_UNKNOWN = 4;
-
-    /*static const int INPUT_PULLUP = 2;
-    static const int INPUT_PULLDOWN = 3;*/
+    static const int INPUT_UNKNOWN = 4;  
 
 public:
     static const char* gpiod_version;;
@@ -44,7 +41,6 @@ private:
 
     static bool Open(string device);
     static void Close();
-
     static bool Check(int line);
 
     static gpiod_line* lines[40];

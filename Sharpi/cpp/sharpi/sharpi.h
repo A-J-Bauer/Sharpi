@@ -14,6 +14,7 @@
 #include "UsbWorker.h"
 #include "Info.h"
 #include "AdcMcp3008.h"
+#include "SensorAmg8833.h"
 
 #include "include/core/SkColor.h"
 #include "include/core/SkTypeface.h"
@@ -176,6 +177,43 @@ extern "C" {
 	SHARPI cadc* adc_mcp3008_new_x(const char* spiDevice);
 	SHARPI cadc* adc_mcp3008_new_x2(const char* spiDevice, int spiSpeedHz);	
 	SHARPI int adc_mcp3008_read(cadc* handle, int channel);
+
+
+	// sensor common
+
+	typedef struct csensor csensor;
+
+	SHARPI const char* sensor_get_description(csensor* handle);
+	SHARPI void sensor_delete(csensor* handle);
+
+	// sensor specific
+
+	// AMG8833
+	SHARPI csensor* sensor_amg8833_new(uint8_t i2cAddress);
+	SHARPI csensor* sensor_amg8833_new_x(uint8_t i2cAddress, string i2cDevice);
+
+	SHARPI void sensor_amg8833_power_on(csensor* handle);
+	SHARPI void sensor_amg8833_power_off(csensor* handle);
+
+	SHARPI void sensor_amg8833_clear_status(csensor* handle, bool overflow, bool interrupt);
+	SHARPI void sensor_amg8833_get_status(csensor* handle, bool* overflow, bool* interrupt);
+
+	SHARPI void sensor_amg8833_set_moving_averag_emode(csensor* handle, bool on);
+
+	SHARPI void sensor_amg8833_set_interrupt(csensor* handle, uint8_t mode);
+	SHARPI void sensor_amg8833_set_interrupt_x(csensor* handle, uint8_t mode, float highTemp, float lowTemp);
+	SHARPI void sensor_amg8833_set_interrupt_x2(csensor* handle, uint8_t mode, float highTemp, float lowTemp, float hysteresis);
+
+	SHARPI void sensor_amg8833_readInterrupts(csensor* handle, uint8_t values[64]);
+	
+	SHARPI void sensor_amg8833_read_thermistor_short(csensor* handle, short* value);
+	SHARPI void sensor_amg8833_read_thermistor_float(csensor* handle, float* value);
+
+	SHARPI void sensor_amg8833_read_temperatures_short(csensor* handle, short values[64]);
+	SHARPI void sensor_amg8833_read_temperatures_float(csensor* handle, float values[64]);
+
+
+
 
 #ifdef __cplusplus
 }

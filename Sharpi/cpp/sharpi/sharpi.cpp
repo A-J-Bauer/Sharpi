@@ -470,7 +470,6 @@ SHARPI void info_get_memory(meminfo& mem)
 
 // adc common
 
-
 SHARPI const char* adc_get_description(cadc* handle)
 {
 	return ((Adc*)handle)->GetDescriptionC();
@@ -503,4 +502,100 @@ SHARPI cadc* adc_mcp3008_new_x2(const char* spiDevice, int spiSpeedHz)
 SHARPI int adc_mcp3008_read(cadc* handle, int channel)
 {
 	return ((AdcMcp3008*)handle)->Read(channel);
+}
+
+
+
+
+
+// sensor common
+
+typedef struct csensor csensor;
+
+SHARPI const char* sensor_get_description(csensor* handle)
+{
+	return ((Sensor*)handle)->GetDescriptionC();
+}
+
+SHARPI void sensor_delete(csensor* handle)
+{
+	delete ((Sensor*)handle);
+}
+
+// sensor specific
+
+// AMG8833
+SHARPI csensor* sensor_amg8833_new(uint8_t i2cAddress)
+{
+	return (csensor*)new SensorAmg8833(i2cAddress);
+}
+
+SHARPI csensor* sensor_amg8833_new_x(uint8_t i2cAddress, string i2cDevice)
+{
+	return (csensor*)new SensorAmg8833(i2cAddress, i2cDevice);
+}
+
+SHARPI void sensor_amg8833_power_on(csensor* handle)
+{
+	((SensorAmg8833*)handle)->PowerOn();
+}
+
+SHARPI void sensor_amg8833_power_off(csensor* handle)
+{
+	((SensorAmg8833*)handle)->PowerOff();
+}
+
+SHARPI void sensor_amg8833_clear_status(csensor* handle, bool overflow, bool interrupt)
+{
+	((SensorAmg8833*)handle)->ClearStatus(overflow, interrupt);
+}
+
+SHARPI void sensor_amg8833_get_status(csensor* handle, bool* overflow, bool* interrupt)
+{
+	((SensorAmg8833*)handle)->GetStatus(overflow, interrupt);
+}
+
+SHARPI void sensor_amg8833_set_moving_averag_emode(csensor* handle, bool on)
+{
+	((SensorAmg8833*)handle)->SetMovingAverageMode(on);
+}
+
+SHARPI void sensor_amg8833_set_interrupt(csensor* handle, uint8_t mode)
+{
+	((SensorAmg8833*)handle)->SetInterrupt((SensorAmg8833::InterruptMode)mode);
+}
+
+SHARPI void sensor_amg8833_set_interrupt_x(csensor* handle, uint8_t mode, float highTemp, float lowTemp)
+{
+	((SensorAmg8833*)handle)->SetInterrupt((SensorAmg8833::InterruptMode)mode, highTemp, lowTemp);
+}
+
+SHARPI void sensor_amg8833_set_interrupt_x2(csensor* handle, uint8_t mode, float highTemp, float lowTemp, float hysteresis)
+{
+	((SensorAmg8833*)handle)->SetInterrupt((SensorAmg8833::InterruptMode)mode, highTemp, lowTemp, hysteresis);
+}
+
+SHARPI void sensor_amg8833_readInterrupts(csensor* handle, uint8_t value[64])
+{	
+	((SensorAmg8833*)handle)->ReadInterrupts((uint8_t(*)[8])value);
+}
+
+SHARPI void sensor_amg8833_read_thermistor_short(csensor* handle, short* value)
+{
+	((SensorAmg8833*)handle)->ReadThermistorShort(value);
+}
+
+SHARPI void sensor_amg8833_read_thermistor_float(csensor* handle, float* value)
+{
+	((SensorAmg8833*)handle)->ReadThermistorFloat(value);
+}
+
+SHARPI void sensor_amg8833_read_temperatures_short(csensor* handle, short values[64])
+{
+	((SensorAmg8833*)handle)->ReadTemperaturesShort((short(*)[8])values);
+}
+
+SHARPI void sensor_amg8833_read_temperatures_float(csensor* handle, float values[64])
+{
+	((SensorAmg8833*)handle)->ReadTemperaturesFloat((float(*)[8])values);
 }

@@ -8,6 +8,8 @@ add_library(sharpi SHARED
     sharpi.cpp
     DevSpi.h
     DevSpi.cpp
+    DevI2c.h
+    DevI2c.cpp
     DevGpio.h
     DevGpio.cpp
     Display.h    
@@ -28,6 +30,9 @@ add_library(sharpi SHARED
     Adc.h
     AdcMcp3008.h
     AdcMcp3008.cpp
+    Sensor.h
+    SensorAmg8833.h
+    SensorAmg8833.cpp
 )
 
 target_include_directories(sharpi
@@ -35,13 +40,15 @@ PUBLIC
     "include"
     "skia"
     "gpiod/include"
-    "include/libdrm"    
+    "include/libdrm"
+    "i2c/include"    
 )
 
 target_link_directories(sharpi
 PUBLIC
     "skia/lib"
-    "gpiod/lib"    
+    "gpiod/lib"
+    "i2c/lib"
 )
 
 target_link_libraries(sharpi 
@@ -67,6 +74,7 @@ freetype
 fontconfig
 gpiod
 drm
+i2c
 )
 
 set_target_properties(sharpi PROPERTIES
@@ -82,8 +90,7 @@ add_executable(capi
 )
 
 target_link_libraries(capi 
- sharpi
- udev
+    sharpi
 )
 
 set_target_properties(capi

@@ -23,6 +23,7 @@ C# Library for 64 bit Raspberry Pi OS (aarch64)
 | [Button](#button)| A debounced button with events
 | [UsbWorker](#usbworker)| A serial connector for hotplugging Arduinos
 | [Info](#info)| System information class
+| [Sensor.Amg8833](#sensoramg8833)| AMG8833 infrared array sensor
 
 <br/>
 
@@ -403,7 +404,7 @@ display.Update();
 
 Thread.Sleep(2000); // or await Task.Delay(2000);
 
-// scrol the fonts bitmap
+// scroll the fonts bitmap
 Rect src = new Rect(0, 0, 128, 128);
 Rect dst = new Rect(0, 0, 128, 128);
 
@@ -909,6 +910,148 @@ while (!Console.KeyAvailable)
 
     Thread.Sleep(1000);
 }
+```
+
+[Back to list](#classtable)
+
+<br/>
+
+## <a name="sensoramg8833"></a>Sensor Amg8833
+
+AMG8833 Infrared array sensor also known as Grid-Eye
+
+```
+----------------------------------------------
+Amg8833 also known as Grid-Eye
+
+config:
+
+  edit /boot/config.txt
+  dtparam=i2c_arm=on,i2c_arm_baudrate=400000
+
+wiring:
+
+       rpi physical pins
+
+     vin --  1   2
+     sda --  3   4
+     scl --  5   6
+             7   8
+     gnd --  9   10            -------------
+   (int) -- 11   12      vin -|             |
+            13   14       3v -|     ---     |
+            15   16      gnd -|    |   |    |
+            17   18      sda -|    | # |    |
+            19   20      scl -|     ---     |
+            21   22      int -|             |
+            23   24            -------------
+            25   26
+            27   28
+            29   30
+            31   32
+            33   34
+            35   36
+            37   38
+            39   40
+
+----------------------------------------------
+```
+
+Example:<br/>
+Power on, output description, read thermistor (as temperature), 
+set interrupt high, low and small hysteresis. 
+Read grid temperatures and interrupts and output in a loop.
+Check if interrupt occured using function and output text if true 
+(also int pin has falling edge in this case).
+```
+Thermistor: 22.8125 °C
+
+
+                        +       +       +       +       +
+                        +       +       +       +       +
+                        +       +       +       +       +
+                +       +       +       +       +       +
++               +       +       +       +       +       +
++               +       +       +       +       +       +
++       +       +       +       +       +       +       +
+
+Interrupt occured
+
+23.25   25.25   24.25   24.75   25.25   25.75   25.25   24.25
+21.25   20.55   23.75   26.25   26.75   26.75   26.75   26.75
+19.55   20.25   21.55   27.25   27.25   27.75   27.55   27.25
+20.75   20.55   24.25   27.75   27.55   28.25   28.25   27.75
+25.75   21.55   26.25   28.25   28.75   28.25   28.75   27.55
+26.55   23.25   27.25   28.55   28.55   28.55   28.25   27.75
+27.55   25.25   28.25   28.25   28.75   28.75   28.55   28.25
+28.25   28.25   29.55   28.55   28.75   28.55   28.55   27.75
+```
+
+```csharp
+using Sharpi;
+
+Sensor.Amg8833 amg8833 = new Sensor.Amg8833(0x69);
+
+amg8833.PowerOn(); // 5.6 mA 
+
+Console.WriteLine(amg8833.Description);
+
+ float thermistor =  amg8833.ReadThermistor();
+
+Console.WriteLine($"Thermistor: {thermistor} °C");
+Console.WriteLine();
+
+amg8833.SetInterrupt(Sensor.Amg8833.InterruptMode.Absolute, 26, 10, 1);
+
+while (!Console.KeyAvailable)
+{
+    bool[,] ints = amg8833.ReadInterrupts();
+
+    for (int i = 0; i < 8; i++)
+    {
+        for (int j = 0; j < 8; j++)
+        {
+            Console.Write((ints[i, j] ? "+" : " ") + "\t");
+        }
+
+        Console.WriteLine();
+    }
+
+    Console.WriteLine();
+
+    if (amg8833.CheckInterrupt()) // alternatively the int pin can be checked for falling edge
+    {
+        Console.WriteLine("Interrupt occured");
+    }
+    else
+    {
+        Console.WriteLine("                 ");
+    }
+
+    Console.WriteLine();
+
+    float[,] temps = amg8833.ReadTemperatures();
+
+    for (int i = 0; i < 8; i++)
+    {
+        for (int j = 0; j < 8; j++)
+        {
+            Console.Write(temps[i, j] + "\t");
+        }
+
+        Console.WriteLine();
+    }
+
+    Console.CursorTop -= 19;
+    
+    Thread.Sleep(100);
+}
+
+Console.CursorTop += 19;
+
+amg8833.PowerOff(); // 0.55 mA
+
+amg8833.Dispose();
 ```
 
 [Back to list](#classtable)
