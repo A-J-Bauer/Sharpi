@@ -1062,6 +1062,8 @@ the sensor until a key is pressed. Finally save a screenshot.
 <img src="Sharpi/img/amg8833.png">
 
 ```csharp
+using Sharpi;
+
 Font font = new Font("DejaVu Sans", 42, Font.Edging.antialias);
 Paint paint = new Paint { Color = new Color(255, 255, 255) };
 
