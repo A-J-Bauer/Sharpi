@@ -10,6 +10,10 @@ namespace Sharpi
 
         [DllImport("sharpi")]
         internal static extern IntPtr skbitmap_new_from_file([MarshalAs(UnmanagedType.LPStr)] string path, out int widht, out int height);
+
+        [DllImport("sharpi")]
+        internal static extern bool skbitmap_encode_to_file([MarshalAs(UnmanagedType.LPStr)] string path, IntPtr bitmap, int format, int quality);
+
         [DllImport("sharpi")]
         internal static extern void skbitmap_delete(IntPtr bitmap);
     }
@@ -22,7 +26,16 @@ namespace Sharpi
         internal IntPtr handle = IntPtr.Zero;
         internal int _width;
         internal int _height;
-        
+     
+        public enum EncodingFormat
+        {
+            BMP = 0,
+            GIF = 1,            
+            JPEG = 3,
+            PNG = 4,            
+            DNG = 10
+        }
+
         internal Bitmap(IntPtr handle, int width, int height)
         {
             _width = width;
@@ -41,9 +54,7 @@ namespace Sharpi
 
         /// <summary>
         /// Constructor
-        /// </summary>
-        /// <param name="width">width of the bitmap</param>
-        /// <param name="height">height of the bitmap</param>
+        /// </summary>       
         public Bitmap(int width, int height)
         {
             _width = width;
@@ -66,6 +77,15 @@ namespace Sharpi
         {
             get { return _height; }            
         }
+
+        /// <summary>
+        /// save a bitmap to file using encode
+        /// </summary>        
+        public bool EncodeToFile(string path, EncodingFormat encoding, int quality = 50)
+        {
+            return Native.skbitmap_encode_to_file(path, handle, (int)encoding, quality);
+        }
+
 
         /// <summary>
         /// dispose

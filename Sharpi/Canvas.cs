@@ -2,7 +2,7 @@
 
 namespace Sharpi
 {
-    internal static partial class Native
+    internal static partial class Skia
     {
         [DllImport("sharpi")]
         internal static extern IntPtr skcanvas_new_from_bitmap(IntPtr bitmap);
@@ -25,7 +25,8 @@ namespace Sharpi
         [DllImport("sharpi")]
         internal static extern void skcanvas_draw_bitmap_rect(IntPtr handle, ref Rect src, ref Rect dst, IntPtr bitmap);
 
-
+        [DllImport("sharpi")]
+        internal static extern void skcanvas_draw_bitmap_rect_x(IntPtr handle, ref Rect src, ref Rect dst, IntPtr bitmap, int cubic);
     }
 
     public class Canvas : IDisposable
@@ -36,6 +37,12 @@ namespace Sharpi
         internal int _width;
         internal int _height;
 
+        public enum CubicSampling
+        {
+            CatmullRom = 0,
+            Mitchell = 1
+        }
+
         public Canvas(Bitmap bitmap)
         {
             if (bitmap != null)
@@ -43,7 +50,7 @@ namespace Sharpi
                 _bitmap = bitmap;
                 _width = bitmap._width;
                 _height = bitmap._height;
-                _handle = Native.skcanvas_new_from_bitmap(bitmap.handle);
+                _handle = Skia.skcanvas_new_from_bitmap(bitmap.handle);
             }            
         }
 
@@ -59,38 +66,43 @@ namespace Sharpi
 
         public void Clear(Color color)
         {
-            Native.skcanvas_clear(_handle, color.Argb8888);
+            Skia.skcanvas_clear(_handle, color.Argb8888);
         }
 
         public void DrawText(string text, float x, float y, Font font, Paint paint)
         {
-            Native.skcanvas_draw_text(_handle, text, (uint)text.Length, x, y, font.handle, paint.handle);
+            Skia.skcanvas_draw_text(_handle, text, (uint)text.Length, x, y, font.handle, paint.handle);
         }
 
         public void DrawLine(float x0, float y0, float x1, float y1, Paint paint)
         {
-            Native.skcanvas_draw_line(_handle, x0, y0, x1, y1, paint.handle);
+            Skia.skcanvas_draw_line(_handle, x0, y0, x1, y1, paint.handle);
         }
 
         public void DrawBitmap(Bitmap bitmap)
         {
-            Native.skcanvas_draw_bitmap(_handle, 0, 0, bitmap.handle);
+            Skia.skcanvas_draw_bitmap(_handle, 0, 0, bitmap.handle);
         }
 
         public void DrawBitmap(Bitmap bitmap, float x, float y)
         {
-            Native.skcanvas_draw_bitmap(_handle, x, y, bitmap.handle);
+            Skia.skcanvas_draw_bitmap(_handle, x, y, bitmap.handle);
         }
         public void DrawBitmap(Bitmap bitmap, Rect src, Rect dst)
         {
-            Native.skcanvas_draw_bitmap_rect(_handle, ref src, ref dst, bitmap.handle);
+            Skia.skcanvas_draw_bitmap_rect(_handle, ref src, ref dst, bitmap.handle);
+        }
+
+        public void DrawBitmap(Bitmap bitmap, Rect src, Rect dst, CubicSampling cubic)
+        {
+            Skia.skcanvas_draw_bitmap_rect_x(_handle, ref src, ref dst, bitmap.handle, (int)cubic);
         }
 
         public void Dispose()
         {
             if (_handle != IntPtr.Zero)
             {
-                Native.skcanvas_delete(_handle);
+                Skia.skcanvas_delete(_handle);
                 _handle = IntPtr.Zero;
 
                 if (_bitmap != null)

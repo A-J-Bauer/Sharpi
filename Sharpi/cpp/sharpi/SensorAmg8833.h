@@ -5,6 +5,9 @@
 #include <thread>
 #include <string>
 
+#include "include/core/SkCanvas.h"
+#include "include/core/SkBitmap.h"
+
 #include "Sensor.h"
 #include "DevI2c.h"
 
@@ -22,16 +25,17 @@ private:
 	string _i2cDevice = I2CDEVICE;
 	DevI2c* _devI2c = NULL;
 	uint8_t _i2cAddress;
-	
+	SkImageInfo _skImageInfo;
 
 public:
-
 	enum InterruptMode : uint8_t
 	{
 		None = 0x00,
 		Absolute = 0x01,
 		Difference = 0x02
 	};
+
+	SkBitmap skBitmap;
 
 public:		
 	SensorAmg8833(uint8_t i2cAddress);
@@ -48,6 +52,7 @@ public:
 	void GetStatus(bool* overflow, bool* interrupt);
 
 	void SetMovingAverageMode(bool on);
+	void SetFrameRate(bool high);
 
 	void SetInterrupt(InterruptMode interruptMode);
 	void SetInterrupt(InterruptMode interruptMode, float highTemp, float lowTemp);
@@ -60,6 +65,8 @@ public:
 
 	void ReadTemperaturesShort(short values[8][8]);
 	void ReadTemperaturesFloat(float values[8][8]);
+	
+	void UpdateTemperaturesBitmap(float minTemp, float maxTemp);
 
 public:
 	class Regs

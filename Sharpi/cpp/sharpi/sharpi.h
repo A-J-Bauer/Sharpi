@@ -16,6 +16,7 @@
 #include "AdcMcp3008.h"
 #include "SensorAmg8833.h"
 
+#include "include/core/SkImageEncoder.h"
 #include "include/core/SkColor.h"
 #include "include/core/SkTypeface.h"
 #include "include/core/SkFont.h"
@@ -68,6 +69,7 @@ extern "C" {
 
 	SHARPI cskia* skbitmap_new(int width, int height);
 	SHARPI cskia* skbitmap_new_from_file(const char* path, int* width, int* height);
+	SHARPI bool skbitmap_encode_to_file(const char* path, cskia* bitmap, int format, int quality);
 	SHARPI void skbitmap_delete(cskia* bitmap);
 
 	// canvas
@@ -80,6 +82,7 @@ extern "C" {
 	SHARPI void skcanvas_draw_line(cskia* canvas, float x0, float y0, float x1, float y1, cskia* paint);
 	SHARPI void skcanvas_draw_bitmap(cskia* canvas, float x, float y, cskia* bitmap);
 	SHARPI void skcanvas_draw_bitmap_rect(cskia* canvas, rect& src, rect& dst, cskia* bitmap);
+	SHARPI void skcanvas_draw_bitmap_rect_x(cskia* canvas, rect& src, rect& dst, cskia* bitmap, int cubic);
 
 	// gpio
 	
@@ -198,7 +201,8 @@ extern "C" {
 	SHARPI void sensor_amg8833_clear_status(csensor* handle, bool overflow, bool interrupt);
 	SHARPI void sensor_amg8833_get_status(csensor* handle, bool* overflow, bool* interrupt);
 
-	SHARPI void sensor_amg8833_set_moving_averag_emode(csensor* handle, bool on);
+	SHARPI void sensor_amg8833_set_moving_average_emode(csensor* handle, bool on);
+	SHARPI void sensor_amg8833_set_frame_rate(csensor* handle, bool high);
 
 	SHARPI void sensor_amg8833_set_interrupt(csensor* handle, uint8_t mode);
 	SHARPI void sensor_amg8833_set_interrupt_x(csensor* handle, uint8_t mode, float highTemp, float lowTemp);
@@ -211,7 +215,9 @@ extern "C" {
 
 	SHARPI void sensor_amg8833_read_temperatures_short(csensor* handle, short values[64]);
 	SHARPI void sensor_amg8833_read_temperatures_float(csensor* handle, float values[64]);
-
+	SHARPI void sensor_amg8833_update_temperatures_bitmap(csensor* handle, float minTemp, float maxTemp);
+	SHARPI cskia* sensor_amg8833_get_bitmap(csensor* handle, int* width, int* height);
+	
 
 
 

@@ -63,6 +63,9 @@ SensorAmg8833::SensorAmg8833(uint8_t i2cAddress, string i2cDevice)
 {
 	_i2cAddress = i2cAddress;
 	_i2cDevice = i2cDevice;
+
+	_skImageInfo = SkImageInfo::Make(8, 8, SkColorType::kBGRA_8888_SkColorType, SkAlphaType::kPremul_SkAlphaType);
+	skBitmap.allocPixels(_skImageInfo);	
 }
 
 const char* SensorAmg8833::GetDescriptionC()
@@ -132,6 +135,13 @@ void SensorAmg8833::SetMovingAverageMode(bool on)
 	if (_devI2c == NULL) { return; };
 
 	_devI2c->WriteRegU8(Regs::AVE_RW::addr, on ? Regs::AVE_RW::MovingAverageMode::on : Regs::AVE_RW::MovingAverageMode::off);
+}
+
+void SensorAmg8833::SetFrameRate(bool high)
+{
+	if (_devI2c == NULL) { return; };
+
+	_devI2c->WriteRegU8(Regs::FPSC_RW::addr, high ? Regs::FPSC_RW::FramesPerSecond::fps10 : Regs::FPSC_RW::FramesPerSecond::fps1);
 }
 
 void SensorAmg8833::SetInterrupt(InterruptMode interruptMode)
@@ -270,6 +280,37 @@ void SensorAmg8833::ReadTemperaturesFloat(float values[8][8])
 	}
 }
 
+void SensorAmg8833::UpdateTemperaturesBitmap(float minTemp, float maxTemp)
+{
+	if (minTemp > maxTemp) { return; };
+
+	float values[8][8];
+	ReadTemperaturesFloat(values);
+	
+	SkScalar hsv[3] = {0, 1, 0.7}; // hue in [0,..,360)	, saturation and value in [0,..,1]
+
+	float temp;
+	float range = maxTemp - minTemp;
+
+	SkColor color;
+
+
+	SkColor* pixel = (SkColor *)(skBitmap.getPixels());
+
+	for (int i = 0; i < 8; i++)
+	{
+		for (int j = 0; j < 8; j++)
+		{			
+			temp = max(min(values[i][j], maxTemp), minTemp);
+
+			hsv[0] = 256 *((minTemp - temp) / range + 1);
+
+			*pixel = SkHSVToColor(hsv);
+			pixel++;			
+		}
+	}	
+}
+
 void SensorAmg8833::ConvThermistorRegToShort(short* val, uint8_t regVal[2])
 {	
 	*val = ((short)(regVal[1] & 0x07) << 8) | regVal[0];
@@ -309,4 +350,8 @@ short SensorAmg8833::ConvFloatToShort(float value)
 float SensorAmg8833::ConvShortToFloat(short value)
 {
 	return((float)value / 256.0f);
+}
+
+void ReadTemperaturesBitmap(SkBitmap* bitmap)
+{
 }

@@ -4,9 +4,8 @@
 
 C# Library for 64 bit Raspberry Pi OS (aarch64)
 
-- Older Pi models are/will not be supported
-- Legacy raspbian or 32 bit versions are/will not be supported
-- Scripting languages are/will not be supported 
+- Older Pi models not supported
+- Legacy raspbian or 32 bit versions not supported
 - Physical header pin numbers 1,2,..,40 are used
 
 # <a name="classtable">
@@ -433,7 +432,6 @@ display.Dispose();
 
 <br/>
 
-<br/>
 
 ## <a name="displaydrm"></a>Display DRM
 
@@ -957,7 +955,7 @@ wiring:
 ----------------------------------------------
 ```
 
-Example:<br/>
+Example 1:<br/>
 Power on, output description, read thermistor (as temperature), 
 set interrupt high, low and small hysteresis. 
 Read grid temperatures and interrupts and output in a loop.
@@ -1053,6 +1051,55 @@ amg8833.PowerOff(); // 0.55 mA
 
 amg8833.Dispose();
 ```
+
+<br/>
+
+Example 2:<br/>
+
+Use the [Drm Display](#displaydrm) (HDMI monitor) to output scaled images of the heatmap returned by
+the sensor until a key is pressed. Finally save a screenshot.
+
+<img src="Sharpi/img/amg8833.png">
+
+```csharp
+Font font = new Font("DejaVu Sans", 42, Font.Edging.antialias);
+Paint paint = new Paint { Color = new Color(255, 255, 255) };
+
+Display.Drm display = new Display.Drm();
+Bitmap bitmap = display.GetBitmap();
+Canvas canvas = new Canvas(bitmap);
+display.PowerOn();
+
+Sensor.Amg8833 amg8833 = new Sensor.Amg8833(0x69);
+amg8833.PowerOn();
+
+while (!Console.KeyAvailable)
+{
+    Bitmap heatmap = amg8833.ReadHeatMap(20, 30 );
+    canvas.DrawText("Standard", 50, 50, font, paint);
+    canvas.DrawBitmap(heatmap, new Rect(0, 0, 7, 7), new Rect(50, 70, 305, 305));
+
+    canvas.DrawText("CatmullRom", 400, 50, font, paint);
+    canvas.DrawBitmap(heatmap, new Rect(0, 0, 7, 7), new Rect(400, 70, 655, 305), Canvas.CubicSampling.CatmullRom);
+
+    canvas.DrawText("Mitchell", 750, 50, font, paint);
+    canvas.DrawBitmap(heatmap, new Rect(0, 0, 7, 7), new Rect(750, 70, 1005, 305), Canvas.CubicSampling.Mitchell);
+
+    display.Update();
+    Thread.Sleep(100);
+}
+
+ bitmap.EncodeToFile("./screenshot.png", Bitmap.EncodingFormat.PNG);
+
+amg8833.PowerOff();
+
+amg8833.Dispose();
+
+display.PowerOff();
+
+display.Dispose();
+```
+
 
 [Back to list](#classtable)
 

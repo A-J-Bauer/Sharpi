@@ -172,6 +172,18 @@ SHARPI cskia* skbitmap_new_from_file(const char* path, int* width, int* height)
 	return (cskia*)skBitmap;
 }
 
+SHARPI bool skbitmap_encode_to_file(const char* path, cskia* bitmap, int format, int quality)
+{	
+	SkFILEWStream skFILEWStream(path);
+	if (!skFILEWStream.isValid())
+	{
+		return false;
+	}
+	
+	return SkEncodeImage(&skFILEWStream, *(SkBitmap*)bitmap, (SkEncodedImageFormat)format, quality);
+}
+
+
 SHARPI void skbitmap_delete(cskia* bitmap)
 {
 	if (bitmap != NULL)
@@ -230,6 +242,17 @@ SHARPI void skcanvas_draw_bitmap_rect(cskia* canvas, rect& src, rect& dst, cskia
 	}
 }
 
+SHARPI void skcanvas_draw_bitmap_rect_x(cskia* canvas, rect& src, rect& dst, cskia* bitmap, int cubic)
+{
+	if (bitmap != NULL)
+	{
+		sk_sp<SkImage> skImage = SkImage::MakeFromBitmap(*(SkBitmap*)bitmap);
+		SkRect skSrc = SkRect::MakeLTRB(src.left, src.top, src.right, src.bottom);
+		SkRect skDst = SkRect::MakeLTRB(dst.left, dst.top, dst.right, dst.bottom);
+		SkCubicResampler skCubicResampler(cubic == 0 ? SkCubicResampler::CatmullRom() : SkCubicResampler::Mitchell());
+		((SkCanvas*)canvas)->drawImageRect(skImage, skSrc, skDst, SkSamplingOptions(skCubicResampler), nullptr, SkCanvas::kStrict_SrcRectConstraint);
+	}
+}
 
 // gpio
 
@@ -555,9 +578,14 @@ SHARPI void sensor_amg8833_get_status(csensor* handle, bool* overflow, bool* int
 	((SensorAmg8833*)handle)->GetStatus(overflow, interrupt);
 }
 
-SHARPI void sensor_amg8833_set_moving_averag_emode(csensor* handle, bool on)
+SHARPI void sensor_amg8833_set_moving_average_emode(csensor* handle, bool on)
 {
 	((SensorAmg8833*)handle)->SetMovingAverageMode(on);
+}
+
+SHARPI void sensor_amg8833_set_frame_rate(csensor* handle, bool high)
+{
+	((SensorAmg8833*)handle)->SetFrameRate(high);
 }
 
 SHARPI void sensor_amg8833_set_interrupt(csensor* handle, uint8_t mode)
@@ -598,4 +626,17 @@ SHARPI void sensor_amg8833_read_temperatures_short(csensor* handle, short values
 SHARPI void sensor_amg8833_read_temperatures_float(csensor* handle, float values[64])
 {
 	((SensorAmg8833*)handle)->ReadTemperaturesFloat((float(*)[8])values);
+}
+
+SHARPI void sensor_amg8833_update_temperatures_bitmap(csensor* handle, float minTemp, float maxTemp)
+{
+	((SensorAmg8833*)handle)->UpdateTemperaturesBitmap(minTemp, maxTemp);	
+}
+
+SHARPI cskia* sensor_amg8833_get_bitmap(csensor* handle, int* width, int* height)
+{
+	SkBitmap* skBitmap = &((SensorAmg8833*)handle)->skBitmap;
+	*width = skBitmap->width();
+	*height = skBitmap->height();
+	return (cskia*)(skBitmap);
 }

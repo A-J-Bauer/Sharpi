@@ -250,8 +250,6 @@ namespace Sharpi
             {
             }
 
-
-
             public void SetBrightness(int zerotofour)
             {
                 Native.display_tm1637_set_brightness(_handle, zerotofour);

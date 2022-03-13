@@ -117,7 +117,7 @@ DisplaySsd1351::DisplaySsd1351(string spiDevice, unsigned char rotation, int spi
 
 	skImageInfo = SkImageInfo::Make(128, 128, SkColorType::kRGB_565_SkColorType, SkAlphaType::kPremul_SkAlphaType);
 	skBitmap.allocPixels(skImageInfo);
-
+	
 	switch (_rotation % 4)
 	{
 	case 0:
