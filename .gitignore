@@ -362,7 +362,11 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 
+# git rm -r --cached <dir>
+# git rm --cached <file>
+
 /test/
+Sharpi/cpp/CMakeSettings.json
 Sharpi/cpp/sharpi/main.cpp
 Sharpi/cpp/sharpi/include/
 Sharpi/cpp/sharpi/skia/
