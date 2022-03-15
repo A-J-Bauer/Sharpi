@@ -362,5 +362,9 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 
-/test
+/test/
 Sharpi/cpp/sharpi/main.cpp
+Sharpi/cpp/sharpi/include/
+Sharpi/cpp/sharpi/skia/
+Sharpi/cpp/sharpi/gpiod/
+Sharpi/cpp/sharpi/i2c/

@@ -1055,7 +1055,6 @@ amg8833.Dispose();
 <br/>
 
 Example 2:<br/>
-
 Use the [Drm Display](#displaydrm) (HDMI monitor) to output scaled images of the heatmap returned by
 the sensor until a key is pressed. Finally save a screenshot.
 
@@ -1091,7 +1090,7 @@ while (!Console.KeyAvailable)
     Thread.Sleep(100);
 }
 
- bitmap.EncodeToFile("./screenshot.png", Bitmap.EncodingFormat.PNG);
+bitmap.EncodeToFile("./screenshot.png", Bitmap.EncodingFormat.PNG);
 
 amg8833.PowerOff();
 
