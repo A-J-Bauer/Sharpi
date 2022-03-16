@@ -8,6 +8,7 @@ C# Library for 64 bit Raspberry Pi OS (aarch64)
 - Legacy raspbian or 32 bit versions not supported
 - Physical header pin numbers 1,2,..,40 are used
 
+
 # <a name="classtable">
 | Class|Description
 | ----------- | ----------- |
@@ -464,8 +465,8 @@ to do the same.*
 
 Direct Rendering Manager DRM Display
 
-config:
- nothing to do
+prerequisite:
+    sudo apt install libdrm-dev
 
 wiring:
  connect a monitor (to HDMI)

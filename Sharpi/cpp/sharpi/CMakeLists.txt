@@ -52,8 +52,8 @@ PUBLIC
 )
 
 target_link_libraries(sharpi 
+# static .a
 pthread
-
 jpeg
 png
 z
@@ -73,8 +73,9 @@ svg
 freetype
 fontconfig
 gpiod
-drm
 i2c
+# shared .so
+drm
 )
 
 set_target_properties(sharpi PROPERTIES
