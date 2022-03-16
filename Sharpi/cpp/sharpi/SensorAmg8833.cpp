@@ -351,7 +351,3 @@ float SensorAmg8833::ConvShortToFloat(short value)
 {
 	return((float)value / 256.0f);
 }
-
-void ReadTemperaturesBitmap(SkBitmap* bitmap)
-{
-}

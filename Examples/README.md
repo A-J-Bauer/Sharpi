@@ -2,9 +2,9 @@
 
 # Examples
 
-- All examples are intended to be used with 64 bit Visual Studio
-- WSL needs to be installed
-- Windows Terminal is not needed but highly recommended.
+- All examples are intended to be used with 64 bit [Visual Studio](https://visualstudio.microsoft.com/downloads/)
+- [WSL](https://docs.microsoft.com/en-us/windows/wsl/install) needs to be installed
+- [Windows Terminal](https://github.com/microsoft/terminal) is not needed but highly recommended.
 
 ## .csproj
 The .csproj file for each 
@@ -37,7 +37,8 @@ Informational only - Nothing to change.
 
 ## postbuild.bat
 
-The batch file is given the $(TargetDir) as input from Visual Studio and transformed into a linux compatible path.
+The batch file is given the $(TargetDir) as input from Visual Studio and is transformed into a linux compatible path.
+The converted path is used as source for the linux rsync command run by the WSL.
 
 The remotefolder is where the executable and all necessary files are copied into.
 

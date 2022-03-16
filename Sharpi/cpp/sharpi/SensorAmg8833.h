@@ -21,7 +21,7 @@ private:
 
 private:
 	static const string I2CDEVICE;
-	
+
 	string _i2cDevice = I2CDEVICE;
 	DevI2c* _devI2c = NULL;
 	uint8_t _i2cAddress;
@@ -37,11 +37,11 @@ public:
 
 	SkBitmap skBitmap;
 
-public:		
+public:
 	SensorAmg8833(uint8_t i2cAddress);
 	SensorAmg8833(uint8_t i2cAddress, string i2cDevice);
 	~SensorAmg8833();
-	
+
 	string GetDescription();
 	const char* GetDescriptionC();
 
@@ -65,7 +65,7 @@ public:
 
 	void ReadTemperaturesShort(short values[8][8]);
 	void ReadTemperaturesFloat(float values[8][8]);
-	
+
 	void UpdateTemperaturesBitmap(float minTemp, float maxTemp);
 
 public:
@@ -307,12 +307,8 @@ private:
 	void ConvThermistorRegToShort(short* val, uint8_t regVal[2]);
 	void ConvTemperatureRegToShort(short* val, uint8_t regVal[2]);
 	void ConvTemperatureShortToReg(uint8_t regVal[2], short val);
-	
+
 	short ConvFloatToShort(float value);
 	float ConvShortToFloat(short value);
-
-
-
-	
 
 };

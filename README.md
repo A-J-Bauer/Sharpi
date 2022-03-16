@@ -855,6 +855,9 @@ usbWorker2.Dispose();
 System information class
 
 ```
+CPU/GPU/SoC temp: 45.3 °C
+CPU/GPU/SoC temp: 113.5 °F
+
 Hostname: raspberrypi
 SoC     : BCM2835
 Model   : Raspberry Pi 4 Model B Rev 1.4
