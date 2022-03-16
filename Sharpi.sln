@@ -19,6 +19,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "button", "Examples\button\b
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "test", "test\test.csproj", "{5EDA8335-9A5B-41E3-BE27-A95A8FD402C9}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "displaydrm", "Examples\displaydrm\displaydrm.csproj", "{6FE8AE9B-C416-4984-BB2B-34AFDC057C59}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|ARM64 = Debug|ARM64
@@ -41,6 +43,10 @@ Global
 		{5EDA8335-9A5B-41E3-BE27-A95A8FD402C9}.Debug|ARM64.Build.0 = Debug|ARM64
 		{5EDA8335-9A5B-41E3-BE27-A95A8FD402C9}.Release|ARM64.ActiveCfg = Release|ARM64
 		{5EDA8335-9A5B-41E3-BE27-A95A8FD402C9}.Release|ARM64.Build.0 = Release|ARM64
+		{6FE8AE9B-C416-4984-BB2B-34AFDC057C59}.Debug|ARM64.ActiveCfg = Debug|ARM64
+		{6FE8AE9B-C416-4984-BB2B-34AFDC057C59}.Debug|ARM64.Build.0 = Debug|ARM64
+		{6FE8AE9B-C416-4984-BB2B-34AFDC057C59}.Release|ARM64.ActiveCfg = Release|ARM64
+		{6FE8AE9B-C416-4984-BB2B-34AFDC057C59}.Release|ARM64.Build.0 = Release|ARM64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -48,6 +54,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{DE0EAA45-23B9-4A0F-855A-E6C8B1168A77} = {ACA550CE-3A24-417B-8AF8-CC7759B7DE22}
 		{4D2F191B-5112-4247-AEEA-57124CDD9DEE} = {ACA550CE-3A24-417B-8AF8-CC7759B7DE22}
+		{6FE8AE9B-C416-4984-BB2B-34AFDC057C59} = {ACA550CE-3A24-417B-8AF8-CC7759B7DE22}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {118CEC9A-4943-44E5-80AA-420632CBFDF8}
