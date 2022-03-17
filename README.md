@@ -864,11 +864,11 @@ SoC     : BCM2835
 Model   : Raspberry Pi 4 Model B Rev 1.4
 
 Memory:
-TOTAL   :  3886092.0 kB (3.0 gB)
-VIRT    :  2985496.0 kB (2915.0 MB)
-RES     :    35912.0 kB
-SHR     :    29016.0 kB
-PRVT    :     6896.0 kB
+TOTAL   :  3886092.0 KiB (3.0 GiB)
+VIRT    :  2985496.0 KiB (2915.0 MiB)
+RES     :    35912.0 KiB
+SHR     :    29016.0 KiB
+PRVT    :     6896.0 KiB
 ```
 
 Example:<br/>
@@ -904,11 +904,11 @@ while (!Console.KeyAvailable)
 
     Console.CursorTop -= 6;
     Console.WriteLine("Memory:");
-    Console.WriteLine($"TOTAL   : {memInfo.Total / 1024,10:F1} kB ({memInfo.Total / (1024 * 1024 * 1024),0:F1} gB)");
-    Console.WriteLine($"VIRT    : {memInfo.VirtualSize / 1024,10:F1} kB ({memInfo.VirtualSize / (1024 * 1024),0:F1} MB)");
-    Console.WriteLine($"RES     : {memInfo.ResidentSize / 1024,10:F1} kB");
-    Console.WriteLine($"SHR     : {memInfo.ResidentShared / 1024,10:F1} kB");
-    Console.WriteLine($"PRVT    : {memInfo.ResidentPrivate / 1024,10:F1} kB");
+    Console.WriteLine($"TOTAL   : {memInfo.Total / 1024,10:F1} KiB ({memInfo.Total / (1024 * 1024 * 1024),0:F1} GiB)");
+    Console.WriteLine($"VIRT    : {memInfo.VirtualSize / 1024,10:F1} KiB ({memInfo.VirtualSize / (1024 * 1024),0:F1} MiB)");
+    Console.WriteLine($"RES     : {memInfo.ResidentSize / 1024,10:F1} KiB");
+    Console.WriteLine($"SHR     : {memInfo.ResidentShared / 1024,10:F1} KiB");
+    Console.WriteLine($"PRVT    : {memInfo.ResidentPrivate / 1024,10:F1} KiB");
 
     Thread.Sleep(1000);
 }
