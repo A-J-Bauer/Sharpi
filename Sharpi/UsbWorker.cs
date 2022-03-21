@@ -35,8 +35,8 @@ namespace Sharpi
             "   |        Pi        USB |---       -----------   " + Environment.NewLine +
             "   |                      |   |      -----------   " + Environment.NewLine +
             "    ----------------------     -----|  Arduino  |  " + Environment.NewLine +
-            "                                     -----------  " + Environment.NewLine +
-            "                                                    " + Environment.NewLine;
+            "                                     -----------   " + Environment.NewLine +
+            "                                                   " + Environment.NewLine;
 
         private DataCallbackDelegate dataCallback;
         private StateCallbackDelegate stateCallback;

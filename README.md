@@ -4,11 +4,6 @@
 
 C# Library for 64 bit Raspberry Pi OS (aarch64)
 
-- Older Pi models not supported
-- Legacy raspbian or 32 bit versions not supported
-- Physical header pin numbers 1,2,..,40 are used
-
-
 # <a name="classtable">
 | Class|Description
 | ----------- | ----------- |
@@ -24,6 +19,7 @@ C# Library for 64 bit Raspberry Pi OS (aarch64)
 | [UsbWorker](#usbworker)| A serial connector for hotplugging Arduinos
 | [Info](#info)| System information class
 | [Sensor.Amg8833](#sensoramg8833)| AMG8833 infrared array sensor
+| [Sensor.Ir28khz](#sensorir28khz)| A remote control infrared sensor
 
 <br/>
 
@@ -41,7 +37,8 @@ A simple light emitting diode
     ---- 220Ω ----|  ------
 ```
 
-Example:<br/>
+Example:
+
 Power on the led connected to pin 11 (put in series 
 to a 220 Ω current limiting resistor and ground) for 1 second.
 
@@ -105,7 +102,8 @@ Passive buzzer with variable frequency
     --------------   ------
 ```
 
-Example:<br/>
+Example:
+
 Play some music on a passive piezo buzzer connected to the PWM0 pin.
 
 ```csharp
@@ -176,7 +174,8 @@ supported characters:
   ":'-0123456789ACEFLOPSbdr°
 ```
 
-Example:<br/>
+Example:
+
 Rotate the display 180 degrees, set brightness level, show text.
 
 ```csharp
@@ -258,7 +257,8 @@ wiring:
             39   40
 ```
 
-Example:<br/>
+Example:
+
 Output 'Hello' on the screen using the Nimbus font.
 
 ```csharp
@@ -351,7 +351,8 @@ wiring:
             39   40 -- clk_1            
 ```
 
-Example:<br/>
+Example:
+
 Show a bitmap loaded from a file and scroll the names of available fonts.
 
 ```csharp
@@ -475,7 +476,8 @@ not working if a window manager is currently claiming the display.
 
 ```
 
-Example:<br/> 
+Example:
+
 Output scrolling text with some UTF-8 characters, 
 load and display a test bitmap, measure text for positioning and show the
 current time with outlined text, draw a test line from top/left to bottom/right.
@@ -606,7 +608,8 @@ wiring:
 ------------------------------------------------------------
 ```
 
-Example:<br/>
+Example:
+
 Read from channel 0, output the 10 bit value 0,..,1023 and the
 voltage corresponding to vref (assumed to be wired to 3.3V)
 
@@ -654,7 +657,8 @@ A debounced button with events
       resistor      button
 ```
 
-Example:<br/>
+Example:
+
 Use automatic updates with events and use internal pulldown.
 
 ```csharp
@@ -706,7 +710,8 @@ A serial connector for hotplugging Arduinos
 
 ```
 
-Example Arduino:<br/>
+Example Arduino:
+
 
 Send ULC in the loop to identify the device, listen to commands
 "on" or "off", turn on or off the onboard led and send "Led on" / "Led off" accordingly.
@@ -778,7 +783,8 @@ void loop()
 }
 
 ```
-Example:<br/>
+Example:
+
 Add two UsbWorkers, add event handlers and wait for user commands.
 
 ```csharp
@@ -871,7 +877,8 @@ SHR     :    29016.0 KiB
 PRVT    :     6896.0 KiB
 ```
 
-Example:<br/>
+Example:
+
 Print temperature, hostname, SoC, revision, 
 serial number and model name to standard output.
 Additionally output memory information in a loop while producing a
@@ -959,7 +966,8 @@ wiring:
 ----------------------------------------------
 ```
 
-Example 1:<br/>
+Example 1:
+
 Power on, output description, read thermistor (as temperature), 
 set interrupt high, low and small hysteresis. 
 Read grid temperatures and interrupts and output in a loop.
@@ -1058,7 +1066,8 @@ amg8833.Dispose();
 
 <br/>
 
-Example 2:<br/>
+Example 2:
+
 Use the [Drm Display](#displaydrm) (HDMI monitor) to output scaled images of the heatmap returned by
 the sensor until a key is pressed. Finally save a screenshot.
 
@@ -1109,3 +1118,93 @@ display.Dispose();
 [Back to list](#classtable)
 
 <br/>
+
+## <a name="sensorir28khz"></a>Sensor Ir28khz
+
+A remote control infrared sensor
+
+```
+----------------------------------------------
+Infrared sensor (receiver module), 38khz
+
+config:
+
+  nothing to do
+
+wiring:
+
+       rpi physical pins
+
+    3.3V --  1   2
+             3   4
+             5   6
+             7   8          ---------
+     gnd --  9   10        |  -----  |
+   (dat) -- 11   12        | |     | |
+            13   14        |  -----  |
+            15   16         ---------
+            17   18          |  |  |
+            19   20        dat gnd 3.3V
+            21   22
+            23   24
+            25   26
+            27   28
+            29   30
+            31   32
+            33   34
+            35   36
+            37   38
+            39   40
+
+----------------------------------------------
+```
+
+Example:
+
+Add an event handler, output description, power on and receive NEC codes from a remote control.
+
+```
+0xBF00 0x1A
+0xBF00 0x1A
+0xBF00 0x1B
+0xBF00 0x1B
+0xBF00 0x1B
+0xBF00 0x1B
+0xBF00 0x5A
+0xBF00 0x6
+0xBF00 0x6
+0xBF00 0x6
+0xBF00 0x46
+0xBF00 0x44
+```
+
+```csharp
+using Sharpi;
+
+void Sensor_NewNec(object sender, Sensor.Ir28khz.NecEventArgs e)
+{
+    Console.WriteLine($"0x{e.Address,4:X4} 0x{e.Command,2:X2}");
+}
+
+
+Sensor.Ir28khz sensor = new Sensor.Ir28khz(11, true);
+
+sensor.NewNec += Sensor_NewNec;
+
+Console.WriteLine(sensor.Description);
+
+sensor.PowerOn();
+
+while (!Console.KeyAvailable)
+{
+    Thread.Sleep(100);
+}
+
+sensor.PowerOff();
+
+sensor.NewNec -= Sensor_NewNec;
+
+sensor.Dispose();
+```
+
+[Back to list](#classtable)

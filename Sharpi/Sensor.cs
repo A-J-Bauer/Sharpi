@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Sharpi
 {
-    internal static partial class Native
+    public partial class Sensor
     {
         // sensor (common interface)
 
@@ -76,8 +76,20 @@ namespace Sharpi
         internal static extern void sensor_amg8833_update_temperatures_bitmap(IntPtr sensor, float minTemp, float maxTemp);
 
         [DllImport("sharpi")]
-        internal static extern IntPtr sensor_amg8833_get_bitmap(IntPtr display, out int width, out int height);        
+        internal static extern IntPtr sensor_amg8833_get_bitmap(IntPtr display, out int width, out int height);
 
+        // IR28KHZ
+
+        private delegate void NecCallbackDelegate(ushort address, ushort command);
+
+        [DllImport("sharpi")]
+        private static extern IntPtr sensor_ir28khz_new(int pin, bool activeLow, NecCallbackDelegate callback);
+
+        [DllImport("sharpi")]
+        private static extern void sensor_ir28khz_power_on(IntPtr sensor);
+
+        [DllImport("sharpi")]
+        private static extern void sensor_ir28khz_power_off(IntPtr sensor);
     }
 
     // sensor
@@ -95,7 +107,7 @@ namespace Sharpi
         {
             if (_handle != IntPtr.Zero)
             {
-                Native.sensor_delete(_handle);
+                Sensor.sensor_delete(_handle);
                 _handle = IntPtr.Zero;
             }
         }
@@ -106,7 +118,7 @@ namespace Sharpi
             {
                 if (_handle != IntPtr.Zero)
                 {
-                    return Native.sensor_get_description(_handle);
+                    return Sensor.sensor_get_description(_handle);
                 }
                 else
                 {
@@ -132,23 +144,23 @@ namespace Sharpi
             /// AMG8833 grid-eye
             /// </summary>
             public Amg8833(byte i2caddress)
-                : base(Native.sensor_amg8833_new(i2caddress))
+                : base(sensor_amg8833_new(i2caddress))
             {
             }
           
             public Amg8833(byte i2caddress, string i2cdevice)
-                : base(Native.sensor_amg8833_new_x(i2caddress, i2cdevice))
+                : base(sensor_amg8833_new_x(i2caddress, i2cdevice))
             {
             }
 
             public void PowerOn()
             {
-                Native.sensor_amg8833_power_on(_handle);
+                sensor_amg8833_power_on(_handle);
             }
 
             public void PowerOff()
             {
-                Native.sensor_amg8833_power_off(_handle);
+                sensor_amg8833_power_off(_handle);
             }
 
             //public void ClearStatus(bool overflow, bool interrupt)
@@ -160,7 +172,7 @@ namespace Sharpi
             {
                 bool overflow = false;
                 bool interrupt = false;
-                Native.sensor_amg8833_get_status(_handle, out overflow, out interrupt);
+                sensor_amg8833_get_status(_handle, out overflow, out interrupt);
                 return interrupt;
             }
 
@@ -168,33 +180,33 @@ namespace Sharpi
             {
                 bool overflow = false;
                 bool interrupt = false;
-                Native.sensor_amg8833_get_status(_handle, out overflow, out interrupt);
+                sensor_amg8833_get_status(_handle, out overflow, out interrupt);
                 return overflow;
             }
 
             public void SetAverageMode(bool on)
             {
-                Native.sensor_amg8833_set_moving_average_emode(_handle, on);
+                sensor_amg8833_set_moving_average_emode(_handle, on);
             }
 
             public void SetFrameRate(bool high)
             {
-                Native.sensor_amg8833_set_frame_rate(_handle, high);
+                sensor_amg8833_set_frame_rate(_handle, high);
             }
 
             public void SetInterrupt(InterruptMode mode)
             {
-                Native.sensor_amg8833_set_interrupt(_handle, (byte)mode);
+                sensor_amg8833_set_interrupt(_handle, (byte)mode);
             }
 
             public void SetInterrupt(InterruptMode mode, float highTemp, float lowTemp)
             {
-                Native.sensor_amg8833_set_interrupt_x(_handle, (byte)mode, highTemp, lowTemp);
+                sensor_amg8833_set_interrupt_x(_handle, (byte)mode, highTemp, lowTemp);
             }
 
             public void SetInterrupt(InterruptMode mode, float highTemp, float lowTemp, float hysteresis)
             {
-                Native.sensor_amg8833_set_interrupt_x2(_handle, (byte)mode, highTemp, lowTemp, hysteresis);
+                sensor_amg8833_set_interrupt_x2(_handle, (byte)mode, highTemp, lowTemp, hysteresis);
             }
 
             public bool[,] ReadInterrupts()
@@ -202,7 +214,7 @@ namespace Sharpi
                 bool[,] values = new bool[8,8];
                 byte[] nvalues = new byte[64];
 
-                Native.sensor_amg8833_readInterrupts(_handle, nvalues);
+                sensor_amg8833_readInterrupts(_handle, nvalues);
                 for (int i = 0; i < 8; i++)
                 {
                     for (int j = 0; j < 8; j++)
@@ -217,7 +229,7 @@ namespace Sharpi
             public float ReadThermistor()
             {
                 float value = 0;
-                Native.sensor_amg8833_read_thermistor_float(_handle, out value);
+                sensor_amg8833_read_thermistor_float(_handle, out value);
                 return value;
             }
 
@@ -226,7 +238,7 @@ namespace Sharpi
                 float[,] values = new float[8,8];
                 float[] nvalues = new float[64];
 
-                Native.sensor_amg8833_read_temperatures_float(_handle, nvalues);
+                sensor_amg8833_read_temperatures_float(_handle, nvalues);
                 for (int i = 0; i < 8; i++)
                 {
                     for (int j = 0; j < 8; j++)
@@ -241,13 +253,49 @@ namespace Sharpi
             public Bitmap ReadHeatMap(float minTemp, float maxTemp)
             {
                 IntPtr bitmap = IntPtr.Zero;
-                Native.sensor_amg8833_update_temperatures_bitmap(_handle, minTemp, maxTemp);
+                sensor_amg8833_update_temperatures_bitmap(_handle, minTemp, maxTemp);
                 int width;
                 int height;
-                IntPtr handle = Native.sensor_amg8833_get_bitmap(_handle, out width, out height);
+                IntPtr handle = sensor_amg8833_get_bitmap(_handle, out width, out height);
                 return new Bitmap(handle, width, height);
             }
 
+        }
+    
+        public class Ir28khz : SensorBase
+        {
+            private NecCallbackDelegate necCallback;
+
+            public class NecEventArgs
+            {                
+                public NecEventArgs(ushort address, ushort command) { Address = address; Command = command; }
+                public ushort Address { get; }
+                public ushort Command { get; }
+            }
+            public delegate void NecDelegate(object sender, NecEventArgs e);
+            public event NecDelegate? NewNec;
+
+            private void NecCallback(ushort address, ushort command)
+            {
+                NewNec?.Invoke(this, new NecEventArgs(address, command));
+            }
+
+            public Ir28khz(int pin, bool activeLow):
+                base(IntPtr.Zero)
+            {
+                necCallback = new NecCallbackDelegate(NecCallback);
+                _handle = sensor_ir28khz_new(pin, activeLow, necCallback);
+            }
+
+            public void PowerOn()
+            {
+                sensor_ir28khz_power_on(_handle);
+            }
+
+            public void PowerOff()
+            {
+                sensor_ir28khz_power_off(_handle);
+            }
         }
     }
 

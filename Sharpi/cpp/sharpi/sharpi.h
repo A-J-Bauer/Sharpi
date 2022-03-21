@@ -15,6 +15,7 @@
 #include "Info.h"
 #include "AdcMcp3008.h"
 #include "SensorAmg8833.h"
+#include "SensorIr28khz.h"
 
 #include "include/core/SkImageEncoder.h"
 #include "include/core/SkColor.h"
@@ -218,8 +219,9 @@ extern "C" {
 	SHARPI void sensor_amg8833_update_temperatures_bitmap(csensor* handle, float minTemp, float maxTemp);
 	SHARPI cskia* sensor_amg8833_get_bitmap(csensor* handle, int* width, int* height);
 	
-
-
+	SHARPI csensor* sensor_ir28khz_new(int pin, bool activeLow, void(*callback_nec)(uint16_t, uint16_t));
+	SHARPI void sensor_ir28khz_power_on(csensor* handle);
+	SHARPI void sensor_ir28khz_power_off(csensor* handle);
 
 #ifdef __cplusplus
 }

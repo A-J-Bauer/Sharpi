@@ -13,6 +13,8 @@ public:
     virtual ~Sensor() {};
     virtual std::string GetDescription() = 0;
     virtual const char* GetDescriptionC() = 0;
+    virtual void PowerOn() = 0;
+    virtual void PowerOff() = 0;
 };
 
 

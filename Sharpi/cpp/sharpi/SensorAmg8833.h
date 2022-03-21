@@ -5,7 +5,6 @@
 #include <thread>
 #include <string>
 
-#include "include/core/SkCanvas.h"
 #include "include/core/SkBitmap.h"
 
 #include "Sensor.h"

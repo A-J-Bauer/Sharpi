@@ -141,9 +141,6 @@ int DevGpio::GetPinMode(int pin)
     return -1;
 }
 
-
-
-
 void DevGpio::DigitalWrite(int pin, bool value)
 {
     int line = J8Gpio(pin);
@@ -165,7 +162,6 @@ bool DevGpio::DigitalRead(int pin)
     
     return gpiod_line_get_value(lines[line]) == 1;
 }
-
 
 int DevGpio::J8Gpio(int pin)
 {	

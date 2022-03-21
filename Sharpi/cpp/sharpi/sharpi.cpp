@@ -640,3 +640,21 @@ SHARPI cskia* sensor_amg8833_get_bitmap(csensor* handle, int* width, int* height
 	*height = skBitmap->height();
 	return (cskia*)(skBitmap);
 }
+
+
+// IR28KHZ
+
+SHARPI csensor* sensor_ir28khz_new(int pin, bool activeLow, void(*callback_nec)(uint16_t, uint16_t))
+{
+	return (csensor*)new SensorIr28khz(pin, activeLow, callback_nec);	
+}
+
+SHARPI void sensor_ir28khz_power_on(csensor* handle)
+{
+	((SensorIr28khz*)handle)->PowerOn();
+}
+
+SHARPI void sensor_ir28khz_power_off(csensor* handle)
+{
+	((SensorIr28khz*)handle)->PowerOff();
+}

@@ -48,7 +48,6 @@ SensorAmg8833::~SensorAmg8833()
 
 string SensorAmg8833::GetDescription()
 {
-
 	return description;
 };
 

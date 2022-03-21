@@ -44,7 +44,7 @@ private:
     
     thread worker;
     atomic<bool> sendBEmpty = true;
-    atomic<bool> stop = false;       
+    atomic<bool> stop = false;
             
 public:
     UsbWorker(int deviceId, int baud, int deadAfterMs, function<void(char*)> callback_data, function<void(int)> callback_state);
