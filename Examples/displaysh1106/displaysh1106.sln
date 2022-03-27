@@ -1,0 +1,29 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32319.34
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "displaysh1106", "displaysh1106.csproj", "{154A9E57-65E8-48E6-ABB1-2937497295AA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|ARM64 = Debug|ARM64
+		Release|Any CPU = Release|Any CPU
+		Release|ARM64 = Release|ARM64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{154A9E57-65E8-48E6-ABB1-2937497295AA}.Debug|Any CPU.ActiveCfg = Debug|ARM64
+		{154A9E57-65E8-48E6-ABB1-2937497295AA}.Debug|ARM64.ActiveCfg = Debug|ARM64
+		{154A9E57-65E8-48E6-ABB1-2937497295AA}.Debug|ARM64.Build.0 = Debug|ARM64
+		{154A9E57-65E8-48E6-ABB1-2937497295AA}.Release|Any CPU.ActiveCfg = Release|ARM64
+		{154A9E57-65E8-48E6-ABB1-2937497295AA}.Release|ARM64.ActiveCfg = Release|ARM64
+		{154A9E57-65E8-48E6-ABB1-2937497295AA}.Release|ARM64.Build.0 = Release|ARM64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2CC89E64-EF42-4396-85D0-FB961A0F610D}
+	EndGlobalSection
+EndGlobal

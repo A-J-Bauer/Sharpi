@@ -406,7 +406,7 @@ Example:
 At the top show a 16x16 pixel logo, the hostname and a voltage indicator.
 Show cpu temperature, date, time and on the right show an alive animation or a flat line.
 
-<img src="Sharpi/img/sh1106.gif" style="border-top:15px solid #255163; border-bottom:15px solid #255163">
+<img src="Sharpi/img/sh1106.gif">
 
 ```csharp
 using Sharpi;
