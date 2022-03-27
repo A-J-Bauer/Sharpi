@@ -7,10 +7,11 @@
 #include "DevGpio.h"
 #include "SysPwm.h"
 #include "DevSpi.h"
+#include "DisplayDrm.h"
 #include "DisplayPcd8544.h"
+#include "DisplaySh1106.h"
 #include "DisplaySsd1351.h"
 #include "DisplayTm1637.h"
-#include "DisplayDrm.h"
 #include "UsbWorker.h"
 #include "Info.h"
 #include "AdcMcp3008.h"
@@ -121,10 +122,24 @@ extern "C" {
 
 	// display specific
 
+	// drm
+	SHARPI cdisplay* display_drm_new(void);
+	SHARPI cskia* display_drm_get_bitmap(cdisplay* handle, int* width, int* height);
+	/*SHARPI unsigned short display_drm_get_width(cdisplay* handle);
+	SHARPI unsigned short display_drm_get_height(cdisplay* handle);*/
+
 	// PCD8544
 	SHARPI cdisplay* display_pcd8544_new(void);
 	SHARPI cdisplay* display_pcd8544_new_x(const char* spiDevice, int spiSpeedHz, int powerPin, int dataPin, int resetPin);
 	SHARPI cskia* display_pcd8544_get_bitmap(cdisplay* handle, int* width, int* height);
+
+	// SH1106
+	SHARPI cdisplay* display_sh1106_new();	
+	SHARPI cdisplay* display_sh1106_new_x(uint8_t i2cAddress, bool rotation, uint8_t contrast);
+	SHARPI cdisplay* display_sh1106_new_x2(uint8_t i2cAddress, bool rotation, uint8_t contrast, string i2cDevice);
+	SHARPI cskia* display_sh1106_get_bitmap(cdisplay* handle, int* width, int* height);
+	SHARPI void display_sh1106_set_brightness(cdisplay* handle, uint8_t brightness);
+	SHARPI void display_sh1106_set_rotation(cdisplay* handle, bool rotation);
 
 	// SSD1351
 	SHARPI cdisplay* display_ssd1351_new(void);
@@ -135,15 +150,10 @@ extern "C" {
 	// TM1637
 	SHARPI cdisplay* display_tm1637_new(void);
 	SHARPI cdisplay* display_tm1637_new_x(int powerPin, int dataPin, int clockPin);
-	SHARPI void display_tm1637_set_brightness(cdisplay* display, int zerotofour);
-	SHARPI void display_tm1637_set_rotation(cdisplay* display, bool rotate);
-	SHARPI void display_tm1637_set_text(cdisplay* display, const char * text);
+	SHARPI void display_tm1637_set_brightness(cdisplay* handle, int zerotofour);
+	SHARPI void display_tm1637_set_rotation(cdisplay* handle, bool rotate);
+	SHARPI void display_tm1637_set_text(cdisplay* handle, const char * text);
 
-	// drm
-	SHARPI cdisplay* display_drm_new(void);	
-	SHARPI cskia* display_drm_get_bitmap(cdisplay* handle, int* width, int* height);
-	/*SHARPI unsigned short display_drm_get_width(cdisplay* handle);
-	SHARPI unsigned short display_drm_get_height(cdisplay* handle);*/
 
 
 	// usb worker

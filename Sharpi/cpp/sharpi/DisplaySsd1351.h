@@ -18,8 +18,7 @@ private:
 private:
     static const string SPIDEVICE;
     static const int UNDEFINED_PIN;
-    static const int SPISPEEDHZ;
-    static const int POWERPIN[2];
+    static const int SPISPEEDHZ;    
     static const int DATAPIN[2]; // low command, high data
     static const int RESETPIN[2];
     
@@ -62,8 +61,8 @@ private:
     unsigned char _cmddata[128 * 128 * 2];
     unsigned char _565[128 * 128 * 2];
 
-    DevSpi* devSpi = NULL;
-    SkImageInfo skImageInfo;
+    DevSpi* _devSpi = NULL;
+    SkImageInfo _skImageInfo;
 
 private:
     void Send(SSD1351_CMD cmd, unsigned char *data, size_t size);

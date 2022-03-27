@@ -1,6 +1,6 @@
 #include "DisplayPcd8544.h"
 
-string DisplayPcd8544::description = {
+string DisplayPcd8544::description =
 "-----------------------------------------\n"
 "PCD8544 also known as Nokia screen       \n"
 "                                         \n"
@@ -34,7 +34,7 @@ string DisplayPcd8544::description = {
 "            37   38                      \n"
 "            39   40                      \n"
 "-----------------------------------------\n"
-};
+;
 
 string DisplayPcd8544::GetDescription() {
 	

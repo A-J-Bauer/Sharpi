@@ -10,10 +10,11 @@ C# Library for 64 bit Raspberry Pi OS (aarch64)
 | [Led](#led) | A simple red, green, blue, yellow or white led
 | [Buzzer.Active](#buzzeractive) | Active buzzer (fixed frequency)
 | [Buzzer.Passive](#buzzerpassive)| Passive buzzer (variable frequency)
-| [Display.Tm1637](#displaytm1637)| A 4-digit 7-segment display
-| [Display.Pcd8544](#displaypcd8544)| PCD8544 also known as Nokia screen
-| [Display.Ssd1351](#displayssd1351)| SSD1351 Oled 128x128 screen
 | [Display.Drm](#displaydrm)| Direct Rendering Manager DRM Display
+| [Display.Pcd8544](#displaypcd8544)| PCD8544 also known as Nokia screen
+| [Display.Sh1106](#displaysh1106)| SH1106 Oled 128x64 screen
+| [Display.Ssd1351](#displayssd1351)| SSD1351 Oled 128x128 screen
+| [Display.Tm1637](#displaytm1637)| A 4-digit 7-segment display
 | [Adc.Mcp3008](#adcmcp3008)| MCP3008 analog digital converter
 | [Button](#button)| A debounced button with events
 | [UsbWorker](#usbworker)| A serial connector for hotplugging Arduinos
@@ -138,71 +139,128 @@ passive.Dispose();
 
 <br/>
 
-## <a name="displaytm1637"></a>Display TM1637
+## <a name="displaydrm"></a>Display DRM
 
-A 4-digit 7-segment display
+Direct Rendering Manager DRM Display
+
+
+
+*If you have the desktop installed on the pi this can only work if your window manager is not claiming the display at the moment.
+If the desktop is showing, you need to switch to a virtual terminal. If you are using ssh,
+you can **ch**ange **v**irtual **t**erminal with `sudo chvt 1` and back to the desktop 
+with `sudo chvt 7` or you can use a connected keyboard and key combinations `ctrl+alt+F1` and `ctrl+alt+F7`
+to do the same.*
+
 
 ```
-  _   _     _   _
- |_| |_| # |_| |_|
- |_| |_| # |_| |_|
+                         1920 (variable)
+   ----------------------------------------------------    
+  | |                                                | |
+  | |                                                | |
+  | |                                                | |  
+  | |                                                | |
+  | |                                                | |
+  | |                                                | |  1080 (variable)
+  | |                                                | |
+  | |                                                | |
+  | |                                                | |
+  | |                                                | |  
+  | |                                                | |
+   ----------------------------------------------------    
 
-TM1637 7 segment LCD Titan Micro Elec.
+Direct Rendering Manager DRM Display
 
-             1   2
-             3   4
-             5   6  -- gnd
-             7   8
-     gnd --  9   10
-            11   12
-            13   14 -- gnd
-     vcc -- 15   16 -- dio
-            17   18 -- clk
-            19   20
-            21   22
-            23   24
-     gnd -- 25   26
-            27   28
-            29   30
-            31   32
-            33   34
-            35   36
-            37   38
-            39   40
+prerequisite:
+    sudo apt install libdrm-dev
 
-supported characters:
-  ":'-0123456789ACEFLOPSbdr°
+wiring:
+ connect a monitor (to HDMI)
+
+not working if a window manager is currently claiming the display.                    
+
 ```
 
 Example:
 
-Rotate the display 180 degrees, set brightness level, show text.
+Output scrolling text with some UTF-8 characters, 
+load and display a test bitmap, measure text for positioning and show the
+current time with outlined text, draw a test line from top/left to bottom/right.
 
 ```csharp
 using Sharpi;
 
-Display.Tm1637 display = new Display.Tm1637();
+Display.Drm display = new Display.Drm();
 
 Console.WriteLine(display.Description);
 
-display.SetRotation(true);
-display.SetBrightness(2);
+Font font = new Font("DejaVu Sans", 250, Font.Edging.antialias);
 
-display.SetText("20°C");
-Thread.Sleep(1000);
+Bitmap bitmap = display.GetBitmap();
 
-display.SetText("11:30");
-Thread.Sleep(1000);
+Canvas canvas = new Canvas(bitmap);
 
-display.SetText("1234");
-Thread.Sleep(1000);
+Color color = new Color(0, 255, 255);
 
-display.SetText("  42");
-Thread.Sleep(1000);
+Paint paint1 = new Paint();
+paint1.Color = new Color(255, 255, 255);
 
-display.SetText("42  ");
-Thread.Sleep(1000);
+Paint paint2 = new Paint()
+{
+    Color = new Color(0, 0, 0),
+    Stroke = true,
+    StrokeWidth = 5.0f,
+    AntiAlias = true
+};
 
+display.PowerOn();
+
+canvas.Clear(color);
+display.Update();
+
+double fps = 0;
+string fpsStr = "";
+Stopwatch stopwatchFps = new Stopwatch();
+stopwatchFps.Start();
+for (uint i = 0; i < 1000; i += 10)
+{
+    fpsStr = $"Aöü: {fps:0.#}";
+    canvas.Clear(color);    
+    canvas.DrawText(fpsStr, i, 300, font, paint1);
+    canvas.DrawText(fpsStr, i, 300, font, paint2);
+    display.Update();
+
+    fps = 1000.0f / stopwatchFps.ElapsedMilliseconds;
+    stopwatchFps.Restart();
+}
+
+Thread.Sleep(2000);
+
+Rect rect = font.MeasureText("00:00:00");
+float x = (canvas.Width - rect.Width) / 2 - rect.Left;
+float y = (canvas.Height - rect.Height) / 2 - rect.Top;
+
+Bitmap testBitmap = new Bitmap("test.png");
+
+DateTime time;
+while (!Console.KeyAvailable)
+{
+    time = DateTime.Now;
+    Thread.Sleep((ushort)(1000 - time.Millisecond));
+    canvas.Clear(color);
+    canvas.DrawBitmap(testBitmap, 0, 0);
+    canvas.DrawText(time.ToString("HH:mm:ss"), x, y, font, paint1);
+    canvas.DrawText(time.ToString("HH:mm:ss"), x, y, font, paint2);
+    canvas.DrawLine(0, 0, 1920, 1080, paint1);
+    display.Update();
+}
+
+display.PowerOff();
+
+paint2.Dispose();
+paint1.Dispose();
+canvas.Dispose();
+bitmap.Dispose();
+font.Dispose();
 display.Dispose();
 ```
 
@@ -296,6 +354,153 @@ canvas.Dispose();
 bitmap.Dispose();
 font.Dispose();
 display.Dispose();
+```
+
+[Back to list](#classtable)
+
+<br/>
+
+## <a name="displaysh1106"></a>Display SH1106
+
+SH1106 Oled 128x64 screen
+
+```
+----------------------------------------------
+SH1106 Oled 128x64 screen (I2c)
+
+config:
+
+  edit /boot/config.txt
+  dtparam=i2c_arm=on,i2c_arm_baudrate=400000
+
+wiring:
+
+       rpi physical pins
+
+     vdd --  1   2
+     sda --  3   4
+     scl --  5   6
+             7   8             -------------
+     gnd --  9   10           | |         | |
+            11   12      sda -| |         | |
+            13   14      sck -| |         | |
+            15   16      gnd -| |         | |
+            17   18      vdd -| |         | |
+            19   20           | |         | |
+            21   22            -------------
+            23   24
+            25   26
+            27   28
+            29   30
+            31   32
+            33   34
+            35   36
+            37   38
+            39   40
+
+----------------------------------------------
+```
+
+Example:
+
+At the top show a 16x16 pixel logo, the hostname and a voltage indicator.
+Show cpu temperature, date, time and on the right show an alive animation or a flat line.
+
+<img src="Sharpi/img/sh1106.gif" style="border-top:15px solid #255163; border-bottom:15px solid #255163">
+
+```csharp
+using Sharpi;
+
+// load some bitmaps
+Bitmap logo =new Bitmap("logo16x16.bmp");
+Bitmap[] alive16x16 = new Bitmap[8];
+for (int i = 0; i < alive16x16.Count(); i++)
+{
+    alive16x16[i] = new Bitmap($"alive{i}_16x10.bmp");
+}
+Bitmap flatline = new Bitmap("flatline16x10.bmp");
+Bitmap voltage8x12 = new Bitmap("voltage8x12.bmp");
+
+// create display
+Display.Sh1106 display = new Display.Sh1106();
+
+Console.WriteLine(display.Description);
+
+display.PowerOn();
+
+Font font = new Font("Libertine", 11, Font.Edging.alias);
+
+Paint paint = new Paint()
+{
+    Color = new Color(255, 255, 255),
+};
+
+Bitmap bitmap = display.GetBitmap();
+
+Canvas canvas = new Canvas(bitmap);
+
+Color black = new Color(0, 0, 0);
+
+DateTime Now = DateTime.Now;
+int second = Now.Second;
+bool[] isAlive = { true, false, true};
+bool voltage = true;
+string hostname = Info.GetHostname();
+int count = 0;
+
+while (!Console.KeyAvailable)
+{
+    Now = DateTime.Now;
+
+    if (second != Now.Second)
+    {
+        canvas.Clear(black);
+        canvas.DrawBitmap(logo);
+
+        canvas.DrawText("d1", 93, 32, font, paint);
+        canvas.DrawBitmap(isAlive[0] ? alive16x16[second % 8] : flatline, 112, 20);
+
+        canvas.DrawText("d2", 93, 48, font, paint);
+        canvas.DrawBitmap(isAlive[1] ? alive16x16[second % 8] : flatline, 112, 36);
+
+        canvas.DrawText("d3", 93, 64, font, paint);
+        canvas.DrawBitmap(isAlive[2] ? alive16x16[second % 8] : flatline, 112, 52);
+
+        if (voltage)
+        {
+            canvas.DrawBitmap(voltage8x12, 116, 0);
+        }
+
+        canvas.DrawText(hostname, 26, 12, font, paint);
+        canvas.DrawText($"{Math.Round(Info.GetTemperature())}°C", 0, 32, font, paint);
+        canvas.DrawText(Now.ToString("yyyy-MM-dd"), 0, 48, font, paint);
+        canvas.DrawText(Now.ToString("HH:mm:ss"), 0, 64, font, paint);
+
+        // create 8 screenshots / capture first 8 frames
+        // to create a gif: ffmpeg -i -framerate 1 screen%02d.png sh1106.gif
+        if (count < 8)
+        {
+            bitmap.EncodeToFile($"./screen{count,2:D2}.png", Bitmap.EncodingFormat.PNG);
+            count++;
+        }
+
+        display.Update();
+
+        second = Now.Second;
+    }
+
+    Thread.Sleep(50);
+}
+
+display.Dispose();
+
+
+for (int i = 0; i < alive16x16.Count(); i++)
+{
+    alive16x16[i].Dispose();
+}
+flatline.Dispose();
+voltage8x12.Dispose();
 ```
 
 [Back to list](#classtable)
@@ -434,129 +639,71 @@ display.Dispose();
 
 <br/>
 
+## <a name="displaytm1637"></a>Display TM1637
 
-## <a name="displaydrm"></a>Display DRM
-
-Direct Rendering Manager DRM Display
-
-
-
-*If you have the desktop installed on the pi this can only work if your window manager is not claiming the display at the moment.
-If the desktop is showing, you need to switch to a virtual terminal. If you are using ssh,
-you can **ch**ange **v**irtual **t**erminal with `sudo chvt 1` and back to the desktop 
-with `sudo chvt 7` or you can use a connected keyboard and key combinations `ctrl+alt+F1` and `ctrl+alt+F7`
-to do the same.*
-
+A 4-digit 7-segment display
 
 ```
-                         1920 (variable)
-   ----------------------------------------------------    
-  | |                                                | |
-  | |                                                | |
-  | |                                                | |  
-  | |                                                | |
-  | |                                                | |
-  | |                                                | |  1080 (variable)
-  | |                                                | |
-  | |                                                | |
-  | |                                                | |
-  | |                                                | |  
-  | |                                                | |
-   ----------------------------------------------------    
+  _   _     _   _
+ |_| |_| # |_| |_|
+ |_| |_| # |_| |_|
 
-Direct Rendering Manager DRM Display
+TM1637 7 segment LCD Titan Micro Elec.
 
-prerequisite:
-    sudo apt install libdrm-dev
+             1   2
+             3   4
+             5   6  -- gnd
+             7   8
+     gnd --  9   10
+            11   12
+            13   14 -- gnd
+     vcc -- 15   16 -- dio
+            17   18 -- clk
+            19   20
+            21   22
+            23   24
+     gnd -- 25   26
+            27   28
+            29   30
+            31   32
+            33   34
+            35   36
+            37   38
+            39   40
 
-wiring:
- connect a monitor (to HDMI)
-
-not working if a window manager is currently claiming the display.                    
-
+supported characters:
+  ":'-0123456789ACEFLOPSbdr°
 ```
 
 Example:
 
-Output scrolling text with some UTF-8 characters, 
-load and display a test bitmap, measure text for positioning and show the
-current time with outlined text, draw a test line from top/left to bottom/right.
+Rotate the display 180 degrees, set brightness level, show text.
 
 ```csharp
 using Sharpi;
 
-Display.Drm display = new Display.Drm();
+Display.Tm1637 display = new Display.Tm1637();
 
 Console.WriteLine(display.Description);
 
-Font font = new Font("DejaVu Sans", 250, Font.Edging.antialias);
+display.SetRotation(true);
+display.SetBrightness(2);
 
-Bitmap bitmap = display.GetBitmap();
+display.SetText("20°C");
+Thread.Sleep(1000);
 
-Canvas canvas = new Canvas(bitmap);
+display.SetText("11:30");
+Thread.Sleep(1000);
 
-Color color = new Color(0, 255, 255);
+display.SetText("1234");
+Thread.Sleep(1000);
 
-Paint paint1 = new Paint();
-paint1.Color = new Color(255, 255, 255);
+display.SetText("  42");
+Thread.Sleep(1000);
 
-Paint paint2 = new Paint()
-{
-    Color = new Color(0, 0, 0),
-    Stroke = true,
-    StrokeWidth = 5.0f,
-    AntiAlias = true
-};
+display.SetText("42  ");
+Thread.Sleep(1000);
 
-display.PowerOn();
-
-canvas.Clear(color);
-display.Update();
-
-double fps = 0;
-string fpsStr = "";
-Stopwatch stopwatchFps = new Stopwatch();
-stopwatchFps.Start();
-for (uint i = 0; i < 1000; i += 10)
-{
-    fpsStr = $"Aöü: {fps:0.#}";
-    canvas.Clear(color);    
-    canvas.DrawText(fpsStr, i, 300, font, paint1);
-    canvas.DrawText(fpsStr, i, 300, font, paint2);
-    display.Update();
-
-    fps = 1000.0f / stopwatchFps.ElapsedMilliseconds;
-    stopwatchFps.Restart();
-}
-
-Thread.Sleep(2000);
-
-Rect rect = font.MeasureText("00:00:00");
-float x = (canvas.Width - rect.Width) / 2 - rect.Left;
-float y = (canvas.Height - rect.Height) / 2 - rect.Top;
-
-Bitmap testBitmap = new Bitmap("test.png");
-
-DateTime time;
-while (!Console.KeyAvailable)
-{
-    time = DateTime.Now;
-    Thread.Sleep((ushort)(1000 - time.Millisecond));
-    canvas.Clear(color);
-    canvas.DrawBitmap(testBitmap, 0, 0);
-    canvas.DrawText(time.ToString("HH:mm:ss"), x, y, font, paint1);
-    canvas.DrawText(time.ToString("HH:mm:ss"), x, y, font, paint2);
-    canvas.DrawLine(0, 0, 1920, 1080, paint1);
-    display.Update();
-}
-
-display.PowerOff();
-
-paint2.Dispose();
-paint1.Dispose();
-canvas.Dispose();
-bitmap.Dispose();
-font.Dispose();
 display.Dispose();
 ```
 

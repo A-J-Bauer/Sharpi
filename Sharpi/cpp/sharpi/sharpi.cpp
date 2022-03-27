@@ -366,6 +366,30 @@ SHARPI void display_delete(cdisplay* handle) {
 
 // display specific
 
+// DRM
+SHARPI cdisplay* display_drm_new(void)
+{
+	return (cdisplay*)new DisplayDrm();
+}
+
+SHARPI cskia* display_drm_get_bitmap(cdisplay* handle, int* width, int* height)
+{
+	SkBitmap* skBitmap = &((DisplayDrm*)handle)->skBitmap;
+	*width = skBitmap->width();
+	*height = skBitmap->height();
+	return (cskia*)(skBitmap);
+}
+
+//SHARPI unsigned short display_drm_get_width(cdisplay* handle)
+//{
+//	return ((DisplayDrm*)handle)->width;
+//}
+//
+//SHARPI unsigned short display_drm_get_height(cdisplay* handle)
+//{
+//	return ((DisplayDrm*)handle)->height;
+//}
+
 
 // PCD8544
 SHARPI cdisplay* display_pcd8544_new()
@@ -385,6 +409,43 @@ SHARPI cskia* display_pcd8544_get_bitmap(cdisplay* handle, int* width, int* heig
 	*height = skBitmap->height();
 	return (cskia*)(skBitmap);
 }
+
+
+// SH1106
+SHARPI cdisplay* display_sh1106_new()
+{
+	return (cdisplay*)new DisplaySh1106;
+}
+
+SHARPI cdisplay* display_sh1106_new_x(uint8_t i2cAddress, bool rotation, uint8_t contrast)
+{
+	return (cdisplay*)new DisplaySh1106(i2cAddress, rotation, contrast);
+}
+
+SHARPI cdisplay* display_sh1106_new_x2(uint8_t i2cAddress, bool rotation, uint8_t contrast, string i2cDevice)
+{
+	return (cdisplay*)new DisplaySh1106(i2cAddress, rotation, contrast, i2cDevice);
+}
+
+SHARPI cskia* display_sh1106_get_bitmap(cdisplay* handle, int* width, int* height)
+{
+	SkBitmap* skBitmap = &((DisplaySh1106*)handle)->skBitmap;
+	*width = skBitmap->width();
+	*height = skBitmap->height();
+	return (cskia*)(skBitmap);
+}
+
+
+SHARPI void display_sh1106_set_brightness(cdisplay* handle, uint8_t brightness)
+{
+	((DisplaySh1106*)handle)->SetBrightness(brightness);
+}
+
+SHARPI void display_sh1106_set_rotation(cdisplay* handle, bool rotate)
+{
+	((DisplaySh1106*)handle)->SetRotation(rotate);
+}
+
 
 // SSD1351
 SHARPI cdisplay* display_ssd1351_new(void)
@@ -411,8 +472,6 @@ SHARPI cskia* display_ssd1351_get_bitmap(cdisplay* handle, int* width, int* heig
 }
 
 
-
-
 // TM1637
 SHARPI cdisplay* display_tm1637_new()
 {
@@ -424,45 +483,22 @@ SHARPI cdisplay* display_tm1637_new_x(int powerPin, int dataPin, int clockPin)
 	return (cdisplay*)new DisplayTm1637(powerPin, dataPin, clockPin);
 }
 
-SHARPI void display_tm1637_set_brightness(cdisplay* display, int zerotofour)
+SHARPI void display_tm1637_set_brightness(cdisplay* handle, int zerotofour)
 {
-	((DisplayTm1637*)display)->SetBrightness(zerotofour);
+	((DisplayTm1637*)handle)->SetBrightness(zerotofour);
 }
 
-SHARPI void display_tm1637_set_rotation(cdisplay* display, bool rotate)
+SHARPI void display_tm1637_set_rotation(cdisplay* handle, bool rotation)
 {
-	((DisplayTm1637*)display)->SetRotation(rotate);
+	((DisplayTm1637*)handle)->SetRotation(rotation);
 }
 
-SHARPI void display_tm1637_set_text(cdisplay* display, const char* text)
+SHARPI void display_tm1637_set_text(cdisplay* handle, const char* text)
 {
-	((DisplayTm1637*)display)->SetText(text);
+	((DisplayTm1637*)handle)->SetText(text);
 }
 
 
-// DRM
-SHARPI cdisplay* display_drm_new(void)
-{
-	return (cdisplay*)new DisplayDrm();
-}
-
-SHARPI cskia* display_drm_get_bitmap(cdisplay* handle, int* width, int* height)
-{
-	SkBitmap* skBitmap = &((DisplayDrm*)handle)->skBitmap;
-	*width = skBitmap->width();
-	*height = skBitmap->height();
-	return (cskia*)(skBitmap);	
-}
-
-//SHARPI unsigned short display_drm_get_width(cdisplay* handle)
-//{
-//	return ((DisplayDrm*)handle)->width;
-//}
-//
-//SHARPI unsigned short display_drm_get_height(cdisplay* handle)
-//{
-//	return ((DisplayDrm*)handle)->height;
-//}
 
 
 // usb worker

@@ -53,7 +53,7 @@ void DisplaySsd1351::Send(SSD1351_CMD cmd, unsigned char* data = NULL, size_t si
 {
 	DevGpio::DigitalWrite(_dataPin, false);
 	unsigned char command[1] = { (unsigned char)cmd };
-	devSpi->Write(command, 1);
+	_devSpi->Write(command, 1);
 
 	if (!data)
 	{
@@ -61,7 +61,7 @@ void DisplaySsd1351::Send(SSD1351_CMD cmd, unsigned char* data = NULL, size_t si
 	}
 
 	DevGpio::DigitalWrite(_dataPin, true);	
-	devSpi->Write(data, size);
+	_devSpi->Write(data, size);
 }
 
 
@@ -112,11 +112,11 @@ DisplaySsd1351::DisplaySsd1351(string spiDevice, unsigned char rotation, int spi
 	_dataPin = dataPin == UNDEFINED_PIN ? DATAPIN[busidx] : dataPin;
 	_resetPin = resetPin == UNDEFINED_PIN ? RESETPIN[busidx] : resetPin;
 
-	devSpi = new DevSpi(_spiDevice, 0, 8, _spiSpeedHz, 0);
-	devSpi->Open();
+	_devSpi = new DevSpi(_spiDevice, 0, 8, _spiSpeedHz, 0);
+	_devSpi->Open();
 
-	skImageInfo = SkImageInfo::Make(128, 128, SkColorType::kRGB_565_SkColorType, SkAlphaType::kPremul_SkAlphaType);
-	skBitmap.allocPixels(skImageInfo);
+	_skImageInfo = SkImageInfo::Make(128, 128, SkColorType::kRGB_565_SkColorType, SkAlphaType::kPremul_SkAlphaType);
+	skBitmap.allocPixels(_skImageInfo);
 	
 	switch (_rotation % 4)
 	{
@@ -143,8 +143,8 @@ DisplaySsd1351::DisplaySsd1351(string spiDevice, unsigned char rotation, int spi
 DisplaySsd1351::~DisplaySsd1351()
 {
 	PowerOff();
-	devSpi->Close();
-	delete devSpi;
+	_devSpi->Close();
+	delete _devSpi;
 }
 
 void DisplaySsd1351::PowerOn()

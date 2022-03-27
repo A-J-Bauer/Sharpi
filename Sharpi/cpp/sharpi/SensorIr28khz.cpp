@@ -1,9 +1,6 @@
 #include "SensorIr28khz.h"
 
-using namespace std;
-using namespace chrono;
-
-string SensorIr28khz::description = {
+string SensorIr28khz::description =
 "----------------------------------------------\n"
 "Infrared sensor (receiver module), 38khz      \n"
 "                                              \n"
@@ -37,7 +34,7 @@ string SensorIr28khz::description = {
 "            39   40                           \n"
 "                                              \n"
 "----------------------------------------------\n"
-};
+;
 
 const string SensorIr28khz::CHIP = "/dev/gpiochip0";
 

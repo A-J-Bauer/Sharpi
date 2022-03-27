@@ -1,10 +1,6 @@
 #include "SensorAmg8833.h"
 
-using namespace std;
-using namespace std::this_thread;
-using namespace chrono;
-
-string SensorAmg8833::description = {
+string SensorAmg8833::description =
 "----------------------------------------------\n"
 "Amg8833 also known as Grid-Eye                \n"
 "                                              \n"
@@ -39,17 +35,7 @@ string SensorAmg8833::description = {
 "            39   40                           \n"
 "                                              \n"
 "----------------------------------------------\n"
-};
-
-SensorAmg8833::~SensorAmg8833()
-{
-	PowerOff();
-}
-
-string SensorAmg8833::GetDescription()
-{
-	return description;
-};
+;
 
 const string SensorAmg8833::I2CDEVICE = "/dev/i2c-1";
 
@@ -66,6 +52,16 @@ SensorAmg8833::SensorAmg8833(uint8_t i2cAddress, string i2cDevice)
 	_skImageInfo = SkImageInfo::Make(8, 8, SkColorType::kBGRA_8888_SkColorType, SkAlphaType::kPremul_SkAlphaType);
 	skBitmap.allocPixels(_skImageInfo);	
 }
+
+SensorAmg8833::~SensorAmg8833()
+{
+	PowerOff();
+}
+
+string SensorAmg8833::GetDescription()
+{
+	return description;
+};
 
 const char* SensorAmg8833::GetDescriptionC()
 {

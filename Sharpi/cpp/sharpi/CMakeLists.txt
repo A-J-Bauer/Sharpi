@@ -13,14 +13,16 @@ add_library(sharpi SHARED
     DevGpio.h
     DevGpio.cpp
     Display.h    
+    DisplayDrm.h
+    DisplayDrm.cpp
     DisplayPcd8544.h
     DisplayPcd8544.cpp
+    DisplaySh1106.h
+    DisplaySh1106.cpp
     DisplaySsd1351.h
     DisplaySsd1351.cpp
     DisplayTm1637.h
     DisplayTm1637.cpp
-    DisplayDrm.h
-    DisplayDrm.cpp
     UsbWorker.h
     UsbWorker.cpp
     SysPwm.h

@@ -11,6 +11,7 @@
 #include "DevI2c.h"
 
 using namespace std;
+using namespace std::this_thread;
 using namespace chrono;
 
 class SensorAmg8833 : Sensor

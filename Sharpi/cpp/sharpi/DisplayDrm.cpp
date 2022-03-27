@@ -1,6 +1,5 @@
 #include "DisplayDrm.h"
 
-
 string DisplayDrm::description = 
 "-----------------------------------------\n"
 "Direct Rendering Manager DRM Display     \n"
