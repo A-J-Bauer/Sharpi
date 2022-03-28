@@ -137,22 +137,22 @@ if (nugetVersions == null || nugetVersions.versions == null)
 }
 
 
-string versionWithoutTrainingZeros = version.Value;
-while (versionWithoutTrainingZeros.EndsWith(".0"))
+string noTrailingZeros = version.Value;
+while (noTrailingZeros.EndsWith(".0"))
 {
-    versionWithoutTrainingZeros = versionWithoutTrainingZeros.Substring(0, versionWithoutTrainingZeros.Length - 2);
+    noTrailingZeros = noTrailingZeros.Substring(0, noTrailingZeros.Length - 2);
 }
 
-if (nugetVersions.versions.Contains(versionWithoutTrainingZeros))
+if (nugetVersions.versions.Contains(noTrailingZeros))
 {
     Console.WriteLine("check_version_published=yes");
-    Console.WriteLine($"version={versionWithoutTrainingZeros}");
+    Console.WriteLine($"version={version.Value}");
     Environment.Exit(0);
 }
 else
 {
     Console.WriteLine("check_version_published=no");
-    Console.WriteLine($"version={versionWithoutTrainingZeros}");
+    Console.WriteLine($"version={version.Value}");
     Environment.Exit(0);
 }
 
