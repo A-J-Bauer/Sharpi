@@ -12,6 +12,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{ACA550CE-3A24-417B-8AF8-CC7759B7DE22}"
+	ProjectSection(SolutionItems) = preProject
+		Examples\README.md = Examples\README.md
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "buzzerpassive", "Examples\buzzerpassive\buzzerpassive.csproj", "{DE0EAA45-23B9-4A0F-855A-E6C8B1168A77}"
 EndProject
@@ -22,6 +25,13 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "displaydrm", "Examples\displaydrm\displaydrm.csproj", "{6FE8AE9B-C416-4984-BB2B-34AFDC057C59}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "displaysh1106", "Examples\displaysh1106\displaysh1106.csproj", "{6E7A7D8F-64DF-4BC0-B63F-2C8C73C63F12}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Circuits", "Circuits", "{B00EBE66-C089-40E0-8F32-FD9C84FCA039}"
+	ProjectSection(SolutionItems) = preProject
+		Circuits\dcvoltagesense.svg = Circuits\dcvoltagesense.svg
+		Circuits\dcvoltagesense.txt = Circuits\dcvoltagesense.txt
+		Examples\README.md = Examples\README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
