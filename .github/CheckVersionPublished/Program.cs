@@ -103,12 +103,12 @@ int exitCode = 0;
 using (HttpClient? httpClient = new HttpClient())
 {    
     try
-    {
+    {        
         json = await httpClient.GetStringAsync($"https://api.nuget.org/v3-flatcontainer/{title.Value}/index.json");
     }
-    catch (Exception)
+    catch (Exception ex)
     {
-        Console.WriteLine($"Error retrieving versions array from NuGet\n");
+        Console.WriteLine($"Error retrieving versions array from NuGet {ex.Message}\n");
         exitCode = 9;        
     }
 }
