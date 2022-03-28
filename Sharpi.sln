@@ -30,7 +30,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Circuits", "Circuits", "{B0
 	ProjectSection(SolutionItems) = preProject
 		Circuits\dcvoltagesense.svg = Circuits\dcvoltagesense.svg
 		Circuits\dcvoltagesense.txt = Circuits\dcvoltagesense.txt
-		Examples\README.md = Examples\README.md
+		Circuits\README.md = Circuits\README.md
 	EndProjectSection
 EndProject
 Global

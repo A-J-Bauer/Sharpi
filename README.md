@@ -1,4 +1,4 @@
-﻿<img src="Sharpi/img/sharpi.png">
+﻿﻿<img src="Sharpi/img/sharpi.png">
 
 # Sharpi
 
