@@ -106,7 +106,7 @@ using (HttpClient? httpClient = new HttpClient())
 
     try
     {        
-        json = await httpClient.GetStringAsync();
+        json = await httpClient.GetStringAsync(requestUri);
     }
     catch (Exception ex)
     {
