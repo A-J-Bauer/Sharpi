@@ -44,6 +44,7 @@ The remotefolder is where the executable and all necessary files are copied into
 ```
 :: CHANGE TO YOUR REMOTE FOLDER
 set remotefolder="pi@raspberrypi:projects/examplename/"
+
 @echo off
 :: argument MSBuild macro $(TargetDir)
 set targetdir=%1
@@ -62,10 +63,48 @@ set targetdir=/mnt/%targetdir%
 :: add double quotes
 set localfolder="%targetdir%"
 echo.
+
 echo rsync folders
 echo from:  %localfolder%
 echo to:    %remotefolder%
 wsl rsync -avzh --timeout=2 --update %localfolder% %remotefolder%
 echo done
 echo.
+```
+
+## ssh, rsync and remote debugging
+
+installing rsync and openssh-client in the WSL distro:
+```
+sudo apt install rsync openssh-client
+```
+
+creating private and public keys in WSL (enter three times):
+```
+ssh-keygen
+```
+
+copying generated keys to the remote host (raspberrypi):
+```
+ssh-copy-id -i ~/.ssh/id_rsa.pub raspberrypi
+```
+
+connecting to the pi (ssh enabled in config):
+```
+ssh raspberrypi
+```
+
+managing remote debugging ssh connections in visual studio:
+
+> Debug/Options/Cross Platform/Connection Manager
+
+waiting in a c# program for the debugger to attach:
+
+```csharp
+using System.Diagnostics;
+
+while (!Debugger.IsAttached)
+{
+    Thread.Sleep(1);
+}
 ```

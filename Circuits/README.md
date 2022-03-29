@@ -2,7 +2,8 @@
 
 # Circuits
 
-A collection of circuit simulations
+A collection of circuit simulations  
+(*click circuit to go to Paul Falstad's simultator*)
 
 
 ## dc voltage sense
