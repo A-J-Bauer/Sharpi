@@ -102,9 +102,18 @@ waiting in a c# program for the debugger to attach:
 
 ```csharp
 using System.Diagnostics;
-
 while (!Debugger.IsAttached)
 {
     Thread.Sleep(1);
 }
 ```
+
+attaching to program (XYZ) running on host (raspberrypi):
+> Debug/Attach to process  
+> Connection type: SSH  
+> Connection target: pi@raspberrypi  
+> Filter processes: XYZ  
+> Attach to Select: Managed (.NET Core for Unix)
+
+subsequent attaching with same settings / reattaching
+> Gear symbol
