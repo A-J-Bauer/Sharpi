@@ -98,17 +98,19 @@ if (version == null)
 }
 
 
+string requestUri = $"https://api.nuget.org/v3-flatcontainer/{title.Value}/index.json";
 string json = "";
 int exitCode = 0;
 using (HttpClient? httpClient = new HttpClient())
 {    
+
     try
     {        
-        json = await httpClient.GetStringAsync($"https://api.nuget.org/v3-flatcontainer/{title.Value}/index.json");
+        json = await httpClient.GetStringAsync();
     }
     catch (Exception ex)
     {
-        Console.WriteLine($"Error retrieving versions array from NuGet {ex.Message}\n");
+        Console.WriteLine($"Error retrieving versions array from NuGet {ex.Message}, request was {requestUri}\n");
         exitCode = 9;        
     }
 }
