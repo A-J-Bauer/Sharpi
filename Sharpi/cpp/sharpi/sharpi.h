@@ -94,6 +94,7 @@ extern "C" {
 	SHARPI int devgpio_get_pinmode(int pin);
 
 	SHARPI void devgpio_digitalwrite(int pin, bool value);
+	SHARPI bool devgpio_digitalwrite_sequence(int pin, DevGpio::Seq* seq, int length);
 	SHARPI bool devgpio_digitalread(int pin);
 
 	// pwm	

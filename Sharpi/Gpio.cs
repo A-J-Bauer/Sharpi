@@ -4,6 +4,13 @@ namespace Sharpi
 {
     public static partial class Gpio
     {
+        [StructLayout(LayoutKind.Sequential)]
+        public struct Seq
+        {
+            public long nano;
+            public byte value;
+        };
+
         [DllImport("sharpi")]
         [return: MarshalAs(UnmanagedType.LPStr)]
         private static extern string devgpio_get_pinout();
@@ -16,6 +23,9 @@ namespace Sharpi
 
         [DllImport("sharpi")]
         private static extern void devgpio_digitalwrite(int pin, bool value);
+
+        [DllImport("sharpi")]
+        private static extern bool devgpio_digitalwrite_sequence(int pin, [In] Seq[] seq, int length);                                   
 
         [DllImport("sharpi")]
         private static extern bool devgpio_digitalread(int pin);
@@ -62,6 +72,17 @@ namespace Sharpi
         {
             devgpio_digitalwrite(pin, value);
         }
+        public static bool DigitalWriteSequence(int pin, List<ValueTuple<long, bool>> sequence)
+        {
+            Seq[] seq = new Seq[sequence.Count];
+            for (int i=0; i<sequence.Count; i++)
+            {
+                seq[i].nano = sequence[i].Item1;
+                seq[i].value = (byte)(sequence[i].Item2 ? 1 : 0);
+            }
+
+            return devgpio_digitalwrite_sequence(pin, seq, seq.Length);
+        }
 
         public static bool DigitalRead(int pin)
         {
@@ -81,6 +102,5 @@ namespace Sharpi
 
             return (value & 0b111111) == 0b111111;
         }
-
     }
 }

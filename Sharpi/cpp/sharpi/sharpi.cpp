@@ -277,6 +277,11 @@ SHARPI void devgpio_digitalwrite(int pin, bool value)
 	DevGpio::DigitalWrite(pin, value);
 }
 
+SHARPI bool devgpio_digitalwrite_sequence(int pin, DevGpio::Seq* seq, int length)
+{
+	return DevGpio::DigitalWriteSequence(pin, seq, length);
+}
+
 SHARPI bool devgpio_digitalread(int pin)
 {
 	return DevGpio::DigitalRead(pin);

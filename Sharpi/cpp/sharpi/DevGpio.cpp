@@ -152,6 +152,49 @@ void DevGpio::DigitalWrite(int pin, bool value)
     gpiod_line_set_value(lines[line], value);
 }
 
+thread DevGpio::sequence[40] = {};
+atomic<bool> DevGpio::running[40] = {false };
+
+void DevGpio::sequencer(int pin, Seq* delseq, int length)
+{   
+    SetPinMode(pin, OUTPUT);
+
+    for (int i = 0; i < length; i++)
+    {   
+        DigitalWrite(pin, delseq[i].value);
+        sleep_for(nanoseconds(delseq[i].nano - 50000)); // about 50000ns off -> nanosleep, init/init_task.c in struct task_struct init_task .timer_slack_ns = 50000   
+    }
+    
+    delete[] delseq;
+    running[pin] = false;
+}
+
+bool DevGpio::DigitalWriteSequence(int pin, Seq* seq, int length)
+{
+    int line = J8Gpio(pin);
+    if (!Check(line))
+    {
+        return false;
+    }
+
+    if (!running[pin])
+    {
+        running[pin] = true;     
+
+        Seq* delseq = new Seq[length];
+        memcpy(delseq, seq, sizeof(Seq) * length);
+
+        sequence[pin] = thread(sequencer, pin, delseq, length);
+        sequence[pin].detach();
+    }
+    else
+    {
+        return false;
+    }
+
+    return true;
+}
+
 bool DevGpio::DigitalRead(int pin)
 {
     int line = J8Gpio(pin);

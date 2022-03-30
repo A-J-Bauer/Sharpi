@@ -21,6 +21,7 @@ C# Library for 64 bit Raspberry Pi OS (aarch64)
 | [Info](#info)| System information class
 | [Sensor.Amg8833](#sensoramg8833)| AMG8833 infrared array sensor
 | [Sensor.Ir28khz](#sensorir28khz)| A remote control infrared sensor
+| [Sender.Ir28khz](#senderir28khz)| A remote control infrared sender
 
 <br/>
 
@@ -1351,3 +1352,35 @@ sensor.Dispose();
 ```
 
 [Back to list](#classtable)
+
+## <a name="senderir28khz"></a>Sender Ir28khz
+
+A remote control infrared sender using a custom circuit
+
+[<img src="Circuits/irled28khz.svg">](https://www.falstad.com/circuit/circuitjs.html?ctz=CQAgjCAcB0BMsGYBskAsswAYCsskLCQFMBaAdhE2h0jDPtvUwE5JM0RtNORUFPSYMACgAHiBJgEFPBXJIQsMt1ThVAewCuAFwAOOgDoBnXQEsAdsIDm4MgoTJbCvrEqVhAJyjdYkSGtVff24sTExhIwk2RT8JQhjg8BAAMwBDABsjImEAJSifWMlfBLcVbgRofm5q6GwxOIxwRpIkZibVVTBVXQB3AFtjM0tkgJK6BSCQBFcqBSpMWGEe70V2FcJqpadwJBC7VeCt1H9J46nHcOXxqcxO-Yc5z15-B+3XkLCw+tgwxVRAhA+VAUTqqUweYzpIgAE2ECFUyR60I86l0BgAjhAsdAyF0ELhaMxfKEFqQKD5oMdCJAlLh4ZgyOgquBhIRXNcfv4OWRXK5EcjURisaVKNQRHlohsJMwFFKfFM2L8wNAkNhwCq1TVYHUvNFOdt9T4fk9JbttnLFMbxGBYrAiYppIpmGrQYoAHLKL7iH78PhteDOdC8NQgKzmWEAI0U2HsuLinUQ7mWkgmsTOk0uzxKeti4XUSVUKi4SHJ1DCEHm5bc7KmwiAA)
+
+Example:
+
+Using Pwm0 and pin 11 (output pin) to send command 0x16 to receiver with address 0xBF00.
+
+```csharp
+using Sharpi;
+
+Sender.Ir28khz sender = new Sender.Ir28khz(0, 11);
+
+Console.WriteLine(sender.Description);
+
+sender.PowerOn();
+
+sender.Send(0xBF00, 0x16);
+
+while (!Console.KeyAvailable)
+{
+    Thread.Sleep(100);
+}
+
+sender.PowerOff();
+```
+
+[Back to list](#classtable)
+

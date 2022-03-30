@@ -7,6 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sharpi", "Sharpi\Sharpi.csp
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{FF57136F-5A72-425D-8781-803C9A6FF80C}"
 	ProjectSection(SolutionItems) = preProject
+		LICENSE = LICENSE
 		NuGet.md = NuGet.md
 		README.md = README.md
 	EndProjectSection
@@ -30,6 +31,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Circuits", "Circuits", "{B0
 	ProjectSection(SolutionItems) = preProject
 		Circuits\dcvoltagesense.svg = Circuits\dcvoltagesense.svg
 		Circuits\dcvoltagesense.txt = Circuits\dcvoltagesense.txt
+		Circuits\irled28khz.svg = Circuits\irled28khz.svg
+		Circuits\irled28khz.txt = Circuits\irled28khz.txt
 		Circuits\README.md = Circuits\README.md
 	EndProjectSection
 EndProject
