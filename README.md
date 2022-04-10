@@ -1355,7 +1355,7 @@ sensor.Dispose();
 
 ## <a name="senderir28khz"></a>Sender Ir28khz
 
-A remote control infrared sender using a custom circuit
+A remote control infrared sender using a DIY circuit
 
 [<img src="Circuits/irled28khz.svg">](https://www.falstad.com/circuit/circuitjs.html?ctz=CQAgjCAcB0BMsGYBskAsswAYCsskLCQFMBaAdhE2h0jDPtvUwE5JM0RtNORUFPSYMACgAHiBJgEFPBXJIQsMt1ThVAewCuAFwAOOgDoBnXQEsAdsIDm4MgoTJbCvrEqVhAJyjdYkSGtVff24sTExhIwk2RT8JQhjg8BAAMwBDABsjImEAJSifWMlfBLcVbgRofm5q6GwxOIxwRpIkZibVVTBVXQB3AFtjM0tkgJK6BSCQBFcqBSpMWGEe70V2FcJqpadwJBC7VeCt1H9J46nHcOXxqcxO-Yc5z15-B+3XkLCw+tgwxVRAhA+VAUTqqUweYzpIgAE2ECFUyR60I86l0BgAjhAsdAyF0ELhaMxfKEFqQKD5oMdCJAlLh4ZgyOgquBhIRXNcfv4OWRXK5EcjURisaVKNQRHlohsJMwFFKfFM2L8wNAkNhwCq1TVYHUvNFOdt9T4fk9JbttnLFMbxGBYrAiYppIpmGrQYoAHLKL7iH78PhteDOdC8NQgKzmWEAI0U2HsuLinUQ7mWkgmsTOk0uzxKeti4XUSVUKi4SHJ1DCEHm5bc7KmwiAA)
 
