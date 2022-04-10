@@ -104,11 +104,16 @@ int exitCode = 0;
 using (HttpClient? httpClient = new HttpClient())
 {
     HttpResponseMessage httpResponseMessage = await httpClient.GetAsync(requestUri);
-    if (httpResponseMessage.IsSuccessStatusCode)
+
+    int tries = 0;
+    do
     {
         json = await httpResponseMessage.Content.ReadAsStringAsync();
+        tries++;
     }
-    else
+    while (tries < 5 && !httpResponseMessage.IsSuccessStatusCode);
+    
+    if (!httpResponseMessage.IsSuccessStatusCode)
     {
         Console.WriteLine($"Error retrieving versions array from NuGet {httpResponseMessage.StatusCode}, request was {requestUri}\n");
         exitCode = 9;
