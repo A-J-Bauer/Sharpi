@@ -22,6 +22,7 @@ Informational only - Nothing to change.
 		<RuntimeIdentifier>linux-arm64</RuntimeIdentifier>
 		<SelfContained>True</SelfContained>
 		<RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+		<OutputPath>bin\ARM64</OutputPath>
 	</PropertyGroup>
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
 		<Exec Command="&quot;$(ProjectDir)postbuild.bat&quot; &quot;$(TargetDir)&quot;"/>
