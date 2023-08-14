@@ -99,6 +99,14 @@ managing remote debugging ssh connections in visual studio:
 
 > Debug/Options/Cross Platform/Connection Manager
 
+
+create directory in home dir and set permissions for the remote debugger:
+```
+cd ~
+mkdir .vs-debugger
+chmod 777 .vs-debugger
+```
+
 waiting in a c# program for the debugger to attach:
 
 ```csharp
