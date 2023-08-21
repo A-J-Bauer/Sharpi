@@ -9,7 +9,7 @@ jobs:
     name: build, pack & publish
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3.5.3
             
       - name: run the version check and save result in environment var 'check_version_published'
         run: |
