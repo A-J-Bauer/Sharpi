@@ -1,5 +1,5 @@
 :: CHANGE TO YOUR REMOTE FOLDER
-set remotefolder="pi@raspberrypi:projects/button/"
+set remotefolder="pi@sharpi:projects/button/"
 
 @echo off
 
@@ -26,7 +26,7 @@ echo rsync folders
 echo from:  %localfolder%
 echo to:    %remotefolder%
 
-wsl rsync -avzh --timeout=2 --update %localfolder% %remotefolder%
+wsl rsync -avzh --timeout=3 --update %localfolder% %remotefolder%
 
 echo done
 echo.

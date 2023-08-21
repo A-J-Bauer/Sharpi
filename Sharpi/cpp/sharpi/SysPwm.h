@@ -17,6 +17,7 @@ private:
 	static const path chippath;	
 	static const path exppath;
 	static const path unexppath;
+	static const path pwmpath[2];
 	static const path enblpath[2];
 	static const path perdpath[2];
 	static const path dutypath[2];

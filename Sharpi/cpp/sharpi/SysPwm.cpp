@@ -39,7 +39,7 @@ string SysPwm::description =
 "                                                      \n"
 "  edit /boot/config.txt                               \n"
 "                                                      \n"
-"  find 'dtparam=audio=on' and change to 			   \n"
+"  find 'dtparam=audio=on' and change to               \n"
 "    #dtparam=audio=on                                 \n"
 "                                                      \n"
 "  for pwm 0 only add:                                 \n"
@@ -196,14 +196,34 @@ void SysPwm::Create(int pwm)
 	if (expstream.is_open())
 	{
 		expstream << pwm;
-
-		perdstream[pwm].open(perdpath[pwm]);
-		dutystream[pwm].open(dutypath[pwm]);
-
 		expstream.close();
-	}	
+	}
 
-	usleep(100000);
+	int tries;
+	int maxtries = 5;
+	
+	tries = 0;
+	while ((!exists(perdpath[pwm]) || !exists(dutypath[pwm])) && tries < maxtries)
+	{
+		usleep(100000);
+		tries++;
+	}
+
+	if (tries < maxtries)
+	{
+		tries = 0;
+		while (!_created[pwm] && tries<maxtries)
+		{
+			perdstream[pwm].open(perdpath[pwm]);
+			dutystream[pwm].open(dutypath[pwm]);
+			usleep(100000);
+			_created[pwm] = perdstream[pwm].is_open() && dutystream[pwm].is_open();
+			tries++;
+		}
+		
+	}
+	
+	usleep(100);
 }
 
 void SysPwm::Destroy(int pwm)
