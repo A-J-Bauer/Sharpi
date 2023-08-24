@@ -699,3 +699,56 @@ SHARPI void sensor_ir28khz_power_off(csensor* handle)
 {
 	((SensorIr28khz*)handle)->PowerOff();
 }
+
+
+// pot common
+
+typedef struct cpot cpot;
+
+SHARPI const char* pot_get_description(cpot* handle)
+{
+	return ((Pot*)handle)->GetDescriptionC();
+}
+
+SHARPI void pot_delete(cpot* handle)
+{
+	delete ((Pot*)handle);
+}
+
+// pot specific
+
+
+SHARPI cpot* pot_ds3502_new(uint8_t i2cAddress)
+{
+	return (cpot*)new PotDs3502(i2cAddress);
+}
+
+SHARPI cpot* pot_ds3502_new_x(uint8_t i2cAddress, string i2cDevice)
+{
+	return (cpot*)new PotDs3502(i2cAddress, i2cDevice);
+}
+
+SHARPI void pot_ds3502_power_on(cpot* handle)
+{
+	((PotDs3502*)handle)->PowerOn();
+}
+
+SHARPI void pot_ds3502_power_off(cpot* handle)
+{
+	((PotDs3502*)handle)->PowerOff();
+}
+
+SHARPI uint8_t pot_ds3502_get_wiper(cpot* handle)
+{
+	return ((PotDs3502*)handle)->GetWiper();
+}
+
+SHARPI void pot_ds3502_set_wiper(cpot* handle, uint8_t value)
+{
+	((PotDs3502*)handle)->SetWiper(value);
+}
+
+SHARPI void pot_ds3502_set_wiper_persistent(cpot* handle, uint8_t value)
+{
+	((PotDs3502*)handle)->SetWiperPersistent(value);
+}

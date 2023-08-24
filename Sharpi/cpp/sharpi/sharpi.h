@@ -17,6 +17,8 @@
 #include "AdcMcp3008.h"
 #include "SensorAmg8833.h"
 #include "SensorIr28khz.h"
+#include "Pot.h"
+#include "PotDs3502.h"
 
 #include "include/core/SkImageEncoder.h"
 #include "include/core/SkColor.h"
@@ -233,6 +235,25 @@ extern "C" {
 	SHARPI csensor* sensor_ir28khz_new(int pin, bool activeLow, void(*callback_nec)(uint16_t, uint16_t));
 	SHARPI void sensor_ir28khz_power_on(csensor* handle);
 	SHARPI void sensor_ir28khz_power_off(csensor* handle);
+
+	// pot common
+
+	typedef struct cpot cpot;
+
+	SHARPI const char* pot_get_description(cpot* handle);
+	SHARPI void pot_delete(cpot* handle);
+
+	// pot specific
+
+	SHARPI cpot* pot_ds3502_new(uint8_t i2cAddress);
+	SHARPI cpot* pot_ds3502_new_x(uint8_t i2cAddress, string i2cDevice);
+
+	SHARPI void pot_ds3502_power_on(cpot* handle);
+	SHARPI void pot_ds3502_power_off(cpot* handle);
+
+	SHARPI uint8_t pot_ds3502_get_wiper(cpot* handle);
+	SHARPI void pot_ds3502_set_wiper(cpot* handle, uint8_t value);
+	SHARPI void pot_ds3502_set_wiper_persistent(cpot* handle, uint8_t value);
 
 #ifdef __cplusplus
 }

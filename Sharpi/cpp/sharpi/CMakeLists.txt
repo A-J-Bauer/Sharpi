@@ -37,6 +37,9 @@ add_library(sharpi SHARED
     SensorAmg8833.cpp
     SensorIr28khz.h
     SensorIr28khz.cpp
+    Pot.h
+    PotDs3502.h
+    PotDs3502.cpp
 )
 
 target_include_directories(sharpi
