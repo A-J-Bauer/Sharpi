@@ -1451,7 +1451,7 @@ Ds3502 ds3502 = new(0x28);
 ds3502.PowerOn();
 ds3502.SetWiper(10);
 
-byte test = GetWiper();
+byte test = ds3502.GetWiper();
 
 while(somecondition)
 {
