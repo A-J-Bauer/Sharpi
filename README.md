@@ -1459,7 +1459,7 @@ while(somecondition)
 }
 
 ds3502.SetWiperPersistent(10);
-ds3502.PowerOff
+ds3502.PowerOff();
 ds3502.Dispose();
 
 ```
