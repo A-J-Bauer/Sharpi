@@ -22,6 +22,7 @@ C# Library for 64 bit Raspberry Pi OS (aarch64)
 | [Sensor.Amg8833](#sensoramg8833)| AMG8833 infrared array sensor
 | [Sensor.Ir28khz](#sensorir28khz)| A remote control infrared sensor
 | [Sender.Ir28khz](#senderir28khz)| A remote control infrared sender
+| [Pot.Ds3502](#potDs3502)| A digital potentiometer 4.5 - 15.5V, 1mA
 
 <br/>
 
@@ -1384,3 +1385,81 @@ sender.PowerOff();
 
 [Back to list](#classtable)
 
+## <a name="potDs3502"></a>Pot Ds3502
+
+A digital potentiometer analog 4.5-15.5V, 1mA
+
+```
+----------------------------------------------
+ Maxim DS3502
+
+ The DS3502 is a 7-bit, nonvolatile (NV)
+ digital potentiometer (POT) featuring an
+ output voltage range of up to 15.5V.
+ Programming is accomplished by an I2C-
+ compatible interface, which can operate at
+ speeds of up to 400kHz.External voltages are
+ applied at the RL and RH inputs to define the
+ lowest and highest potentiometer outputs.
+ (10 uSOP package)
+
+ I2c slave address adjustable via A0 and A1
+
+ A convenient breakout board is available
+ from Adafruit.
+
+config:
+
+  edit /boot/config.txt
+  dtparam=i2c_arm=on,i2c_arm_baudrate=400000
+
+wiring:
+
+       rpi physical pins
+
+     vin --  1   2
+     sda --  3   4
+     scl --  5   6
+             7   8
+     gnd --  9   10         ----------
+   (int) -- 11   12   sda -| +        |- scl
+            13   14   gnd -|          |- v+
+            15   16   vcc -|  ds3502  |- rl
+            17   18    a1 -|          |- rw
+            19   20    a0 -|          |- rh
+            21   22         ----------
+            23   24
+            25   26
+            27   28
+            29   30
+            31   32
+            33   34
+            35   36
+            37   38
+            39   40
+
+----------------------------------------------
+```
+
+Example:
+
+```csharp
+using Sharpi;
+
+Ds3502 ds3502 = new(0x28);
+
+ds3502.PowerOn();
+ds3502.SetWiper(10);
+
+byte test = GetWiper();
+
+while(somecondition)
+{
+    // do something
+}
+
+ds3502.SetWiperPersistent(10);
+ds3502.PowerOff
+ds3502.Dispose();
+
+```
