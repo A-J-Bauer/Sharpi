@@ -1,910 +1,114 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg
-   xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://creativecommons.org/ns#"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   inkscape:version="1.0 (4035a4fb49, 2020-05-01)"
-   sodipodi:docname="irled28khz.svg"
-   id="svg190"
-   height="421"
-   width="533"
-   version="1.1">
-  <metadata
-     id="metadata194">
-    <rdf:RDF>
-      <cc:Work
-         rdf:about="">
-        <dc:format>image/svg+xml</dc:format>
-        <dc:type
-           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
-      </cc:Work>
-    </rdf:RDF>
-  </metadata>
-  <sodipodi:namedview
-     inkscape:current-layer="svg190"
-     inkscape:window-maximized="1"
-     inkscape:window-y="-8"
-     inkscape:window-x="-8"
-     inkscape:cy="210.5"
-     inkscape:cx="266.5"
-     inkscape:zoom="1.9681051"
-     showgrid="true"
-     id="namedview192"
-     inkscape:window-height="1177"
-     inkscape:window-width="1920"
-     inkscape:pageshadow="2"
-     inkscape:pageopacity="1"
-     guidetolerance="10"
-     gridtolerance="10"
-     objecttolerance="10"
-     borderopacity="1"
-     bordercolor="#666666"
-     pagecolor="#000000">
-    <inkscape:grid
-       id="grid1019"
-       type="xygrid" />
-  </sodipodi:namedview>
-  <defs
-     id="defs22">
-    <linearGradient
-       gradientUnits="userSpaceOnUse"
-       y2="0px"
-       y1="0px"
-       x2="32px"
-       x1="0px"
-       id="ykbiLcIRXtPk">
-      <stop
-         id="stop2"
-         stop-color="#807f7f"
-         offset="0" />
-      <stop
-         id="stop4"
-         stop-color="#807f7f"
-         offset="1" />
-    </linearGradient>
-    <linearGradient
-       gradientUnits="userSpaceOnUse"
-       y2="0px"
-       y1="0px"
-       x2="32px"
-       x1="0px"
-       id="ixEADBfQOcHX">
-      <stop
-         id="stop7"
-         stop-color="#807f7f"
-         offset="0" />
-      <stop
-         id="stop9"
-         stop-color="#807f7f"
-         offset="1" />
-    </linearGradient>
-    <linearGradient
-       gradientUnits="userSpaceOnUse"
-       y2="0px"
-       y1="0px"
-       x2="32px"
-       x1="0px"
-       id="TMhZzEIJavVh">
-      <stop
-         id="stop12"
-         stop-color="#807f7f"
-         offset="0" />
-      <stop
-         id="stop14"
-         stop-color="#807f7f"
-         offset="1" />
-    </linearGradient>
-    <linearGradient
-       gradientUnits="userSpaceOnUse"
-       y2="0px"
-       y1="0px"
-       x2="32px"
-       x1="0px"
-       id="LXepRhkQnrvy">
-      <stop
-         id="stop17"
-         stop-color="#807f7f"
-         offset="0" />
-      <stop
-         id="stop19"
-         stop-color="#807f7f"
-         offset="1" />
-    </linearGradient>
-  </defs>
-  <rect
-     y="0"
-     x="0"
-     height="421"
-     width="533"
-     id="rect1021"
-     style="fill:#b3b3b3;stroke-width:0" />
-  <g
-     id="g188"
-     transform="scale(1,1) translate(207,-71)">
-    <g
-       id="g26">
-      <text
-         id="text24"
-         dominant-baseline="alphabetic"
-         text-anchor="start"
-         y="267"
-         x="-137"
-         text-decoration="normal"
-         font-weight="normal"
-         font-style="normal"
-         font-size="14px"
-         font-family="sans-serif"
-         stroke="none"
-         fill="#000000">output pin</text>
-    </g>
-    <path
-       id="path28"
-       stroke-dasharray=""
-       stroke-width="3"
-       stroke-miterlimit="10"
-       stroke-linecap="round"
-       d=" M 176 336 L 176 432"
-       paint-order="fill stroke markers"
-       stroke="#807f7f"
-       fill="none" />
-    <path
-       id="path30"
-       stroke-dasharray=""
-       stroke-width="3"
-       stroke-miterlimit="10"
-       stroke-linecap="round"
-       d=" M 186 432 L 166 432"
-       paint-order="fill stroke markers"
-       stroke="#807f7f"
-       fill="none" />
-    <path
-       id="path32"
-       stroke-dasharray=""
-       stroke-width="3"
-       stroke-miterlimit="10"
-       stroke-linecap="round"
-       d=" M 182 437 L 170 437"
-       paint-order="fill stroke markers"
-       stroke="#807f7f"
-       fill="none" />
-    <path
-       id="path34"
-       stroke-dasharray=""
-       stroke-width="3"
-       stroke-miterlimit="10"
-       stroke-linecap="round"
-       d=" M 178 442 L 174 442"
-       paint-order="fill stroke markers"
-       stroke="#807f7f"
-       fill="none" />
-    <path
-       id="path36"
-       stroke-dasharray=""
-       stroke-width="3"
-       stroke-miterlimit="10"
-       stroke-linecap="round"
-       d=" M 80 288 L 96 288"
-       paint-order="fill stroke markers"
-       stroke="#807f7f"
-       fill="none" />
-    <path
-       id="path38"
-       stroke-dasharray=""
-       stroke-width="3"
-       stroke-miterlimit="10"
-       stroke-linecap="round"
-       d=" M 128 288 L 144 288"
-       paint-order="fill stroke markers"
-       stroke="#807f7f"
-       fill="none" />
-    <g
-       id="g42"
-       transform="matrix(1,0,0,1,96,288)">
-      <path
-         id="path40"
-         stroke-dasharray=""
-         stroke-width="3"
-         stroke-miterlimit="10"
-         stroke-linecap="round"
-         d=" M 0 0 L 2 6 L 6 -6 L 10 6 L 14 -6 L 18 6 L 22 -6 L 26 6 L 30 -6 L 32 0"
-         paint-order="fill stroke markers"
-         stroke="url(#ykbiLcIRXtPk)"
-         fill="none" />
-    </g>
-    <text
-       id="text44"
-       dominant-baseline="alphabetic"
-       text-anchor="start"
-       y="278"
-       x="106"
-       text-decoration="normal"
-       font-weight="normal"
-       font-style="normal"
-       font-size="12px"
-       font-family="sans-serif"
-       stroke="none"
-       fill="#000000">1k</text>
-    <path
-       id="path46"
-       stroke-dasharray=""
-       stroke-width="3"
-       stroke-miterlimit="10"
-       stroke-linecap="round"
-       d=" M -80 288 L -64 288"
-       paint-order="fill stroke markers"
-       stroke="#2cd22c"
-       fill="none" />
-    <path
-       id="path48"
-       stroke-dasharray=""
-       stroke-width="3"
-       stroke-miterlimit="10"
-       stroke-linecap="round"
-       d=" M -32 288 L -16 288"
-       paint-order="fill stroke markers"
-       stroke="#807f7f"
-       fill="none" />
-    <path
-       id="path50"
-       stroke-dasharray=""
-       stroke-width="3"
-       stroke-miterlimit="10"
-       stroke-linecap="round"
-       d=" M -64 288 L -32 272"
-       paint-order="fill stroke markers"
-       stroke="#000000"
-       fill="none" />
-    <path
-       id="path52"
-       stroke-dasharray=""
-       stroke-width="3"
-       stroke-miterlimit="10"
-       stroke-linecap="round"
-       d=" M -80 288 L -111 288"
-       paint-order="fill stroke markers"
-       stroke="#2cd22c"
-       fill="none" />
-    <g
-       id="g56">
-      <text
-         id="text54"
-         dominant-baseline="central"
-         text-anchor="start"
-         y="288"
-         x="-146"
-         text-decoration="normal"
-         font-weight="normal"
-         font-style="normal"
-         font-size="12px"
-         font-family="sans-serif"
-         stroke="none"
-         fill="#000000">+3.3V</text>
-    </g>
-    <g
-       id="g60">
-      <text
-         id="text58"
-         dominant-baseline="alphabetic"
-         text-anchor="start"
-         y="121"
-         x="-121"
-         text-decoration="normal"
-         font-weight="normal"
-         font-style="normal"
-         font-size="14px"
-         font-family="sans-serif"
-         stroke="none"
-         fill="#000000">pwm pin</text>
-    </g>
-    <path
-       id="path62"
-       stroke-dasharray=""
-       stroke-width="3"
-       stroke-miterlimit="10"
-       stroke-linecap="round"
-       d=" M 176 304 L 154 304"
-       paint-order="fill stroke markers"
-       stroke="#807f7f"
-       fill="none" />
-    <path
-       id="path64"
-       stroke-dasharray=""
-       stroke-width="3"
-       stroke-miterlimit="10"
-       stroke-linecap="round"
-       d=" M 176 272 L 154 272"
-       paint-order="fill stroke markers"
-       stroke="#807f7f"
-       fill="none" />
-    <path
-       id="path66"
-       stroke-dasharray=""
-       stroke-width="3"
-       stroke-miterlimit="10"
-       stroke-linecap="round"
-       d=" M 154 304 L 154 299"
-       paint-order="fill stroke markers"
-       stroke="#807f7f"
-       fill="none" />
-    <path
-       id="path68"
-       stroke-dasharray=""
-       stroke-width="3"
-       stroke-miterlimit="10"
-       stroke-linecap="round"
-       d=" M 154 293 L 154 288"
-       paint-order="fill stroke markers"
-       stroke="#807f7f"
-       fill="none" />
-    <path
-       id="path70"
-       stroke-dasharray=""
-       stroke-width="3"
-       stroke-miterlimit="10"
-       stroke-linecap="round"
-       d=" M 154 288 L 154 283"
-       paint-order="fill stroke markers"
-       stroke="#807f7f"
-       fill="none" />
-    <path
-       id="path72"
-       stroke-dasharray=""
-       stroke-width="3"
-       stroke-miterlimit="10"
-       stroke-linecap="round"
-       d=" M 154 277 L 154 272"
-       paint-order="fill stroke markers"
-       stroke="#807f7f"
-       fill="none" />
-    <path
-       id="path74"
-       stroke-dasharray=""
-       stroke-width="3"
-       stroke-miterlimit="10"
-       stroke-linecap="round"
-       d=" M 154 304 L 154 309"
-       paint-order="fill stroke markers"
-       stroke="#807f7f"
-       fill="none" />
-    <path
-       id="path76"
-       stroke-dasharray=""
-       stroke-width="3"
-       stroke-miterlimit="10"
-       stroke-linecap="round"
-       d=" M 154 272 L 154 267"
-       paint-order="fill stroke markers"
-       stroke="#807f7f"
-       fill="none" />
-    <path
-       id="path78"
-       stroke-dasharray=""
-       stroke-width="3"
-       stroke-miterlimit="10"
-       stroke-linecap="round"
-       d=" M 176 304 L 176 288"
-       paint-order="fill stroke markers"
-       stroke="#807f7f"
-       fill="none" />
-    <path
-       id="path80"
-       stroke-dasharray=""
-       stroke-width="3"
-       stroke-miterlimit="10"
-       stroke-linecap="round"
-       d=" M 176 288 L 154 288"
-       paint-order="fill stroke markers"
-       stroke="#807f7f"
-       fill="none" />
-    <path
-       id="path82"
-       d=" M 154 288 L 166 293 L 166 283 Z"
-       paint-order="stroke fill markers"
-       stroke="none"
-       fill="#807f7f" />
-    <path
-       id="path84"
-       stroke-dasharray=""
-       stroke-width="3"
-       stroke-miterlimit="10"
-       stroke-linecap="round"
-       d=" M 144 288 L 148 288"
-       paint-order="fill stroke markers"
-       stroke="#807f7f"
-       fill="none" />
-    <path
-       id="path86"
-       stroke-dasharray=""
-       stroke-width="3"
-       stroke-miterlimit="10"
-       stroke-linecap="round"
-       d=" M 148 280 L 148 296"
-       paint-order="fill stroke markers"
-       stroke="#807f7f"
-       fill="none" />
-    <path
-       id="path88"
-       stroke-dasharray=""
-       stroke-width="3"
-       stroke-miterlimit="10"
-       stroke-linecap="round"
-       d=" M 80 208 L 80 160"
-       paint-order="fill stroke markers"
-       stroke="#807f7f"
-       fill="none" />
-    <text
-       id="text90"
-       dominant-baseline="alphabetic"
-       text-anchor="start"
-       y="190"
-       x="86"
-       text-decoration="normal"
-       font-weight="normal"
-       font-style="normal"
-       font-size="12px"
-       font-family="sans-serif"
-       stroke="none"
-       fill="#000000" />
-    <path
-       id="path92"
-       stroke-dasharray=""
-       stroke-width="3"
-       stroke-miterlimit="10"
-       stroke-linecap="round"
-       d=" M 176 160 L 176 208"
-       paint-order="fill stroke markers"
-       stroke="#807f7f"
-       fill="none" />
-    <text
-       id="text94"
-       dominant-baseline="alphabetic"
-       text-anchor="start"
-       y="190"
-       x="182"
-       text-decoration="normal"
-       font-weight="normal"
-       font-style="normal"
-       font-size="12px"
-       font-family="sans-serif"
-       stroke="none"
-       fill="#000000" />
-    <path
-       id="path96"
-       stroke-dasharray=""
-       stroke-width="3"
-       stroke-miterlimit="10"
-       stroke-linecap="round"
-       d=" M 48 288 L 48 336"
-       paint-order="fill stroke markers"
-       stroke="#807f7f"
-       fill="none" />
-    <text
-       id="text98"
-       dominant-baseline="alphabetic"
-       text-anchor="start"
-       y="318"
-       x="54"
-       text-decoration="normal"
-       font-weight="normal"
-       font-style="normal"
-       font-size="12px"
-       font-family="sans-serif"
-       stroke="none"
-       fill="#000000" />
-    <path
-       id="path100"
-       stroke-dasharray=""
-       stroke-width="3"
-       stroke-miterlimit="10"
-       stroke-linecap="round"
-       d=" M 176 304 L 176 336"
-       paint-order="fill stroke markers"
-       stroke="#807f7f"
-       fill="none" />
-    <text
-       id="text102"
-       dominant-baseline="alphabetic"
-       text-anchor="start"
-       y="326"
-       x="182"
-       text-decoration="normal"
-       font-weight="normal"
-       font-style="normal"
-       font-size="12px"
-       font-family="sans-serif"
-       stroke="none"
-       fill="#000000" />
-    <path
-       id="path104"
-       stroke-dasharray=""
-       stroke-width="3"
-       stroke-miterlimit="10"
-       stroke-linecap="round"
-       d=" M 48 336 L 96 336"
-       paint-order="fill stroke markers"
-       stroke="#807f7f"
-       fill="none" />
-    <path
-       id="path106"
-       stroke-dasharray=""
-       stroke-width="3"
-       stroke-miterlimit="10"
-       stroke-linecap="round"
-       d=" M 128 336 L 176 336"
-       paint-order="fill stroke markers"
-       stroke="#807f7f"
-       fill="none" />
-    <g
-       id="g110"
-       transform="matrix(1,0,0,1,96,336)">
-      <path
-         id="path108"
-         stroke-dasharray=""
-         stroke-width="3"
-         stroke-miterlimit="10"
-         stroke-linecap="round"
-         d=" M 0 0 L 2 6 L 6 -6 L 10 6 L 14 -6 L 18 6 L 22 -6 L 26 6 L 30 -6 L 32 0"
-         paint-order="fill stroke markers"
-         stroke="url(#ixEADBfQOcHX)"
-         fill="none" />
-    </g>
-    <text
-       id="text112"
-       dominant-baseline="alphabetic"
-       text-anchor="start"
-       y="326"
-       x="103"
-       text-decoration="normal"
-       font-weight="normal"
-       font-style="normal"
-       font-size="12px"
-       font-family="sans-serif"
-       stroke="none"
-       fill="#000000">10k</text>
-    <g
-       id="g116">
-      <text
-         id="text114"
-         dominant-baseline="alphabetic"
-         text-anchor="start"
-         y="244"
-         x="200"
-         text-decoration="normal"
-         font-weight="normal"
-         font-style="normal"
-         font-size="14px"
-         font-family="sans-serif"
-         stroke="none"
-         fill="#000000">ir led</text>
-    </g>
-    <path
-       id="path118"
-       stroke-dasharray=""
-       stroke-width="3"
-       stroke-miterlimit="10"
-       stroke-linecap="round"
-       d=" M 176 208 L 176 228"
-       paint-order="fill stroke markers"
-       stroke="#807f7f"
-       fill="none" />
-    <path
-       id="path120"
-       stroke-dasharray=""
-       stroke-width="3"
-       stroke-miterlimit="10"
-       stroke-linecap="round"
-       d=" M 176 252 L 176 272"
-       paint-order="fill stroke markers"
-       stroke="#807f7f"
-       fill="none" />
-    <path
-       id="path122"
-       stroke-dasharray=""
-       stroke-width="3"
-       stroke-miterlimit="10"
-       stroke-linecap="round"
-       d=" M 187.76 240 A 11.76 11.76 0 1 1 187.7599941200005 239.98824000195998"
-       paint-order="fill stroke markers"
-       stroke="#808080"
-       fill="none" />
-    <path
-       id="path124"
-       d=" M 184 240 A 8 8 0 1 1 183.99999999988734 239.9999575425633 Z"
-       paint-order="stroke fill markers"
-       stroke="none"
-       fill="#000000" />
-    <path
-       id="path126"
-       stroke-dasharray=""
-       stroke-width="3"
-       stroke-miterlimit="10"
-       stroke-linecap="round"
-       d=" M 80 160 L -79 160"
-       paint-order="fill stroke markers"
-       stroke="#807f7f"
-       fill="none" />
-    <path
-       id="path128"
-       stroke-dasharray=""
-       stroke-width="3"
-       stroke-miterlimit="10"
-       stroke-linecap="round"
-       d=" M -79.34 160 A 16.66 16.66 0 1 1 -79.3400083299993 159.98334000277666"
-       paint-order="fill stroke markers"
-       stroke="#808080"
-       fill="none" />
-    <path
-       id="path130"
-       stroke-dasharray=""
-       stroke-width="3"
-       stroke-miterlimit="10"
-       stroke-linecap="round"
-       d=" M -104 152 L -104 160"
-       paint-order="fill stroke markers"
-       stroke="#808080"
-       fill="none" />
-    <path
-       id="path132"
-       stroke-dasharray=""
-       stroke-width="3"
-       stroke-miterlimit="10"
-       stroke-linecap="round"
-       d=" M -104 152 L -100 152"
-       paint-order="fill stroke markers"
-       stroke="#808080"
-       fill="none" />
-    <path
-       id="path134"
-       stroke-dasharray=""
-       stroke-width="3"
-       stroke-miterlimit="10"
-       stroke-linecap="round"
-       d=" M -100 152 L -100 168"
-       paint-order="fill stroke markers"
-       stroke="#808080"
-       fill="none" />
-    <path
-       id="path136"
-       stroke-dasharray=""
-       stroke-width="3"
-       stroke-miterlimit="10"
-       stroke-linecap="round"
-       d=" M -88 168 L -100 168"
-       paint-order="fill stroke markers"
-       stroke="#808080"
-       fill="none" />
-    <path
-       id="path138"
-       stroke-dasharray=""
-       stroke-width="3"
-       stroke-miterlimit="10"
-       stroke-linecap="round"
-       d=" M -88 160 L -88 168"
-       paint-order="fill stroke markers"
-       stroke="#808080"
-       fill="none" />
-    <text
-       id="text140"
-       dominant-baseline="alphabetic"
-       text-anchor="start"
-       y="141"
-       x="-113"
-       text-decoration="normal"
-       font-weight="normal"
-       font-style="normal"
-       font-size="12px"
-       font-family="sans-serif"
-       stroke="none"
-       fill="#000000">38kHz</text>
-    <path
-       id="path142"
-       stroke-dasharray=""
-       stroke-width="3"
-       stroke-miterlimit="10"
-       stroke-linecap="round"
-       d=" M 80 208 L 112 208"
-       paint-order="fill stroke markers"
-       stroke="#807f7f"
-       fill="none" />
-    <path
-       id="path144"
-       stroke-dasharray=""
-       stroke-width="3"
-       stroke-miterlimit="10"
-       stroke-linecap="round"
-       d=" M 144 208 L 176 208"
-       paint-order="fill stroke markers"
-       stroke="#807f7f"
-       fill="none" />
-    <g
-       id="g148"
-       transform="matrix(1,0,0,1,112,208)">
-      <path
-         id="path146"
-         stroke-dasharray=""
-         stroke-width="3"
-         stroke-miterlimit="10"
-         stroke-linecap="round"
-         d=" M 0 0 L 2 6 L 6 -6 L 10 6 L 14 -6 L 18 6 L 22 -6 L 26 6 L 30 -6 L 32 0"
-         paint-order="fill stroke markers"
-         stroke="url(#TMhZzEIJavVh)"
-         fill="none" />
-    </g>
-    <text
-       id="text150"
-       dominant-baseline="alphabetic"
-       text-anchor="start"
-       y="198"
-       x="118"
-       text-decoration="normal"
-       font-weight="normal"
-       font-style="normal"
-       font-size="12px"
-       font-family="sans-serif"
-       stroke="none"
-       fill="#000000">220</text>
-    <path
-       id="path152"
-       stroke-dasharray=""
-       stroke-width="3"
-       stroke-miterlimit="10"
-       stroke-linecap="round"
-       d=" M 80 160 L 112 160"
-       paint-order="fill stroke markers"
-       stroke="#807f7f"
-       fill="none" />
-    <path
-       id="path154"
-       stroke-dasharray=""
-       stroke-width="3"
-       stroke-miterlimit="10"
-       stroke-linecap="round"
-       d=" M 144 160 L 176 160"
-       paint-order="fill stroke markers"
-       stroke="#807f7f"
-       fill="none" />
-    <g
-       id="g158"
-       transform="matrix(1,0,0,1,112,160)">
-      <path
-         id="path156"
-         stroke-dasharray=""
-         stroke-width="3"
-         stroke-miterlimit="10"
-         stroke-linecap="round"
-         d=" M 0 0 L 2 6 L 6 -6 L 10 6 L 14 -6 L 18 6 L 22 -6 L 26 6 L 30 -6 L 32 0"
-         paint-order="fill stroke markers"
-         stroke="url(#LXepRhkQnrvy)"
-         fill="none" />
-    </g>
-    <text
-       id="text160"
-       dominant-baseline="alphabetic"
-       text-anchor="start"
-       y="150"
-       x="118"
-       text-decoration="normal"
-       font-weight="normal"
-       font-style="normal"
-       font-size="12px"
-       font-family="sans-serif"
-       stroke="none"
-       fill="#000000">220</text>
-    <g
-       id="g164">
-      <text
-         id="text162"
-         dominant-baseline="alphabetic"
-         text-anchor="start"
-         y="292"
-         x="188"
-         text-decoration="normal"
-         font-weight="normal"
-         font-style="normal"
-         font-size="14px"
-         font-family="sans-serif"
-         stroke="none"
-         fill="#000000">2N7000</text>
-    </g>
-    <g
-       id="g168">
-      <text
-         id="text166"
-         dominant-baseline="alphabetic"
-         text-anchor="start"
-         y="439"
-         x="203"
-         text-decoration="normal"
-         font-weight="normal"
-         font-style="normal"
-         font-size="14px"
-         font-family="sans-serif"
-         stroke="none"
-         fill="#000000">gnd</text>
-    </g>
-    <rect
-       id="rect170"
-       stroke-dasharray="16,6"
-       stroke-miterlimit="10"
-       stroke-linecap="round"
-       height="248"
-       width="270"
-       y="123"
-       x="-14"
-       stroke="#808080"
-       fill="none" />
-    <path
-       id="path172"
-       stroke-width="3"
-       stroke-miterlimit="10"
-       stroke-linecap="round"
-       d=" M -16 288 L 48 288"
-       paint-order="fill stroke markers"
-       stroke="#807f7f"
-       fill="none" />
-    <text
-       id="text174"
-       dominant-baseline="alphabetic"
-       text-anchor="start"
-       y="282"
-       x="16"
-       text-decoration="normal"
-       font-weight="normal"
-       font-style="normal"
-       font-size="12px"
-       font-family="sans-serif"
-       stroke="none"
-       fill="#000000" />
-    <path
-       id="path176"
-       stroke-width="3"
-       stroke-miterlimit="10"
-       stroke-linecap="round"
-       d=" M 48 288 L 80 288"
-       paint-order="fill stroke markers"
-       stroke="#807f7f"
-       fill="none" />
-    <text
-       id="text178"
-       dominant-baseline="alphabetic"
-       text-anchor="start"
-       y="282"
-       x="64"
-       text-decoration="normal"
-       font-weight="normal"
-       font-style="normal"
-       font-size="12px"
-       font-family="sans-serif"
-       stroke="none"
-       fill="#000000" />
-    <path
-       id="path180"
-       d=" M 51 288 A 3 3 0 1 1 50.99999999995775 287.99998407846124 Z"
-       paint-order="stroke fill markers"
-       stroke="none"
-       fill="#000000" />
-    <path
-       id="path182"
-       d=" M 83 160 A 3 3 0 1 1 82.99999999995775 159.99998407846124 Z"
-       paint-order="stroke fill markers"
-       stroke="none"
-       fill="#000000" />
-    <path
-       id="path184"
-       d=" M 179 208 A 3 3 0 1 1 178.99999999995774 207.99998407846124 Z"
-       paint-order="stroke fill markers"
-       stroke="none"
-       fill="#000000" />
-    <path
-       id="path186"
-       d=" M 179 336 A 3 3 0 1 1 178.99999999995774 335.99998407846124 Z"
-       paint-order="stroke fill markers"
-       stroke="none"
-       fill="#000000" />
-  </g>
+<svg width="533" height="421" version="1.1" xmlns="http://www.w3.org/2000/svg">
+ <defs>
+  <linearGradient id="ykbiLcIRXtPk" x2="32px" gradientUnits="userSpaceOnUse">
+   <stop stop-color="#7f7f7f" offset="0"/>
+   <stop stop-color="#7f7f7f" offset="1"/>
+  </linearGradient>
+ </defs>
+ <g transform="translate(207,-71)">
+  <text x="-137" y="267" dominant-baseline="alphabetic" fill="#7f7f7f" font-family="sans-serif" font-size="14px" text-decoration="normal">output pin</text>
+ </g>
+ <g fill="none" stroke="#7f7f7f" stroke-linecap="round" stroke-miterlimit="10" stroke-width="3">
+  <path d="m383 265v96" paint-order="fill stroke markers"/>
+  <path d="m393 361h-20" paint-order="fill stroke markers"/>
+  <path d="m389 366h-12" paint-order="fill stroke markers"/>
+  <path d="m385 371h-4" paint-order="fill stroke markers"/>
+  <path d="m287 217h16" paint-order="fill stroke markers"/>
+  <path d="m335 217h16" paint-order="fill stroke markers"/>
+ </g>
+ <g transform="translate(303,217)">
+  <path d="m0 0 2 6 4-12 4 12 4-12 4 12 4-12 4 12 4-12 2 6" fill="none" stroke="url(#ykbiLcIRXtPk)" stroke-linecap="round" stroke-miterlimit="10" stroke-width="3" paint-order="fill stroke markers"/>
+ </g>
+ <text x="313" y="207" dominant-baseline="alphabetic" fill="#7f7f7f" font-family="sans-serif" font-size="12px" text-decoration="normal">1k</text>
+ <g fill="none" stroke="#7f7f7f" stroke-linecap="round" stroke-miterlimit="10" stroke-width="3">
+  <path d="m127 217h16" paint-order="fill stroke markers"/>
+  <path d="m175 217h16" paint-order="fill stroke markers"/>
+  <path d="m143 217 32-16" paint-order="fill stroke markers"/>
+  <path d="m127 217h-31" paint-order="fill stroke markers"/>
+ </g>
+ <g transform="translate(207,-71)">
+  <text x="-146" y="288" dominant-baseline="central" fill="#7f7f7f" font-family="sans-serif" font-size="12px" text-decoration="normal">+3.3V</text>
+ </g>
+ <g transform="translate(207,-71)" fill="#7f7f7f">
+  <text x="-121" y="121" dominant-baseline="alphabetic" fill="#7f7f7f" font-family="sans-serif" font-size="14px" text-decoration="normal">pwm pin</text>
+ </g>
+ <g fill="none" stroke="#7f7f7f" stroke-linecap="round" stroke-miterlimit="10" stroke-width="3">
+  <path d="m383 233h-22" paint-order="fill stroke markers"/>
+  <path d="m383 201h-22" paint-order="fill stroke markers"/>
+  <path d="m361 233v-5" paint-order="fill stroke markers"/>
+  <path d="m361 222v-5" paint-order="fill stroke markers"/>
+  <path d="m361 217v-5" paint-order="fill stroke markers"/>
+  <path d="m361 206v-5" paint-order="fill stroke markers"/>
+  <path d="m361 233v5" paint-order="fill stroke markers"/>
+  <path d="m361 201v-5" paint-order="fill stroke markers"/>
+  <path d="m383 233v-16" paint-order="fill stroke markers"/>
+  <path d="m383 217h-22" paint-order="fill stroke markers"/>
+ </g>
+ <path d="m361 217 12 5v-10z" fill="#7f7f7f" paint-order="stroke fill markers"/>
+ <g fill="none" stroke="#7f7f7f" stroke-linecap="round" stroke-miterlimit="10" stroke-width="3">
+  <path d="m351 217h4" paint-order="fill stroke markers"/>
+  <path d="m355 209v16" paint-order="fill stroke markers"/>
+  <path d="m287 137v-48" paint-order="fill stroke markers"/>
+ </g>
+ <text x="293" y="119" dominant-baseline="alphabetic" fill="#7f7f7f" font-family="sans-serif" font-size="12px" text-decoration="normal"/>
+ <path d="m383 89v48" fill="none" stroke="#7f7f7f" stroke-linecap="round" stroke-miterlimit="10" stroke-width="3" paint-order="fill stroke markers"/>
+ <text x="389" y="119" dominant-baseline="alphabetic" fill="#7f7f7f" font-family="sans-serif" font-size="12px" text-decoration="normal"/>
+ <path d="m255 217v48" fill="none" stroke="#7f7f7f" stroke-linecap="round" stroke-miterlimit="10" stroke-width="3" paint-order="fill stroke markers"/>
+ <text x="261" y="247" dominant-baseline="alphabetic" fill="#7f7f7f" font-family="sans-serif" font-size="12px" text-decoration="normal"/>
+ <path d="m383 233v32" fill="none" stroke="#7f7f7f" stroke-linecap="round" stroke-miterlimit="10" stroke-width="3" paint-order="fill stroke markers"/>
+ <text x="389" y="255" dominant-baseline="alphabetic" fill="#7f7f7f" font-family="sans-serif" font-size="12px" text-decoration="normal"/>
+ <path d="m255 265h48" fill="none" stroke="#7f7f7f" stroke-linecap="round" stroke-miterlimit="10" stroke-width="3" paint-order="fill stroke markers"/>
+ <path d="m335 265h48" fill="none" stroke="#7f7f7f" stroke-linecap="round" stroke-miterlimit="10" stroke-width="3" paint-order="fill stroke markers"/>
+ <g transform="translate(303,265)">
+  <path d="m0 0 2 6 4-12 4 12 4-12 4 12 4-12 4 12 4-12 2 6" fill="none" stroke="url(#ykbiLcIRXtPk)" stroke-linecap="round" stroke-miterlimit="10" stroke-width="3" paint-order="fill stroke markers"/>
+ </g>
+ <text x="310" y="255" dominant-baseline="alphabetic" fill="#7f7f7f" font-family="sans-serif" font-size="12px" text-decoration="normal">10k</text>
+ <g transform="translate(207,-71)">
+  <text x="200" y="244" dominant-baseline="alphabetic" fill="#7f7f7f" font-family="sans-serif" font-size="14px" text-decoration="normal">ir led</text>
+ </g>
+ <g fill="none" stroke="#7f7f7f" stroke-linecap="round" stroke-miterlimit="10" stroke-width="3">
+  <path d="m383 137v20" paint-order="fill stroke markers"/>
+  <path d="m383 181v20" paint-order="fill stroke markers"/>
+  <path d="m394.76 169a11.76 11.76 0 1 1-1e-5 -0.0118" paint-order="fill stroke markers"/>
+ </g>
+ <path d="m391 169a8 8 0 1 1 0-4e-5z" fill="#7f7f7f" paint-order="stroke fill markers"/>
+ <g fill="none" stroke="#7f7f7f" stroke-linecap="round" stroke-miterlimit="10" stroke-width="3">
+  <path d="m287 89h-159" paint-order="fill stroke markers"/>
+  <path d="m127.66 89a16.66 16.66 0 1 1-1e-5 -0.0167" paint-order="fill stroke markers"/>
+  <path d="m103 81v8" paint-order="fill stroke markers"/>
+  <path d="m103 81h4" paint-order="fill stroke markers"/>
+  <path d="m107 81v16" paint-order="fill stroke markers"/>
+  <path d="m119 97h-12" paint-order="fill stroke markers"/>
+  <path d="m119 89v8" paint-order="fill stroke markers"/>
+ </g>
+ <text x="94" y="70" dominant-baseline="alphabetic" fill="#7f7f7f" font-family="sans-serif" font-size="12px" text-decoration="normal">38kHz</text>
+ <path d="m287 137h32" fill="none" stroke="#7f7f7f" stroke-linecap="round" stroke-miterlimit="10" stroke-width="3" paint-order="fill stroke markers"/>
+ <path d="m351 137h32" fill="none" stroke="#7f7f7f" stroke-linecap="round" stroke-miterlimit="10" stroke-width="3" paint-order="fill stroke markers"/>
+ <g transform="translate(319,137)">
+  <path d="m0 0 2 6 4-12 4 12 4-12 4 12 4-12 4 12 4-12 2 6" fill="none" stroke="url(#ykbiLcIRXtPk)" stroke-linecap="round" stroke-miterlimit="10" stroke-width="3" paint-order="fill stroke markers"/>
+ </g>
+ <text x="325" y="127" dominant-baseline="alphabetic" fill="#7f7f7f" font-family="sans-serif" font-size="12px" text-decoration="normal">220</text>
+ <path d="m287 89h32" fill="none" stroke="#7f7f7f" stroke-linecap="round" stroke-miterlimit="10" stroke-width="3" paint-order="fill stroke markers"/>
+ <path d="m351 89h32" fill="none" stroke="#7f7f7f" stroke-linecap="round" stroke-miterlimit="10" stroke-width="3" paint-order="fill stroke markers"/>
+ <g transform="translate(319,89)">
+  <path d="m0 0 2 6 4-12 4 12 4-12 4 12 4-12 4 12 4-12 2 6" fill="none" stroke="url(#ykbiLcIRXtPk)" stroke-linecap="round" stroke-miterlimit="10" stroke-width="3" paint-order="fill stroke markers"/>
+ </g>
+ <text x="325" y="79" dominant-baseline="alphabetic" fill="#7f7f7f" font-family="sans-serif" font-size="12px" text-decoration="normal">220</text>
+ <g transform="translate(207,-71)">
+  <text x="188" y="292" dominant-baseline="alphabetic" fill="#7f7f7f" font-family="sans-serif" font-size="14px" text-decoration="normal">2N7000</text>
+ </g>
+ <g transform="translate(207,-71)">
+  <text x="203" y="439" dominant-baseline="alphabetic" fill="#7f7f7f" font-family="sans-serif" font-size="14px" text-decoration="normal">gnd</text>
+ </g>
+ <rect x="193" y="52" width="270" height="248" fill="none" stroke="#7f7f7f" stroke-dasharray="16, 6" stroke-linecap="round" stroke-miterlimit="10"/>
+ <path d="m191 217h64" fill="none" stroke="#7f7f7f" stroke-linecap="round" stroke-miterlimit="10" stroke-width="3" paint-order="fill stroke markers"/>
+ <text x="223" y="211" dominant-baseline="alphabetic" fill="#7f7f7f" font-family="sans-serif" font-size="12px" text-decoration="normal"/>
+ <path d="m255 217h32" fill="none" stroke="#7f7f7f" stroke-linecap="round" stroke-miterlimit="10" stroke-width="3" paint-order="fill stroke markers"/>
+ <g fill="#7f7f7f">
+  <text x="271" y="211" dominant-baseline="alphabetic" font-family="sans-serif" font-size="12px" text-decoration="normal"/>
+  <path d="m258 217a3 3 0 1 1 0-2e-5z" paint-order="stroke fill markers"/>
+  <path d="m290 89a3 3 0 1 1 0-2e-5z" paint-order="stroke fill markers"/>
+  <path d="m386 137a3 3 0 1 1 0-2e-5z" paint-order="stroke fill markers"/>
+  <path d="m386 265a3 3 0 1 1 0-2e-5z" paint-order="stroke fill markers"/>
+ </g>
 </svg>
