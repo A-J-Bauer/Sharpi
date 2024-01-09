@@ -1389,7 +1389,7 @@ sender.PowerOff();
 
 A digital potentiometer analog 4.5-15.5V, 1mA
 
-```csharp
+```
 ----------------------------------------------
  Maxim DS3502
 
