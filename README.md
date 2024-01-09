@@ -4,7 +4,7 @@
 
 C# Library for 64 bit Raspberry Pi OS (aarch64)
 
-# <a name="classtable">
+# <a id="classtable">
 | Class|Description
 | ----------- | ----------- |
 | [Led](#led) | A simple red, green, blue, yellow or white led
@@ -24,9 +24,8 @@ C# Library for 64 bit Raspberry Pi OS (aarch64)
 | [Sender.Ir28khz](#senderir28khz)| A remote control infrared sender
 | [Pot.Ds3502](#potDs3502)| A digital potentiometer 4.5 - 15.5V, 1mA
 
-<br/>
 
-## <a name="led"></a>Led
+## <a id="led"></a>Led
 
 A simple light emitting diode
 
@@ -57,11 +56,9 @@ Thread.Sleep(1000);
 led.PowerOff();
 ```
 
-[Back to list](#classtable)
+<a id="buzzeractive"></a> [Back to list](#classtable)
 
-<br/>
-
-## <a name="buzzeractive"></a>Buzzer Active
+## Buzzer Active
 
 Active buzzer with fixed (built in) frequency
 
@@ -88,11 +85,9 @@ Thread.Sleep(1000);
 active.PowerOff();
 ```
 
-[Back to list](#classtable)
+<a id="buzzerpassive"></a> [Back to list](#classtable)
 
-<br/>
-
-## <a name="buzzerpassive"></a>Buzzer Passive
+## Buzzer Passive
 
 Passive buzzer with variable frequency
 
@@ -137,15 +132,12 @@ for (int i=0; i< valkyre.Count(); i++)
 passive.PowerOff();
 passive.Dispose();
 ```
-[Back to list](#classtable)
 
-<br/>
+<a id="displaydrm"></a> [Back to list](#classtable)
 
-## <a name="displaydrm"></a>Display DRM
+## Display DRM
 
 Direct Rendering Manager DRM Display
-
-
 
 *If you have the desktop installed on the pi this can only work if your window manager is not claiming the display at the moment.
 If the desktop is showing, you need to switch to a virtual terminal. If you are using ssh,
@@ -266,11 +258,9 @@ font.Dispose();
 display.Dispose();
 ```
 
-[Back to list](#classtable)
+<a id="displaypcd8544"></a>[Back to list](#classtable)
 
-<br/>
-
-## <a name="displaypcd8544"></a>Display PCD8544
+## Display PCD8544
 
 PCD8544 also known as Nokia screen
 
@@ -358,11 +348,9 @@ font.Dispose();
 display.Dispose();
 ```
 
-[Back to list](#classtable)
+<a id="displaysh1106"></a> [Back to list](#classtable)
 
-<br/>
-
-## <a name="displaysh1106"></a>Display SH1106
+## Display SH1106
 
 SH1106 Oled 128x64 screen
 
@@ -505,11 +493,9 @@ flatline.Dispose();
 voltage8x12.Dispose();
 ```
 
-[Back to list](#classtable)
+<a id="displayssd1351"></a> [Back to list](#classtable)
 
-<br/>
-
-## <a name="displayssd1351"></a>Display SSD1351
+## Display SSD1351
 
 SSD1351 Oled 128x128 screen
 
@@ -637,11 +623,9 @@ fontsScrollBitmap.Dispose();
 display.Dispose();
 ```
 
-[Back to list](#classtable)
+<a id="displaytm1637"></a> [Back to list](#classtable)
 
-<br/>
-
-## <a name="displaytm1637"></a>Display TM1637
+## Display TM1637
 
 A 4-digit 7-segment display
 
@@ -709,11 +693,9 @@ Thread.Sleep(1000);
 display.Dispose();
 ```
 
-[Back to list](#classtable)
+<a id="adcmcp3008"></a> [Back to list](#classtable)
 
-<br/>
-
-## <a name="adcmcp3008"></a>Adc Mcp3008
+## Adc Mcp3008
 
 MCP3008 analog to digital converter (resolution 10 bit, 8 channels)
 
@@ -781,11 +763,9 @@ while (!Console.KeyAvailable)
 }
 ```
 
-[Back to list](#classtable)
+<a id="button"></a> [Back to list](#classtable)
 
-<br/>
-
-## <a name="button"></a>Button
+## Button
 
 A debounced button with events
 
@@ -836,11 +816,9 @@ button.Released -= Button_Changed;
 button.Dispose();
 ```
 
-[Back to list](#classtable)
+<a id="usbworker"></a> [Back to list](#classtable)
 
-<br/>
-
-## <a name="usbworker"></a>UsbWorker
+## UsbWorker
 
 A serial connector for hotplugging Arduinos
 
@@ -1002,11 +980,9 @@ usbWorker1.Dispose();
 usbWorker2.Dispose();
 ```
 
-[Back to list](#classtable)
+<a id="info"></a> [Back to list](#classtable)
 
-<br/>
-
-## <a name="info"></a>Info
+## Info
 
 System information class
 
@@ -1070,11 +1046,9 @@ while (!Console.KeyAvailable)
 }
 ```
 
-[Back to list](#classtable)
+<a id="sensoramg8833"></a> [Back to list](#classtable)
 
-<br/>
-
-## <a name="sensoramg8833"></a>Sensor Amg8833
+## Sensor Amg8833
 
 AMG8833 Infrared array sensor also known as Grid-Eye
 
@@ -1123,6 +1097,7 @@ Read grid temperatures and interrupts and output in a loop.
 Check if interrupt occured using function and output text if true 
 (also int pin has falling edge in this case).
 ```
+
 Thermistor: 22.8125 °C
 
 
@@ -1263,12 +1238,9 @@ display.PowerOff();
 display.Dispose();
 ```
 
+<a id="sensorir28khz"></a> [Back to list](#classtable)
 
-[Back to list](#classtable)
-
-<br/>
-
-## <a name="sensorir28khz"></a>Sensor Ir28khz
+## Sensor Ir28khz
 
 A remote control infrared sensor
 
@@ -1352,9 +1324,9 @@ sensor.NewNec -= Sensor_NewNec;
 sensor.Dispose();
 ```
 
-[Back to list](#classtable)
+<a id="senderir28khz"></a> [Back to list](#classtable)
 
-## <a name="senderir28khz"></a>Sender Ir28khz
+## Sender Ir28khz
 
 A remote control infrared sender using a DIY circuit
 
@@ -1383,9 +1355,9 @@ while (!Console.KeyAvailable)
 sender.PowerOff();
 ```
 
-[Back to list](#classtable)
+<a id="potDs3502"></a> [Back to list](#classtable)
 
-## <a name="potDs3502"></a>Pot Ds3502
+## Pot Ds3502
 
 A digital potentiometer analog 4.5-15.5V, 1mA
 
@@ -1398,7 +1370,7 @@ A digital potentiometer analog 4.5-15.5V, 1mA
  output voltage range of up to 15.5V.
  Programming is accomplished by an I2C-
  compatible interface, which can operate at
- speeds of up to 400kHz.External voltages are
+ speeds of up to 400kHz. External voltages are
  applied at the RL and RH inputs to define the
  lowest and highest potentiometer outputs.
  (10 uSOP package)
