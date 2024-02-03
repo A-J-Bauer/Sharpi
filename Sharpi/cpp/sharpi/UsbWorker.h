@@ -26,17 +26,31 @@ using namespace std;
 class UsbWorker
 {
 private:
-    static mutex msendbuf;
-    static mutex mdevtrying;
-    atomic<bool> bdevtrying = false;
+    enum TtyDevState
+    {
+        Unused = 0,
+        BeingTried = 1,
+        Used
+    };
+
+    struct TtyDevs
+    {
+        const char file[20];
+        atomic<TtyDevState> state;
+    };
+
+    static int ttyDevsSize;
+    static TtyDevs ttyDevs[];
+    
+    /*atomic<bool> bdevtrying = false;*/
 
     static const int RECV_BUFFER_SIZE = 64;
     static const int SEND_BUFFER_SIZE = 256;
     static const char DEVICEID_S = '\xF';
     static const char DEVICEID_E = '\xE';
-   
-    function<void(char *)> _callback_data = NULL;
-    function<void(int)> _callback_state = NULL;
+
+    function<void(int, char *)> _callback_data = NULL;
+    function<void(int, int)> _callback_state = NULL;
 
     const int DEAD = 0;
     const int ALIVE = 1;
@@ -47,9 +61,12 @@ private:
     thread worker;
     atomic<bool> sendBEmpty = true;
     atomic<bool> stop = false;
-            
+
+    mutex mtxCallbackState;
+    mutex mtxCallbackData;
+
 public:
-    UsbWorker(int deviceId, int baud, int deadAfterMs, function<void(char*)> callback_data, function<void(int)> callback_state);
+    UsbWorker(int deviceId, int baud, int deadAfterMs, function<void(int, char*)> callback_data, function<void(int, int)> callback_state);
     ~UsbWorker();
 
     bool Send(string data);

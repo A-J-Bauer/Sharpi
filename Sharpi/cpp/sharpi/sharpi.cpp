@@ -508,7 +508,7 @@ SHARPI void display_tm1637_set_text(cdisplay* handle, const char* text)
 
 // usb worker
 
-SHARPI cusbworker* usb_worker_new(int deviceId, int baud, int deadAfterMs, void(*callback_data)(char*), void(*callback_state)(int))
+SHARPI cusbworker* usb_worker_new(int deviceId, int baud, int deadAfterMs, void(*callback_data)(int, char*), void(*callback_state)(int, int))
 {
 	return (cusbworker *)(new UsbWorker(deviceId, baud, deadAfterMs, callback_data, callback_state));
 }

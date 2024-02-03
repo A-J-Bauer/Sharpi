@@ -163,7 +163,7 @@ extern "C" {
 
 	typedef struct cusbworker cusbworker;
 
-	SHARPI cusbworker* usb_worker_new(int deviceId, int baud, int deadAfterMs, void(*callback_data)(char*), void(*callback_state)(int));
+	SHARPI cusbworker* usb_worker_new(int deviceId, int baud, int deadAfterMs, void(*callback_data)(int, char*), void(*callback_state)(int, int));
 	SHARPI void usb_worker_write(cusbworker* handle, const char* data);
 	SHARPI void usb_worker_delete(cusbworker* usbworker);
 

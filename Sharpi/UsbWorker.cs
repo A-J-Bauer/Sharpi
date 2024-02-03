@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
-using System.Runtime.InteropServices;
 
 namespace Sharpi
 {
     public partial class UsbWorker
     {
-        private delegate void DataCallbackDelegate([MarshalAs(UnmanagedType.LPStr)] string data);
-        private delegate void StateCallbackDelegate(int state);
+        private delegate void DataCallbackDelegate(int deviceId, [MarshalAs(UnmanagedType.LPStr)] string data);
+        private delegate void StateCallbackDelegate(int deviceId, int state);
 
         [DllImport("sharpi")]
         private static extern IntPtr usb_worker_new(int deviceId, int baud, int deadAfterMs, DataCallbackDelegate datacallback, StateCallbackDelegate statecallback);
@@ -19,13 +19,13 @@ namespace Sharpi
         private static extern void usb_worker_write(IntPtr handle, [MarshalAs(UnmanagedType.LPStr)] string data);
 
         [DllImport("sharpi")]
-        private static extern void usb_worker_delete(IntPtr usbworker);               
+        private static extern void usb_worker_delete(IntPtr usbworker);
     }
-    
+
 
     public partial class UsbWorker : IDisposable
     {
-        static string _description =                        
+        static string _description =
             "                                                   " + Environment.NewLine +
             "                                     -----------   " + Environment.NewLine +
             "    ----------------------     -----|  Arduino  |  " + Environment.NewLine +
@@ -46,12 +46,12 @@ namespace Sharpi
         private State _state = State.Dead;
         private int _deviceId;
 
-        public enum State : int 
-        { 
+        public enum State : int
+        {
             Dead = 0,
             Alive = 1
         }
-        
+
         public enum Baud : int
         {
             B300 = 7,
@@ -85,15 +85,21 @@ namespace Sharpi
         public delegate void StateDelegate(object sender, StateEventArgs e);
         public event StateDelegate? StateChanged;
 
-        private void DataCallback(string data)
+        private void DataCallback(int deviceId, string data)
         {
-            NewData?.Invoke(this, new DataEventArgs(_deviceId, data));
+            if (_deviceId == deviceId)
+            {
+                NewData?.Invoke(this, new DataEventArgs(_deviceId, data));
+            }
         }
 
-        private void StateCallback(int state)
+        private void StateCallback(int deviceId, int state)
         {
-            _state = (State)state;
-            StateChanged?.Invoke(this, new StateEventArgs(_deviceId, _state));
+            if (_deviceId == deviceId)
+            {
+                _state = (State)state;
+                StateChanged?.Invoke(this, new StateEventArgs(_deviceId, _state));
+            }
         }
 
         public UsbWorker(int deviceId, Baud baud = Baud.B9600, int deadAfterMs = 1000)
@@ -106,12 +112,12 @@ namespace Sharpi
 
         public string Description { get { return _description; } }
 
-        public bool IsALive 
-        { 
-            get 
-            { 
-                return _state == State.Alive; 
-            }  
+        public bool IsALive
+        {
+            get
+            {
+                return _state == State.Alive;
+            }
         }
 
         public void Write(string data)
@@ -123,7 +129,7 @@ namespace Sharpi
         {
             usb_worker_write(handle, data + Environment.NewLine);
         }
-        
+
         public void Dispose()
         {
             if (handle != IntPtr.Zero)
