@@ -37,7 +37,7 @@ jobs:
       - name: create release
         if: ${{ env.check_version_published == 'no'}}
         id: create_release
-        uses: actions/create-release@v2.0.5
+        uses: comnoco/create-release-action@v2.0.5
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
