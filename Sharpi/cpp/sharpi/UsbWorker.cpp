@@ -6,16 +6,16 @@ using namespace chrono;
 int UsbWorker::ttyDevsSize = -1;
 
 UsbWorker::TtyDevs UsbWorker::ttyDevs[] = {
-	{"/dev/ttyACM0", UsbWorker::TtyDevState::Unused},
-	{"/dev/ttyUSB0", UsbWorker::TtyDevState::Unused},
-	{"/dev/ttyACM1", UsbWorker::TtyDevState::Unused},
-	{"/dev/ttyUSB1", UsbWorker::TtyDevState::Unused},
-	{"/dev/ttyACM2", UsbWorker::TtyDevState::Unused},
-	{"/dev/ttyUSB2", UsbWorker::TtyDevState::Unused},
-	{"/dev/ttyACM3", UsbWorker::TtyDevState::Unused},
-	{"/dev/ttyUSB3", UsbWorker::TtyDevState::Unused},
-	{"/dev/ttyACM4", UsbWorker::TtyDevState::Unused},
-	{"/dev/ttyUSB4", UsbWorker::TtyDevState::Unused}
+	{ "/dev/ttyACM0", UsbWorker::TtyDevState::Unused },
+	{ "/dev/ttyUSB0", UsbWorker::TtyDevState::Unused },
+	{ "/dev/ttyACM1", UsbWorker::TtyDevState::Unused },
+	{ "/dev/ttyUSB1", UsbWorker::TtyDevState::Unused },
+	{ "/dev/ttyACM2", UsbWorker::TtyDevState::Unused },
+	{ "/dev/ttyUSB2", UsbWorker::TtyDevState::Unused },
+	{ "/dev/ttyACM3", UsbWorker::TtyDevState::Unused },
+	{ "/dev/ttyUSB3", UsbWorker::TtyDevState::Unused },
+	{ "/dev/ttyACM4", UsbWorker::TtyDevState::Unused },
+	{ "/dev/ttyUSB4", UsbWorker::TtyDevState::Unused }
 };
 
 const int UsbWorker::RECV_BUFFER_SIZE;
@@ -124,10 +124,18 @@ void UsbWorker::work(int deviceId, unsigned int baud, int deadAfterMs)
 
 			ttyDevCount = (ttyDevCount + 1) % UsbWorker::ttyDevsSize;
 
+			bool tryTtyDev = false;
+
+			mtxState.lock();
 			if (UsbWorker::ttyDevs[ttyDevCount].state == UsbWorker::TtyDevState::Unused)
 			{
 				UsbWorker::ttyDevs[ttyDevCount].state = UsbWorker::TtyDevState::BeingTried;
+				tryTtyDev = true;
+			}
+			mtxState.unlock();
 
+			if (tryTtyDev)
+			{
 				error = (fd = open(UsbWorker::ttyDevs[ttyDevCount].file, O_RDWR | O_NONBLOCK | O_EXCL | O_NOCTTY)) < 0;
 
 				if (!error && fd > 0)
@@ -169,7 +177,6 @@ void UsbWorker::work(int deviceId, unsigned int baud, int deadAfterMs)
 						useconds_t sleepforbytes = sleepForBaudAndBytes(baud, RECV_BUFFER_SIZE);
 
 						tcflush(fd, TCIOFLUSH);
-						usleep(deadAfterMs * 1000);
 
 						char recvChar = '\0';
 						int state = 0;

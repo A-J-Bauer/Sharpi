@@ -12,9 +12,9 @@
 		<Description>C# Library for 64 bit Raspberry Pi OS</Description>
 		<Copyright>A.J.Bauer</Copyright>
 		<PackageIcon>img\sharpi.png</PackageIcon>		
-		<AssemblyVersion>1.0.3.1</AssemblyVersion>
-		<FileVersion>1.0.3.1</FileVersion>
-		<Version>1.0.3.8</Version>
+		<AssemblyVersion>1.0.4.0</AssemblyVersion>
+		<FileVersion>1.0.4.0</FileVersion>
+		<Version>1.0.4.0</Version>
 		<PackageReadmeFile></PackageReadmeFile>
 		<PackageTags>Raspberry;Pi;iot;</PackageTags>
 		<PackageProjectUrl>https://github.com/A-J-Bauer/sharpi</PackageProjectUrl>

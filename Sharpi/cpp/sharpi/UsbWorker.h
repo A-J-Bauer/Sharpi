@@ -62,6 +62,7 @@ private:
     atomic<bool> sendBEmpty = true;
     atomic<bool> stop = false;
 
+    mutex mtxState;
     mutex mtxCallbackState;
     mutex mtxCallbackData;
 
