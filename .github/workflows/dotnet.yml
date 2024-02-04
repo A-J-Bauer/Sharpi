@@ -9,7 +9,7 @@ jobs:
     name: build, pack & publish
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3.5.3
+      - uses: actions/checkout@v4
             
       - name: run the version check and save result in environment var 'check_version_published'
         run: |
@@ -37,7 +37,7 @@ jobs:
       - name: create release
         if: ${{ env.check_version_published == 'no'}}
         id: create_release
-        uses: actions/create-release@v1
+        uses: actions/create-release@v2.0.5
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
