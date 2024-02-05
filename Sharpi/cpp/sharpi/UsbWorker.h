@@ -62,9 +62,9 @@ private:
     atomic<bool> sendBEmpty = true;
     atomic<bool> stop = false;
 
-    mutex mtxState;
-    mutex mtxCallbackState;
-    mutex mtxCallbackData;
+    static mutex mtxState;
+    static mutex mtxCallbackState;
+    static mutex mtxCallbackData;
 
 public:
     UsbWorker(int deviceId, int baud, int deadAfterMs, function<void(int, char*)> callback_data, function<void(int, int)> callback_state);

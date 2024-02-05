@@ -23,6 +23,10 @@ const int UsbWorker::SEND_BUFFER_SIZE;
 const char UsbWorker::DEVICEID_S;
 const char UsbWorker::DEVICEID_E;
 
+mutex UsbWorker::mtxState;
+mutex UsbWorker::mtxCallbackState;
+mutex UsbWorker::mtxCallbackData;
+
 UsbWorker::UsbWorker(int deviceId, int baud = 0, int deadAfterMs = 1500, function<void(int, char*)> callback_data = NULL, function<void(int, int)> callback_state = NULL)
 {
 	stop = false;
@@ -112,247 +116,260 @@ void UsbWorker::work(int deviceId, unsigned int baud, int deadAfterMs)
 	int fd = -1;
 	int len;
 
-	int ttyDevCount = -1;
+	int ttyDevCount = 0;
 
 	struct termios tty;
 
 	while (!stop)
 	{
-		if (fd == -1)
+		bool tryToUseTtyDev = false;
+		bool yield = false;
+
+		mtxState.lock();
+		if (UsbWorker::ttyDevs[ttyDevCount].state == UsbWorker::TtyDevState::Unused)
 		{
-			usleep(100000);
-
+			UsbWorker::ttyDevs[ttyDevCount].state = UsbWorker::TtyDevState::BeingTried;
+			tryToUseTtyDev = true;
+		}
+		else if (UsbWorker::ttyDevs[ttyDevCount].state == UsbWorker::TtyDevState::Used) // skip over used ttydev
+		{
 			ttyDevCount = (ttyDevCount + 1) % UsbWorker::ttyDevsSize;
+		}
+		else if (UsbWorker::ttyDevs[ttyDevCount].state == UsbWorker::TtyDevState::BeingTried)
+		{
+			yield = true;
+		}		
+		mtxState.unlock();
+		
+		if (!tryToUseTtyDev && !yield)
+		{
+			this_thread::sleep_for(microseconds(10000));
+		}
+		else if (yield)
+		{
+			this_thread::yield();
+		}
+		else if (tryToUseTtyDev)
+		{
+			error = (fd = open(UsbWorker::ttyDevs[ttyDevCount].file, O_RDWR | O_NONBLOCK | O_EXCL | O_NOCTTY)) < 0;
 
-			bool tryTtyDev = false;
-
-			mtxState.lock();
-			if (UsbWorker::ttyDevs[ttyDevCount].state == UsbWorker::TtyDevState::Unused)
+			if (!error)
 			{
-				UsbWorker::ttyDevs[ttyDevCount].state = UsbWorker::TtyDevState::BeingTried;
-				tryTtyDev = true;
+				error = !isatty(fd);
 			}
-			mtxState.unlock();
 
-			if (tryTtyDev)
+			errno = 0;
+
+			if (!error)
 			{
-				error = (fd = open(UsbWorker::ttyDevs[ttyDevCount].file, O_RDWR | O_NONBLOCK | O_EXCL | O_NOCTTY)) < 0;
+				error = tcgetattr(fd, &tty) != 0; // POSIX states that the struct passed to tcsetattr() must have been initialized with a call to tcgetattr()       
+			}
 
-				if (!error && fd > 0)
+			if (!error)
+			{
+				error = cfsetspeed(&tty, baud) != 0;
+			}
+
+			if (!error)
+			{
+				cfmakeraw(&tty);
+				tty.c_cflag |= CLOCAL;
+				tty.c_cflag |= HUPCL;
+			}
+
+			if (!error)
+			{
+				error = (tcsetattr(fd, TCSANOW, &tty) != 0); // save settings
+			}
+
+			if (!error)
+			{
+				steady_clock::time_point data_time_point;
+				steady_clock::time_point check_time_point;
+
+				int device;
+				int nr, nw, ns;
+				alive = false;
+				useconds_t sleepforbytes = sleepForBaudAndBytes(baud, RECV_BUFFER_SIZE);
+
+				tcflush(fd, TCIOFLUSH);
+
+				char recvChar = '\0';
+				int state = 0;
+
+				char idstr[10];
+				int idstrc = 0;
+				char dtstr[RECV_BUFFER_SIZE];
+				int dtstrc = 0;
+
+				data_time_point = steady_clock::now();
+
+				while (!error && !stop)
 				{
-					error = !isatty(fd);
-				}
+					nr = read(fd, &recvChar, 1);
 
-				if (!error && fd > 0)
-				{
-					errno = 0;
-
-					error = tcgetattr(fd, &tty) != 0; // POSIX states that the struct passed to tcsetattr() must have been initialized with a call to tcgetattr()       
-
-					if (!error)
+					if (nr == 1)
 					{
-						error = cfsetspeed(&tty, baud) != 0;
-					}
-
-					if (!error)
-					{
-						cfmakeraw(&tty);
-						tty.c_cflag |= CLOCAL;
-						tty.c_cflag |= HUPCL;
-					}
-
-					if (!error)
-					{
-						error = (tcsetattr(fd, TCSANOW, &tty) != 0); // save settings
-					}
-
-					if (!error)
-					{
-						steady_clock::time_point data_time_point; // = steady_clock::time_point::min();
-						steady_clock::time_point check_time_point;
-
-						int device;
-						int nr, nw, ns;
-						alive = false;
-						useconds_t sleepforbytes = sleepForBaudAndBytes(baud, RECV_BUFFER_SIZE);
-
-						tcflush(fd, TCIOFLUSH);
-
-						char recvChar = '\0';
-						int state = 0;
-
-						char idstr[10];
-						int idstrc = 0;
-						char dtstr[RECV_BUFFER_SIZE];
-						int dtstrc = 0;
-
 						data_time_point = steady_clock::now();
 
-						while (!error && !stop)
+						switch (state)
 						{
-							nr = read(fd, &recvChar, 1);
-
-							if (nr == 1)
+						case -1:
+							error = true;
+							break;
+						case 0: // find id start
+							if (recvChar == DEVICEID_S)
 							{
-								data_time_point = steady_clock::now();
-
-								switch (state)
-								{
-								case -1:
-									error = true;
-									break;
-								case 0: // find id start
-									if (recvChar == DEVICEID_S)
-									{
-										state = 1;
-										idstrc = 0;
-									}
-									break;
-								case 1: // find id end and check deviceId
-									if (idstrc > sizeof(idstr) - 1)
-									{
-										state = -1; // error bad id
-									}
-									else
-									{
-										if (recvChar == DEVICEID_E)
-										{
-											if (idstrc > 0)
-											{
-												idstr[idstrc] = '\0';
-												int did = (int)strtol(idstr, NULL, 0);
-												if (did == deviceId)
-												{
-													dtstrc = 0;
-													state = 2;
-												}
-												else
-												{
-													state = -1; // error wrong id
-												}
-											}
-											else
-											{
-												state = 0; // only id sent, read next
-											}
-										}
-										else
-										{
-											idstr[idstrc] = recvChar;
-											idstrc++;
-										}
-									}
-									break;
-								case 2: // find line and printable data
-									if (recvChar > 0x1F && recvChar < 0x7F)
-									{
-										dtstr[dtstrc] = recvChar;
-										dtstrc++;
-									}
-									else if (recvChar == '\r' || recvChar == '\n')
-									{
-										dtstr[dtstrc] = '\0';
-
-										if (!alive)
-										{
-											if (_callback_state != NULL)
-											{
-												mtxCallbackState.lock();
-												_callback_state(deviceId, ALIVE);
-												mtxCallbackState.unlock();
-											}
-
-											alive = true;
-
-											UsbWorker::ttyDevs[ttyDevCount].state = UsbWorker::TtyDevState::Used;
-										}
-
-										if (_callback_data != NULL)
-										{
-											if (strlen(dtstr) > 0)
-											{
-												memset(_recvBuffer, 0, sizeof(_recvBuffer));
-												strncpy(_recvBuffer, dtstr, strlen(dtstr));
-
-												mtxCallbackData.lock();
-												_callback_data(deviceId, _recvBuffer);
-												mtxCallbackData.unlock();
-											}
-										}
-
-										state = 0;
-									}
-									break;
-								default:
-									break;
-								}
-
-								if (!error)
-								{
-									data_time_point = steady_clock::now();
-
-									if (!sendBEmpty)
-									{
-										memcpy(sendBuffer, _sendBuffer, sizeof(sendBuffer));
-
-										len = strnlen(sendBuffer, sizeof(sendBuffer));
-
-										nw = write(fd, &sendBuffer, len);
-
-										error = nw != len;
-
-										if (!error)
-										{
-											sendBEmpty = true;
-										}
-										else
-										{
-											break;
-										}
-									}
-
-									data_time_point = steady_clock::now();
-								}
+								state = 1;
+								idstrc = 0;
+							}
+							break;
+						case 1: // find id end and check deviceId
+							if (idstrc > sizeof(idstr) - 1)
+							{
+								state = -1; // error bad id
 							}
 							else
 							{
-								check_time_point = steady_clock::now();
-								auto duration = duration_cast<milliseconds>(check_time_point - data_time_point).count();
-
-								if (duration > deadAfterMs)
+								if (recvChar == DEVICEID_E)
 								{
-									error = true;
+									if (idstrc > 0)
+									{
+										idstr[idstrc] = '\0';
+										int did = (int)strtol(idstr, NULL, 0);
+										if (did == deviceId)
+										{
+											dtstrc = 0;
+											state = 2;
+										}
+										else
+										{
+											state = -1; // error wrong id
+										}
+									}
+									else
+									{
+										state = 0; // only id sent, read next
+									}
 								}
 								else
 								{
-									usleep(sleepforbytes);
+									idstr[idstrc] = recvChar;
+									idstrc++;
+								}
+							}
+							break;
+						case 2: // find line and printable data
+							if (recvChar > 0x1F && recvChar < 0x7F)
+							{
+								dtstr[dtstrc] = recvChar;
+								dtstrc++;
+							}
+							else if (recvChar == '\r' || recvChar == '\n')
+							{
+								dtstr[dtstrc] = '\0';
+
+								if (!alive)
+								{
+									if (_callback_state != NULL)
+									{
+										mtxCallbackState.lock();
+										_callback_state(deviceId, ALIVE);
+										mtxCallbackState.unlock();
+									}
+
+									alive = true;
+
+									mtxState.lock();
+									UsbWorker::ttyDevs[ttyDevCount].state = UsbWorker::TtyDevState::Used;
+									mtxState.unlock();
+								}
+
+								if (_callback_data != NULL)
+								{
+									if (strlen(dtstr) > 0)
+									{
+										memset(_recvBuffer, 0, sizeof(_recvBuffer));
+										strncpy(_recvBuffer, dtstr, strlen(dtstr));
+
+										mtxCallbackData.lock();
+										_callback_data(deviceId, _recvBuffer);
+										mtxCallbackData.unlock();
+									}
+								}
+
+								state = 0;
+							}
+							break;
+						default:
+							break;
+						}
+
+						if (!error)
+						{
+							data_time_point = steady_clock::now();
+
+							if (!sendBEmpty)
+							{
+								memcpy(sendBuffer, _sendBuffer, sizeof(sendBuffer));
+
+								len = strnlen(sendBuffer, sizeof(sendBuffer));
+
+								nw = write(fd, &sendBuffer, len);
+
+								error = nw != len;
+
+								if (!error)
+								{
+									sendBEmpty = true;
+								}
+								else
+								{
+									break;
 								}
 							}
 
-							if (error && alive)
-							{
-								if (_callback_state != NULL)
-								{
-									mtxCallbackState.lock();
-									_callback_state(deviceId, DEAD);
-									mtxCallbackState.unlock();
-								}
-							}
+							data_time_point = steady_clock::now();
+						}
+					}
+					else
+					{
+						check_time_point = steady_clock::now();
+						auto duration = duration_cast<milliseconds>(check_time_point - data_time_point).count();
+
+						if (duration > deadAfterMs)
+						{
+							error = true;
+						}
+						else
+						{
+							this_thread::sleep_for(microseconds(sleepforbytes));
+						}
+					}
+
+					if (error && alive)
+					{
+						if (_callback_state != NULL)
+						{
+							mtxCallbackState.lock();
+							_callback_state(deviceId, DEAD);
+							mtxCallbackState.unlock();
 						}
 					}
 				}
-
-				if (error)
-				{
-					if (fd > 0)
-					{
-						close(fd);
-						fd = -1;
-					}
-
-					UsbWorker::ttyDevs[ttyDevCount].state = UsbWorker::TtyDevState::Unused;
-				}
 			}
+
+			if (fd > 0)
+			{
+				close(fd);
+				fd = -1;
+			}
+
+			mtxState.lock();
+			UsbWorker::ttyDevs[ttyDevCount].state = UsbWorker::TtyDevState::Unused;
+			mtxState.unlock();
+
+			ttyDevCount = (ttyDevCount + 1) % UsbWorker::ttyDevsSize;
 		}
 
 	}
