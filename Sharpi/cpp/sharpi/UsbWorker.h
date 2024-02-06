@@ -16,7 +16,6 @@
 #include <termios.h> //POSIX terminal control definitions
 #include <unistd.h> // write(), read(), close()
 #include <errno.h>
-//#include <unistd.h>
 #include <stdio.h>
 #include <string.h>
 #include <limits.h>

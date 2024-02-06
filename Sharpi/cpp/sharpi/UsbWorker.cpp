@@ -365,12 +365,16 @@ void UsbWorker::work(int deviceId, unsigned int baud, int deadAfterMs)
 				fd = -1;
 			}
 
+			if (stop)
+			{
+				break;
+			}
+
 			mtxState.lock();
 			UsbWorker::ttyDevs[ttyDevCount].state = UsbWorker::TtyDevState::Unused;
 			mtxState.unlock();
 
 			ttyDevCount = (ttyDevCount + 1) % UsbWorker::ttyDevsSize;
 		}
-
 	}
 }
