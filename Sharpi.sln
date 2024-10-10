@@ -33,6 +33,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Circuits", "Circuits", "{B0
 		Circuits\dcvoltagesense.txt = Circuits\dcvoltagesense.txt
 		Circuits\irled28khz.svg = Circuits\irled28khz.svg
 		Circuits\irled28khz.txt = Circuits\irled28khz.txt
+		Circuits\minisolenoid-light.svg = Circuits\minisolenoid-light.svg
+		Circuits\minisolenoid-dark.svg = Circuits\minisolenoid-dark.svg
 		Circuits\README.md = Circuits\README.md
 	EndProjectSection
 EndProject
